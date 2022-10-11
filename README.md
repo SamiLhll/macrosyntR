@@ -6,6 +6,14 @@ in order to investigate the chromosomal evolution of whole assembled genomes.
 
 # Install
 
+You can install this package by entering the following within R:
+
+```{r}
+
+devtools::install_github("SamiLhll/macroSyntR")
+
+```
+
 # Dependencies
 
 # Usage
