@@ -1,12 +1,12 @@
 Package: macrosyntR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: This package plots oxford grided plots showing the macrosynteny conservation between two species
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Sami El Hilali
+Maintainer: Sami El Hilali <elhilali.sami@gmail.com>
+Description: This package is intended to serialize the plotting of oxford grided plot
+for chromosomal evolution studies. The orthologs (mutual best hits) have to be computed
+beforehand (using for example the bashscript : https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH)
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/SamiLhll/macrosyntR
