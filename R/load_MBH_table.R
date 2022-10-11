@@ -13,6 +13,7 @@
 #' @param sp2_keep_chr_names list of chr names to keep on species 2
 #'
 #' @return a dataframe composed of genomic coordinates of orthologs on both species
+#'
 #' @import dplyr
 #' @export
 

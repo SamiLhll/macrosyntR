@@ -4,7 +4,7 @@ Title: This package plots oxford grided plots showing the macrosynteny conservat
 Version: 0.1.0
 Author: Sami El Hilali
 Maintainer: Sami El Hilali <elhilali.sami@gmail.com>
-Description: This package is intended to serialize the plotting of oxford grided plot for chromosomal evolution studies. The orthologs (mutual best hits) have to be computed beforehand (using for example the bashscript : https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH)
+Description: This package is intended to serialize the plotting of oxford grided plot for chromosomal evolution studies. The orthologs (mutual best hits) have to be computed beforehand (using for example the bashscript : https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH).
 Encoding: UTF-8
 LazyData: true
 License: GPL-3
