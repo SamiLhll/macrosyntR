@@ -9,6 +9,8 @@ plot_fischer_test(
   sp1_name = "",
   sp2_name = "",
   plot_legend = FALSE,
+  sp1_keep_chr_names = NULL,
+  sp2_keep_chr_names = NULL,
   sp1_chr_order = NULL,
   sp2_chr_order = NULL
 )
@@ -21,6 +23,10 @@ plot_fischer_test(
 \item{sp2_name}{string. The name of the species2 to put on the plot}
 
 \item{plot_legend}{boolean set to TRUE to display the legend (default = FALSE)}
+
+\item{sp1_keep_chr_names}{list of chr names to keep on species1.(default is to keep all)}
+
+\item{sp2_keep_chr_names}{list of chr names to keep on species 2. (default is to keep all)}
 
 \item{sp1_chr_order}{ordered list of chromosome names to use for plotting}
 
