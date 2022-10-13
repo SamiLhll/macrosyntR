@@ -55,5 +55,42 @@ This command above gives the following output :
 
 ### Plot the oxford grided plot :
 
-plot_synteny_oxfod_grid(orthologs,sp1_name="sp1",sp2_name="sp2")
+```{r}
+# most basic usage :
+plot_synteny_oxfod_grid(orthologs,sp1_name="sp1",
+                                  sp2_name="sp2")
 
+```
+
+![](inst/img/Rplot1.png)
+
+
+```{r}
+# filter to keep only the meaningfull associations using the sp2_keep_chr_names argument :
+
+plot_synteny_oxford_grid(orthologs,sp1_name = "sp1",
+                                   sp2_name = "sp2",
+                                   sp2_keep_chr_names = c("Y1","Y3","Y7","Y9","Y14","Y19"))
+
+```
+
+![](inst/img/Rplot2.png)
+
+
+```{r}
+
+# Play with other rendering arguments to 
+# reorder the chromosomes using the sp2_chr_order, 
+# add some colors by setting the colors argument to TRUE
+# or change the size of the dots : 
+
+plot_synteny_oxford_grid(orthologs,sp1_name = "sp1",
+                                   sp2_name = "sp2",
+                                   sp2_keep_chr_names = c("Y1","Y3","Y7","Y9","Y14","Y19"),
+                                   colors =TRUE,
+                                   sp2_chr_order = c("Y3","Y7","Y14","Y19","Y9","Y1"),
+                                   dot_size = 0.6)
+
+```
+
+![](inst/img/Rplot3.png)
