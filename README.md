@@ -1,6 +1,7 @@
 # macrosyntR
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
+Make sure to first create a mutual best hits table using blastp (or use the bashscript that I implemented [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH))
 
 -----------------------------------------------------------------------   
 
@@ -21,6 +22,7 @@ It depends on the following R packages :
 - dplyr  
 - ggplot2   
 - ggthemes   
+- tidyr
 
 # Usage
 
@@ -94,3 +96,29 @@ plot_synteny_oxford_grid(orthologs,sp1_name = "sp1",
 ```
 
 ![](inst/img/Rplot3.png)
+
+### Calculate contingency table and plot result of fischer test :
+
+```{r}
+
+# calculate contingency table :
+
+contingency_table <- calculate_contingency_table(orthologs)
+
+# most basic usage of plotting function :
+plot_fischer_test(contingency_table,sp1_name = "sp1",
+                                    sp2_name = "sp2)
+
+```
+![](inst/img/Rplot4.png)
+
+```{r}
+# use arguments to filter and reorder the chromosomes on the plot :
+plot_fischer_test(contingency_table,sp1_name = "sp1",
+                                    sp2_name = "sp2,
+                                    sp2_keep_chr_names = c("Y3","Y7","Y14","Y19","Y9","Y1"),
+                                    sp2_chr_order = c("Y3","Y7","Y14","Y19","Y9","Y1"))
+
+```
+
+![](inst/img/Rplot5.png)
