@@ -30,7 +30,7 @@ load_MBH_table(
 \item{sp2_keep_chr_names}{list of chr names to keep on species 2. (default is to keep all)}
 }
 \value{
-a dataframe composed of genomic coordinates of orthologs on both species
+dataframe composed of genomic coordinates of orthologs on both species
 }
 \description{
 Puts together the mutual best hits calculated beforehand with the genomic coordinates of the orthologs on both species to be compared.

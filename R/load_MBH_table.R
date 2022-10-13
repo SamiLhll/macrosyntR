@@ -12,7 +12,7 @@
 #' @param sp1_keep_chr_names list of chr names to keep on species1.(default is to keep all)
 #' @param sp2_keep_chr_names list of chr names to keep on species 2. (default is to keep all)
 #'
-#' @return a dataframe composed of genomic coordinates of orthologs on both species
+#' @return dataframe composed of genomic coordinates of orthologs on both species
 #'
 #' @import dplyr
 #' @export
