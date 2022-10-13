@@ -20,7 +20,7 @@
 #' @export
 
 
-plot_synteny_oxford_grid <- function(MBH_table,colors = FALSE,sp1_name = "",sp2_name = "",sp1_keep_chr_names = NULL,sp2_keep_chr_names = NULL,sp1_chr_order = NULL,sp2_chr_order = NULL) {
+plot_synteny_oxford_grid <- function(MBH_table,colors = FALSE,sp1_name = "",sp2_name = "",sp1_keep_chr_names = NULL,sp2_keep_chr_names = NULL,sp1_chr_order = NULL,sp2_chr_order = NULL,dot_size = 0.2) {
 
   MBH_table_to_plot <- MBH_table
   ### Filter the chromosomes if necessary :
@@ -30,8 +30,8 @@ plot_synteny_oxford_grid <- function(MBH_table,colors = FALSE,sp1_name = "",sp2_
   if (! is.null(sp1_chr_order)) { MBH_table_to_plot$sp1_chr <- factor(as.character(MBH_table_to_plot$sp1_chr),levels = sp1_chr_order)}
   if (! is.null(sp2_chr_order)) { MBH_table_to_plot$sp2_chr <- factor(as.character(MBH_table_to_plot$sp2_chr),levels = sp2_chr_order)}
   ### deal with colors first :
-  if (colors) {p <- ggplot(MBH_table_to_plot,aes(x=sp1_index,y=sp2_index,color = sp2_chr)) + geom_jitter(size=0.2,alpha=0.3) }
-  else {p <- ggplot(MBH_table_to_plot,aes(x=sp1_index,y=sp2_index)) + geom_jitter(size=0.2,alpha=0.3)}
+  if (colors) {p <- ggplot(MBH_table_to_plot,aes(x=sp1_index,y=sp2_index,color = sp2_chr)) + geom_jitter(size=dot_size,alpha=0.3) }
+  else {p <- ggplot(MBH_table_to_plot,aes(x=sp1_index,y=sp2_index)) + geom_jitter(size=dot_size,alpha=0.3)}
   ### build the plot :
   p <- p + theme_tufte() +
     facet_grid(sp2_chr ~ sp1_chr,scales = "free",space = "free") +

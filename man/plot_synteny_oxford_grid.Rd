@@ -12,7 +12,8 @@ plot_synteny_oxford_grid(
   sp1_keep_chr_names = NULL,
   sp2_keep_chr_names = NULL,
   sp1_chr_order = NULL,
-  sp2_chr_order = NULL
+  sp2_chr_order = NULL,
+  dot_size = 0.2
 )
 }
 \arguments{
