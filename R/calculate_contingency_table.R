@@ -9,6 +9,7 @@
 #' @return A gdataframe object
 #'
 #' @import dplyr
+#' @import tidyr
 #' @export
 
 
