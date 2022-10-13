@@ -7,10 +7,10 @@
 #' @param MBH_table_path path to the mutual best hits table (format : geneID_on_species1   geneID_on_species2)
 #' @param species1_bed_path path to the genomic coordinates of the genes on species1 (BED format)
 #' @param species2_bed_path path to the genomic coordinates of the genes on species2 (BED format)
-#' @param sp1_keep_n_chr integer to tell the n chromosomes of species1 with the higher amount of orthologs to keep
-#' @param sp2_keep_n_chr integer to tell the n chromosomes of species2 with the higher amount of orthologs to keep
-#' @param sp1_keep_chr_names list of chr names to keep on species1
-#' @param sp2_keep_chr_names list of chr names to keep on species 2
+#' @param sp1_keep_n_chr integer to tell the n chromosomes of species1 with the higher amount of orthologs to keep (default is to keep all)
+#' @param sp2_keep_n_chr integer to tell the n chromosomes of species2 with the higher amount of orthologs to keep (default is to keep all)
+#' @param sp1_keep_chr_names list of chr names to keep on species1.(default is to keep all)
+#' @param sp2_keep_chr_names list of chr names to keep on species 2. (default is to keep all)
 #'
 #' @return a dataframe composed of genomic coordinates of orthologs on both species
 #'

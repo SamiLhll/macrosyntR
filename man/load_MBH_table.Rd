@@ -21,13 +21,13 @@ load_MBH_table(
 
 \item{species2_bed_path}{path to the genomic coordinates of the genes on species2 (BED format)}
 
-\item{sp1_keep_n_chr}{integer to tell the n chromosomes of species1 with the higher amount of orthologs to keep}
+\item{sp1_keep_n_chr}{integer to tell the n chromosomes of species1 with the higher amount of orthologs to keep (default is to keep all)}
 
-\item{sp2_keep_n_chr}{integer to tell the n chromosomes of species2 with the higher amount of orthologs to keep}
+\item{sp2_keep_n_chr}{integer to tell the n chromosomes of species2 with the higher amount of orthologs to keep (default is to keep all)}
 
-\item{sp1_keep_chr_names}{list of chr names to keep on species1}
+\item{sp1_keep_chr_names}{list of chr names to keep on species1.(default is to keep all)}
 
-\item{sp2_keep_chr_names}{list of chr names to keep on species 2}
+\item{sp2_keep_chr_names}{list of chr names to keep on species 2. (default is to keep all)}
 }
 \value{
 a dataframe composed of genomic coordinates of orthologs on both species
