@@ -50,7 +50,7 @@ plot_synteny_oxford_grid <- function(MBH_table,colors = FALSE,sp1_name = "",sp2_
           panel.grid = element_blank(),
           panel.border = element_rect(fill = NA, color = "gray",size=0.1),
           panel.background = element_rect(fill = "white", colour = "white")) +
-    labs(y=sp2_name, x= paste0("(",length(MBH_table$sp1_pep)," orthologs)"),title = sp1_name)
+    labs(y=sp2_name, x= paste0("(",length(MBH_table_to_plot$sp1_pep)," orthologs)"),title = sp1_name)
 
   return(p)
 
