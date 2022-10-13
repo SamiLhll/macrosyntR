@@ -8,6 +8,8 @@
 #' @param sp1_name string. The name of the species1 to display on the plot
 #' @param sp2_name string. The name of the species2 to put on the plot
 #' @param plot_legend boolean set to TRUE to display the legend (default = FALSE)
+#' @param sp1_chr_order ordered list of chromosome names to use for plotting
+#' @param sp2_chr_order ordered list of chromosome names to use for plotting
 #'
 #' @return A ggplot2 object
 #'
@@ -16,9 +18,13 @@
 #' @export
 
 
-plot_fischer_test <- function(contingency_table,sp1_name="",sp2_name="",plot_legend = FALSE) {
-  
-  p <- ggplot(contingency_table,aes(x=sp1_chr,y=sp2_chr)) +
+plot_fischer_test <- function(contingency_table,sp1_name="",sp2_name="",plot_legend = FALSE,sp1_chr_order = NULL,sp2_chr_order = NULL) {
+  contingency_table_to_plot <- contingency_table
+  ### Reorder chromosomes if necessary :
+  if (! is.null(sp1_chr_order)) { contingency_table_to_plot$sp1_chr <- factor(as.character(contingency_table_to_plot$sp1_chr),levels = sp1_chr_order)}
+  if (! is.null(sp2_chr_order)) { contingency_table_to_plot$sp2_chr <- factor(as.character(contingency_table_to_plot$sp2_chr),levels = sp2_chr_order)}
+  ### Plot :
+  p <- ggplot(contingency_table_to_plot,aes(x=sp1_chr,y=sp2_chr)) +
     geom_point(aes(size=a,color=significant)) +
     theme_bw() +
     scale_color_manual(values=c("#cf6b04","#4baaf2")) +

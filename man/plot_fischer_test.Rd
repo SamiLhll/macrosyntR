@@ -8,7 +8,9 @@ plot_fischer_test(
   contingency_table,
   sp1_name = "",
   sp2_name = "",
-  plot_legend = FALSE
+  plot_legend = FALSE,
+  sp1_chr_order = NULL,
+  sp2_chr_order = NULL
 )
 }
 \arguments{
@@ -19,6 +21,10 @@ plot_fischer_test(
 \item{sp2_name}{string. The name of the species2 to put on the plot}
 
 \item{plot_legend}{boolean set to TRUE to display the legend (default = FALSE)}
+
+\item{sp1_chr_order}{ordered list of chromosome names to use for plotting}
+
+\item{sp2_chr_order}{ordered list of chromosome names to use for plotting}
 }
 \value{
 A ggplot2 object
