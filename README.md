@@ -1,4 +1,7 @@
 # macrosyntR
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
 Make sure to first create a mutual best hits table using blastp (or use the bashscript that I implemented [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH))
