@@ -4,7 +4,7 @@
 
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
-Make sure to first create a mutual best hits table using blastp (or use the bashscript that I implemented [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH))
+This code doesn't calculate the orthologs. Make sure to first create a mutual best hits table using blastp (or use the bashscript that I implemented [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH))
 
 -----------------------------------------------------------------------   
 
@@ -41,7 +41,7 @@ The first step is to load the mutual best hit table (created with the [generate_
 ```{r}
 
 # most basic usage :
-orthologs <- load_MBH_table("inst/extdata/sp1_vs_sp2.bed","sp1.bed","sp2.bed")
+orthologs <- load_MBH_table("inst/extdata/sp1_vs_sp2.tab","sp1.bed","sp2.bed")
 head(orthologs)
 
 ```
