@@ -4,7 +4,7 @@
 
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
-This code doesn't calculate the orthologs. Make sure to first create a mutual best hits table using blastp (or use the bashscript that I implemented [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH))
+This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits (linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress))
 
 -----------------------------------------------------------------------   
 
@@ -21,17 +21,21 @@ devtools::install_github("SamiLhll/macroSyntR")
 # Dependencies
 
 This package was implemented under R version = 4.1.0
-It depends on the following R packages :   
+It imports the following R packages :   
+
+- stats
+- utils
 - dplyr  
 - ggplot2   
 - ggthemes   
 - tidyr
+- reshape2
 
 # Usage
 
 You need to calculate the orthologs between two species before considering generating any plot with this package.
-I implemented a bashscript that calculates the mutual best hits of two fasta files (peptides) using blastp in my GenomicUtils repo :
-[https://github.com/SamiLhll/GenomicUtils.git](https://github.com/SamiLhll/GenomicUtils.git)
+For this I use a shell script that I released and that calculates the mutual best hits from two fasta files (peptides). It uses diamond blast so usually it doesn't take more than 2 minutes to run (on a proper computer) :
+[mbhXpress](https://github.com/SamiLhll/mbhXpress)
 When it's done you have a table with two columns, each corresponding to a species. On each row you'll have the protein IDs of two mutual best hits. 
 
 ### load MBH table into R :
