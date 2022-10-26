@@ -10,19 +10,20 @@
 #' @param dot_size float. default = 0.2
 #' @param colors logical. default = FALSE 
 #' 
+#' @seealso [load_mbh_df()]
+#' 
 #' @return A ggplot2 object
 #'
-#' @import dplyr
 #' @import ggplot2
 #' @import ggthemes
 #' @export
 
 
 plot_oxford_grid <- function(mbh_df,
-                                     sp1_label = "",
-                                     sp2_label = "",
-                                     dot_size = 0.2,
-                                     colors = FALSE) {
+                             sp1_label = "",
+                             sp2_label = "",
+                             dot_size = 0.2,
+                             colors = FALSE) {
   
   sp1_index <- sp2_index <- sp2_chr <- NULL
 

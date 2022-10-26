@@ -29,3 +29,6 @@ A ggplot2 object
 \description{
 This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_mbh_df()
 }
+\seealso{
+\code{\link[=load_mbh_df]{load_mbh_df()}}
+}

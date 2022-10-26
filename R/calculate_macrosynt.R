@@ -9,9 +9,9 @@
 #' 
 #' @return A dataframe object
 #'
-#' @import dplyr
+#' @importFrom stats fisher.test
 #' @import tidyr
-#' @import stats
+#' @import dplyr
 #' 
 #' @export
 

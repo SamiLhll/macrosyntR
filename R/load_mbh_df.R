@@ -10,8 +10,8 @@
 
 #' @return dataframe composed of genomic coordinates of orthologs on both species
 #'
-#' @import dplyr
 #' @import utils
+#' @import dplyr
 #' @export
 
 

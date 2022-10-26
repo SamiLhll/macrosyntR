@@ -7,7 +7,7 @@
 plot_macrosynt(macrosynt_df, sp1_label = "", sp2_label = "")
 }
 \arguments{
-\item{macrosynt_df}{dataframe of contingency table with p-values calculated by the calculate_contingency_table function}
+\item{macrosynt_df}{dataframe of contingency table with p-values calculated by the calculate_macrosynt() function}
 
 \item{sp1_label}{string. The name of the species1 to display on the plot}
 
@@ -18,4 +18,7 @@ ggplot2 object
 }
 \description{
 This is a function to generate the contingency table of an MBH dataframe and apply fischer test to calculate the significant associations.
+}
+\seealso{
+\code{\link[=calculate_macrosynt]{calculate_macrosynt()}}
 }

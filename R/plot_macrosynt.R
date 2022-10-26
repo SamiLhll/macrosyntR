@@ -4,13 +4,14 @@
 #' @title Plot Macro-synteny
 #' @description This is a function to generate the contingency table of an MBH dataframe and apply fischer test to calculate the significant associations.
 #'
-#' @param macrosynt_df dataframe of contingency table with p-values calculated by the calculate_contingency_table function
+#' @param macrosynt_df dataframe of contingency table with p-values calculated by the calculate_macrosynt() function
 #' @param sp1_label string. The name of the species1 to display on the plot
 #' @param sp2_label string. The name of the species2 to put on the plot
 #'
+#' @seealso [calculate_macrosynt()]
+#'
 #' @return ggplot2 object
 #'
-#' @import dplyr
 #' @import ggplot2
 #' @export
 
@@ -33,15 +34,15 @@ plot_macrosynt <- function(macrosynt_df,
     ggplot2::labs(x=sp1_label,y=sp2_label)
   
   
-  p <- p + ggplot2::theme(axis.ticks = element_blank(),legend.position = "none",
-                          axis.title.x = element_text(family = "sans",size = 12),
-                          axis.text.x = element_text(family = "sans",size = 7,angle=90),
-                          axis.text.y = element_text(family = "sans",size = 10),
-                          axis.title = element_text(family = "sans",size = 12),
-                          legend.text = element_text(size = 10),
-                          legend.title = element_text(size = 12),
-                          plot.title = element_text(family = "sans",size=12,hjust = 0.5),
-                          plot.background = element_rect(fill = "white",colour = "white"))
+  p <- p + ggplot2::theme(axis.ticks = ggplot2::element_blank(),legend.position = "none",
+                          axis.title.x = ggplot2::element_text(family = "sans",size = 12),
+                          axis.text.x = ggplot2::element_text(family = "sans",size = 7,angle=90),
+                          axis.text.y = ggplot2::element_text(family = "sans",size = 10),
+                          axis.title = ggplot2::element_text(family = "sans",size = 12),
+                          legend.text = ggplot2::element_text(size = 10),
+                          legend.title = ggplot2::element_text(size = 12),
+                          plot.title = ggplot2::element_text(family = "sans",size=12,hjust = 0.5),
+                          plot.background = ggplot2::element_rect(fill = "white",colour = "white"))
   
   
   return(p)
