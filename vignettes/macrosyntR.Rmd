@@ -33,7 +33,7 @@ We demonstrate the usage of the package using publicly available data.
 
 This package doesn't compute the orthologs. I recommend to compute it as mutual best hits.   
 It is quite fast and accurate when using diamond blast, In case you have no idea on how to do it,
-I made available on github a shell script that would do it for you (see here : [mbhXpress](https://github.com/SamiLhll/mbhXpress))
+I made available on github a shell script that would do it for you (see mbhXpress available here : https://github.com/SamiLhll/mbhXpress)
 
 Drawing the plots require to have the the following values for each pair of genes :
 * genomic coordinates on species 1
