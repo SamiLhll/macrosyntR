@@ -40,12 +40,17 @@ It imports the following R packages :
 
 You need to calculate the orthologs between two species before considering generating any plot with this package.
 For this I use a shell script that I released and that calculates the mutual best hits from two fasta files (peptides). It uses diamond blast so usually it doesn't take more than 2 minutes to run (on a proper computer) :
-[mbhXpress](https://github.com/SamiLhll/mbhXpress)
-When it's done you have a table with two columns, each corresponding to a species. On each row you'll have the protein IDs of two mutual best hits. 
+[mbhXpress](https://github.com/SamiLhll/mbhXpress)   
+Once you've done it you have a two columns table. On each row you'll have the protein IDs of two mutual best hits, the 1st column listing the protein ids of the 1st species, and the second column listing the ids of the 2nd species. 
 
-### load MBH table into R :
+
+### Description of the input files that you need :
 
 The first step is to load the mutual best hit table (that will have been created with the [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH) bashscript) along with the genomic coordinates of the genes coding for the proteins on their respective species in BED format.
+
+### load the mutual best hits with genomic coordinates using load_mbh_df() :
+
+
 
 ```{r}
 
