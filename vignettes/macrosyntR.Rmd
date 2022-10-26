@@ -33,13 +33,13 @@ We demonstrate the usage of the package using publicly available data.
 
 This package doesn't compute the orthologs. I recommend to compute it as mutual best hits.   
 It is quite fast and accurate when using diamond blast, In case you have no idea on how to do it,
-I made available on github a shell script that would do it for you (see mbhXpress available here : https://github.com/SamiLhll/mbhXpress)
+I made available on github a shell script that would do it for you (see mbhXpress available here : https://github.com/SamiLhll/mbhXpress)   
 
-Drawing the plots require to have the the following values for each pair of genes :
-* genomic coordinates on species 1
-* genomic coordinates on species 2
+Drawing the plots require to have the the following values for each pair of genes :   
+* genomic coordinates on species 1   
+* genomic coordinates on species 2   
 
-As any method to get the orthologs between two sets of protein sequences will likely report the sequences unique identifiers, this package provides a method that use these ids to link the BED formatted genomic coordinates of the two species for each orthologous pair.
+As any method to get the orthologs between two sets of protein sequences will likely report the sequences unique identifiers, this package provides a method that use these ids to link the BED formatted genomic coordinates of the two species for each orthologous pair.   
 
 let's say I have the following orthologs :   
 sp1.gene.x1  sp2.gene.y1   
@@ -53,11 +53,11 @@ chr8     10    400    sp1.gene.x2
 ...   
 chr12   900    980    sp1.gene.xn   
 
-and the following genomic coordinates for species2 :
+and the following genomic coordinates for species2 :   
 chr4    200    600    sp1.gene.x1   
 chr8     10    400    sp1.gene.x2   
 ...   
-chr12   900    980    sp1.gene.xn  
+chr12   900    980    sp1.gene.xn   
 
 ### Example :
 
