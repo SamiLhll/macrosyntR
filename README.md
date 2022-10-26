@@ -1,6 +1,10 @@
 # macrosyntR
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<!-- badges: start -->
+  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+  [![R-CMD-check](https://github.com/SamiLhll/macrosyntR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SamiLhll/macrosyntR/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
+
 
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
