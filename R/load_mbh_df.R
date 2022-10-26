@@ -23,14 +23,14 @@ load_mbh_df <- function(mbh_table,
   sp1_start <- sp1_stop <- sp2_start <- sp2_stop <- sp1_chr <- sp1_mid <- sp2_chr <- sp2_mid <- NULL
   
   # open mbh output :
-  temp_MBH_table <- utils::read.table(mbh_table,sep ="\t", header = FALSE) %>%
+  temp_MBH_table <- utils::read.delim2(mbh_table,sep ="\t", header = FALSE) %>%
     dplyr::rename(sp1_pep = V1, sp2_pep = V2)
   # open and arrange species1 bedfile :
-  species1_bed <- utils::read.table(sp1_bed, sep = "\t",header = FALSE) %>%
+  species1_bed <- utils::read.delim2(sp1_bed, sep = "\t",header = FALSE) %>%
     dplyr::rename(sp1_chr = V1, sp1_start = V2,sp1_stop = V3, sp1_pep = V4) %>%
     dplyr::mutate(sp1_mid = (sp1_start + sp1_stop) /2)
   # open and arrange species2 bedfile :
-  species2_bed <- utils::read.table(sp2_bed, sep = "\t",header = FALSE) %>%
+  species2_bed <- utils::read.delim2(sp2_bed, sep = "\t",header = FALSE) %>%
     dplyr::rename(sp2_chr = V1, sp2_start = V2,sp2_stop = V3, sp2_pep = V4) %>%
     dplyr::mutate(sp2_mid = (sp2_start + sp2_stop) /2)
   
