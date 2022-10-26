@@ -8,7 +8,8 @@
 
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
-This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits (linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress))
+This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits.   
+There are many options for this, linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
 
 -----------------------------------------------------------------------   
 
@@ -44,7 +45,7 @@ When it's done you have a table with two columns, each corresponding to a specie
 
 ### load MBH table into R :
 
-The first step is to load the mutual best hit table (created with the [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH) bashscript) along with the genomic coordinates of the genes coding for the proteins on their respective species in BED format.
+The first step is to load the mutual best hit table (that will have been created with the [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH) bashscript) along with the genomic coordinates of the genes coding for the proteins on their respective species in BED format.
 
 ```{r}
 
