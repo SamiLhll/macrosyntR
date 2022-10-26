@@ -2,12 +2,21 @@ Package: macrosyntR
 Type: Package
 Title: This package plots oxford grided plots showing the macrosynteny conservation between two species
 Version: 0.1.0
-Author: Sami El Hilali
-Maintainer: Sami El Hilali <elhilali.sami@gmail.com>
+Authors@R: person("Sami", "El Hilali",email = "elhilali.sami@gmail.com", role = c("aut", "cre"),comment = c(ORCID = "0000-0003-4417-8399"))
+Depends: R (>= 4.2.0)
+Imports: 
+  ggplot2,
+  ggthemes,
+  dplyr,
+  tidyr,
+  reshape2,
+  stats,
+  utils
 Description: This package is intended to serialize the plotting of oxford grided plot for chromosomal evolution studies. The orthologs (mutual best hits) have to be computed beforehand (using for example the bashscript : https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH).
 Encoding: UTF-8
 LazyData: true
 License: GPL-3
 URL: https://github.com/SamiLhll/macrosyntR
 BugReports: https://github.com/SamiLhll/macrosyntR/issues
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
