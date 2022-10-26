@@ -9,10 +9,11 @@
 
 An R package to plot oxford grided plots, and results of one-tailed fischer test
 in order to investigate the chromosomal evolution of whole assembled genomes.
-This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits.   
-There are many options for this, linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
+
 
 -----------------------------------------------------------------------   
+
+![](https://github.com/SamiLhll/macrosyntR/inst/img/macrosyntR_example.png)
 
 # Install
 
@@ -39,9 +40,9 @@ It imports the following R packages :
 
 # Usage
 
-You need to calculate the orthologs between two species before considering generating any plot with this package.
-For this I use a shell script that I released and that calculates the mutual best hits from two fasta files (peptides). It uses diamond blast so usually it doesn't take more than 2 minutes to run (on a proper computer) :
-[mbhXpress](https://github.com/SamiLhll/mbhXpress)   
+This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits.   
+There are many options for this, linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
+It uses diamond blast so usually it doesn't take more than 2 minutes to run (on a proper computer) 
 Once you've done it you have a two columns table. On each row you'll have the protein IDs of two mutual best hits, the 1st column listing the protein ids of the 1st species, and the second column listing the ids of the 2nd species. 
 
 
