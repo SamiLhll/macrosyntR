@@ -7,13 +7,10 @@
   <!-- badges: end -->
 
 
-An R package to plot oxford grided plots, and results of one-tailed fischer test
-in order to investigate the chromosomal evolution of whole assembled genomes.
-
+An R package to calculate, order and plot the macrosynteny blocks between two species.
 
 -----------------------------------------------------------------------   
-
-![](https://github.com/SamiLhll/macrosyntR/inst/img/macrosyntR_example.png)
+<img src="https://github.com/SamiLhll/macrosyntR/blob/ceb67e5046d93505504f7b860b17f2dcb9bc0d44/inst/img/macrosyntR_example.png" alt="mbhXpress" width="1000"/>
 
 # Install
 
