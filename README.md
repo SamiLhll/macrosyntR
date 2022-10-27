@@ -2,9 +2,7 @@
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-  [![R-CMD-check](https://github.com/SamiLhll/macrosyntR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SamiLhll/macrosyntR/actions/workflows/R-CMD-check.yaml)
-  [![R](https://github.com/SamiLhll/macrosyntR/actions/workflows/r.yml/badge.svg)](https://github.com/SamiLhll/macrosyntR/actions/workflows/r.yml)
-  <!-- badges: end -->
+<!-- badges: end -->
 
 
 An R package to calculate, order and plot the macrosynteny blocks between two species.
