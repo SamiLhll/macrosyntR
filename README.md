@@ -8,32 +8,23 @@
 An R package to calculate, order and plot the macrosynteny blocks between two species.
 
 -----------------------------------------------------------------------   
-<img src="https://github.com/SamiLhll/macrosyntR/blob/ceb67e5046d93505504f7b860b17f2dcb9bc0d44/inst/img/macrosyntR.png" alt="mbhXpress" width="400"/>
+<img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/oxford_grid.png" alt="oxford_grid" width="400"/>
+<img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/macrosynt.png" alt="macrosynt" width="400"/>
 
-# Install
 
-You can install this package by entering the following within R:
+# Installation
 
 ```{r}
-
+# Get the development version from GitHub:
+# install.packages("devtools")
 devtools::install_github("SamiLhll/macroSyntR")
 
 ```
 
-# Dependencies
 
-This package was implemented under R version = 4.1.0
-It imports the following R packages :   
+# Getting started :
 
-- stats
-- utils
-- dplyr  
-- ggplot2   
-- ggthemes   
-- tidyr
-- reshape2
-
-# Usage
+### Foreword : 
 
 This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits.   
 There are many options for this, linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
