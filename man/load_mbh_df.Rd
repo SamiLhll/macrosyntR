@@ -14,8 +14,10 @@ load_mbh_df(mbh_table, sp1_bed, sp2_bed)
 \item{sp2_bed}{string. Full path to the genomic coordinates of the genes on species2 (BED format)}
 }
 \value{
-dataframe composed of genomic coordinates of orthologs on both species
+dataframe composed of genomic coordinates and relative index of orthologs on both species
 }
 \description{
-Puts together the mutual best hits calculated beforehand with the genomic coordinates of the orthologs on both species to be compared.
+Puts together the mutual best hits calculated beforehand with the genomic coordinates of the
+orthologs on both species to be compared. It outputs a data.frame shaped as following :
+sp1.ID,sp1.Chr,sp1.Loci,sp1.Index,sp2.ID,sp2.Chr,sp2.Loci,sp2.Index
 }

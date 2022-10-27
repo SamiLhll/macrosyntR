@@ -13,6 +13,7 @@
 #' @return ggplot2 object
 #'
 #' @import ggplot2
+#' @import dplyr
 #' @export
 
 
@@ -20,12 +21,12 @@ plot_macrosynt <- function(macrosynt_df,
                            sp1_label="",
                            sp2_label="") {
   
-  sp1_chr <- sp2_chr <- orthologs <- significant <- NULL
+  sp1.Chr <- sp2.Chr <- orthologs <- significant <- NULL
   
   macrosynt_df_to_plot <- macrosynt_df
   
   ### Plot :
-  p <- ggplot2::ggplot(macrosynt_df_to_plot,aes(x=sp1_chr,y=sp2_chr)) +
+  p <- ggplot2::ggplot(macrosynt_df_to_plot,aes(x=sp1.Chr,y=sp2.Chr)) +
     ggplot2::geom_point(aes(size=orthologs,color=significant)) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_manual(values=c("#cf6b04","#4baaf2")) +
@@ -37,7 +38,7 @@ plot_macrosynt <- function(macrosynt_df,
   p <- p + ggplot2::theme(axis.ticks = ggplot2::element_blank(),legend.position = "none",
                           axis.title.x = ggplot2::element_text(family = "sans",size = 12),
                           axis.text.x = ggplot2::element_text(family = "sans",size = 7,angle=90),
-                          axis.text.y = ggplot2::element_text(family = "sans",size = 10),
+                          axis.text.y = ggplot2::element_text(family = "sans",size = 7),
                           axis.title = ggplot2::element_text(family = "sans",size = 12),
                           legend.text = ggplot2::element_text(size = 10),
                           legend.title = ggplot2::element_text(size = 12),

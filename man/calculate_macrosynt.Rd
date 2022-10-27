@@ -15,5 +15,7 @@ calculate_macrosynt(mbh_df, pvalue_threshold = 0.001)
 A dataframe object
 }
 \description{
-This is a function to generate the contingency table of an MBH dataframe and apply fischer test to calculate the significant associations.
+This is a function to generate the contingency table of an MBH dataframe and
+apply fischer test to calculate the significant associations. It outputs a datafram shaped as following :
+sp1.Chr,sp2.Chr,orthologs,pval
 }

@@ -25,24 +25,24 @@ plot_oxford_grid <- function(mbh_df,
                              dot_size = 0.2,
                              colors = FALSE) {
   
-  sp1_index <- sp2_index <- sp2_chr <- NULL
+  sp1.Index <- sp2.Index <- sp2.Chr <- NULL
 
   mbh_df_to_plot <- mbh_df
   ### deal with colors first :
   if (colors) {
-    p <- ggplot2::ggplot(mbh_df_to_plot,aes(x=sp1_index,y=sp2_index,color = sp2_chr)) + 
+    p <- ggplot2::ggplot(mbh_df_to_plot,aes(x=sp1.Index,y=sp2.Index,color = sp2.Chr)) + 
       ggplot2::geom_jitter(size=dot_size,alpha=0.3) 
     }
   else {
-    p <- ggplot2::ggplot(mbh_df_to_plot,aes(x=sp1_index,y=sp2_index)) + ggplot2::geom_jitter(size=dot_size,alpha=0.4)
+    p <- ggplot2::ggplot(mbh_df_to_plot,aes(x=sp1.Index,y=sp2.Index)) + ggplot2::geom_jitter(size=dot_size,alpha=0.4)
     }
   ### build the plot :
   p <- p + ggthemes::theme_tufte() +
-    ggplot2::facet_grid(sp2_chr ~ sp1_chr,scales = "free",space = "free") +
+    ggplot2::facet_grid(sp2.Chr ~ sp1.Chr,scales = "free",space = "free") +
     ggplot2::theme(axis.text.y=element_blank(),
           axis.text.x=ggplot2::element_blank(),
-          strip.text.x=ggplot2::element_text(family="sans",angle=90,size = 5),
-          strip.text.y=ggplot2::element_text(family="sans",angle=0,size = 6),
+          strip.text.x=ggplot2::element_text(family="sans",angle=90,size = 7),
+          strip.text.y=ggplot2::element_text(family="sans",angle=0,size = 7),
           axis.title.x =ggplot2::element_text(family="sans",size=10),
           axis.title.y =ggplot2::element_text(family="sans",size=12),
           plot.title =ggplot2::element_text(family="sans",size=12,hjust = 0.5),
@@ -54,7 +54,7 @@ plot_oxford_grid <- function(mbh_df,
           panel.grid = ggplot2::element_blank(),
           panel.border = ggplot2::element_rect(fill = NA, color = "gray",size=0.1),
           panel.background = ggplot2::element_rect(fill = "white", colour = "white")) +
-    ggplot2::labs(y=sp2_label, x= paste0("(",length(mbh_df_to_plot$sp1_pep)," orthologs)"),title = sp1_label)
+    ggplot2::labs(y=sp2_label, x= paste0("(",length(mbh_df_to_plot$sp1.ID)," orthologs)"),title = sp1_label)
 
   return(p)
 

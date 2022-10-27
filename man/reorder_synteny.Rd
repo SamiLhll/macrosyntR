@@ -4,16 +4,24 @@
 \alias{reorder_synteny}
 \title{Reorder the mbh_df before plotting}
 \usage{
-reorder_synteny(mbh_df, auto = TRUE, sp1_order = NULL, sp2_order = NULL)
+reorder_synteny(
+  mbh_df,
+  auto_order = TRUE,
+  sp1_order = NULL,
+  sp2_order = NULL,
+  pvalue_threshold = 0.001
+)
 }
 \arguments{
 \item{mbh_df}{dataframe. mutual best hits with genomic coordinates loaded with load_mbh_df()}
 
-\item{auto}{logical. Tells if the reodering must be done automatically. When plotting the resulting reordered df, you'll have the macrosynteny groups ordered by decreasing size from left to right, top to bottom (default = TRUE)}
+\item{auto_order}{logical. Tells if the reodering must be done automatically. When plotting the resulting reordered df, you'll have the macrosynteny groups ordered by decreasing size from left to right, top to bottom (default = TRUE)}
 
 \item{sp1_order}{vector of strings. (default = NULL) For manual reordering, change the auto parameter to FALSE and list the ordered chromsomes of species 1 that you want to keep such as c("chrX","chr3",...,"chrY")}
 
 \item{sp2_order}{vector of strings. (default = NULL) For manual reordering, change the auto parameter to FALSE and list the ordered chromsomes of species 2 that you want to keep such as c("chrX","chr3",...,"chrY")}
+
+\item{pvalue_threshold}{numeric. threshold for significancy, used when auto_order is TRUE. (default equals 0.001)}
 }
 \value{
 A dataframe object
