@@ -8,7 +8,7 @@
 An R package to calculate, order and plot the macrosynteny blocks between two species.
 
 -----------------------------------------------------------------------   
-<img src="https://github.com/SamiLhll/macrosyntR/blob/ceb67e5046d93505504f7b860b17f2dcb9bc0d44/inst/img/macrosyntR_example.png" alt="mbhXpress" width="1000"/>
+<img src="https://github.com/SamiLhll/macrosyntR/blob/ceb67e5046d93505504f7b860b17f2dcb9bc0d44/inst/img/macrosyntR.png" alt="mbhXpress" width="400"/>
 
 # Install
 
