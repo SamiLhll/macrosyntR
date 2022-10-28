@@ -5,7 +5,7 @@
 <!-- badges: end -->
 
 
-An R package to calculate, automatically order and visualize the macro-synteny blocks between two species.
+An R package to identify, automatically order and visualize the macro-synteny blocks between two species.
 
 -----------------------------------------------------------------------   
 <img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/oxford_grid.png" alt="oxford_grid" width="800"/>
@@ -18,6 +18,9 @@ An R package to calculate, automatically order and visualize the macro-synteny b
 # Get the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("SamiLhll/macrosyntR")
+
+# remove the package :
+remove.packages("macrosyntR")
 
 ```
 
@@ -32,116 +35,62 @@ It uses diamond blast so it doesn't take more than few minutes to calculate mutu
 
 ### Overview :
 
-This package provides the user with 5 functions :
-
 |     Function          |         description                                                                                          | 
 |-----------------------|--------------------------------------------------------------------------------------------------------------|
 | load_mbh_df()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
-| calculate_macrosynt() | calculates all the chromosomes to each other and calculate the significantly conserved macro synteny blocks  |
+| calculate_macrosynt() | compares all the chromosomes to each other and identifies the significantly conserved macro synteny blocks   |
 | reorder_synteny()     | takes an mbh_table (from load_mbh_df()) and outputs an mbh_table ordered for plot_oxford_grid()              |
 | plot_macrosynt()      | draws a dotplot displaying the significant macro-synteny blocks with their relative amount of orthologs      |
 | plot_oxford_grid()    | draws an oxford grid from an mbh_table (output of either load_mbh_df() or reorder_synteny()                  |    
 
 
-# Step-by-step tutorial with publicly available data :
+# Step-by-step tutorial using publicly available data :
 
-### 1 - Generate the input files :
+### 0 - download and pre-process the data :
 
-The first step is to load the mutual best hit table (that will have been created with the [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH) bashscript) along with the genomic coordinates of the genes coding for the proteins on their respective species in BED format.
+I'm going to show how this package can help visualizing the macro-synteny blocks by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (deep-sea tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).   
 
-### 2 - Draw an oxford grid to visualize my data :
+Download the sequences of proteins (fasta format) and their genomic coordinates :    
 
-### 3 - Calculate and plot the significant macrosynteny blocks :
+ - B.floridae : 
+ The data are available on ncbi at https://www.ncbi.nlm.nih.gov/genome/?term=txid7739   
+ get the protein sequences at  by clicking the "Download sequences in FASTA format for protein".   
+ get the genomic coordinates by clicking "Download genome annotation in tabular format" and further click download as csv.   
+ 
+ - P.echinospica :   
+ The data are available on figshare.   
+ get the protein sequences here : https://figshare.com/ndownloader/files/28945467   
+ get the genome annotation here : https://figshare.com/ndownloader/files/28945458   
+ 
+ 
+ Compute the mutual best hits of the fasta sequences. Using [mbhXpress](https://github.com/SamiLhll/mbhXpress) you can achieve it by typing the following in your terminal :
+ 
+ ```{bash,eval = FALSE}
+ 
+ # call mbhXpress with using 6 threads :
+ bash mbhXpress -a GCF_000003815.2_Bfl_VNyyK_protein.faa -b Pec_ragoo_v1.0.pep.fasta -o Bflo_vs_Pech.tab -t 6
+ 
+ ```
+ 
+To convert the genome annotation to the [bed file format](https://www.ensembl.org/info/website/upload/bed.html), I'm using the following command lines (if unfamiliar with this you can use a spreadsheet software). The concept is to keep the chrom, chromStart, chromEnd mandatory fields plus the name optional field that links the genomic region with the protein product :   
+ 
+  ```{bash, eval = FALSE}
+ 
+ # B.floridae CSV file to bed
+tail -n +2 proteins_75_971579.csv | cut -d "," -f1,3,4,9  | sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bfloridae.protein_products.bed
 
-### 4 - Put some order :
-
-### 5 - Summary :
-
-```{r}
-
-# most basic usage :
-orthologs <- load_MBH_table("inst/extdata/sp1_vs_sp2.tab","sp1.bed","sp2.bed")
-head(orthologs)
-
-```
-
-This command above gives the following output :
-
-
-|   |sp2_pep | sp1_pep | sp1_chr | sp1_start | sp1_stop | sp2_chr | sp2_start | sp2_stop | sp1_index | sp2_index |
-|---|--------|---------|---------|-----------|----------|---------|-----------|----------|-----------|-----------|
-| 1 |Y1.13.p1|  T15550 |     X9  |37370904   |37389905  |    Y1   |  94074    |98562     | 1780      |   1       |
-| 2 |Y1.15.p1|  T15167 |     X9  |21098862   |21127221  |    Y1   | 100166    |108471    |  1679     |    2      |
-| 3 |Y1.17.p1|  T14952 |     X9  |13460779   |13475763  |    Y1   | 113555    |116613    |  1623     |    3      |
-| 4 |Y1.18.p1|  T15515 |     X9  |36170511   |36209562  |    Y1   | 116920    |146404    |  1766     |    4      |
-| 5 |Y1.21.p1|  T15485 |     X9  |34971016   |35007104  |    Y1   | 154209    |168520    |  1757     |    5      |
-| 6 |Y1.23.p1|  T15212 |     X9  |23300128   |23313252  |    Y1   | 170863    |175425    |  1696     |    6      |
-
-### Plot the oxford grided plot :
-
-```{r}
-# most basic usage :
-plot_synteny_oxfod_grid(orthologs,sp1_name="sp1",
-                                  sp2_name="sp2")
-
-```
-
-![](inst/img/Rplot1.png)
+ # P.echinospica gff file to bed
+fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pechinospica.protein_products.bed
+ 
+ ```
+ 
+### 1 - Draw an oxford grid to visualize my data :
 
 
-```{r}
-# filter to keep only the meaningfull associations using the sp2_keep_chr_names argument :
+### 2 - Calculate and plot the significant macrosynteny blocks :
 
-plot_synteny_oxford_grid(orthologs,sp1_name = "sp1",
-                                   sp2_name = "sp2",
-                                   sp2_keep_chr_names = c("Y1","Y3","Y7","Y9","Y14","Y19"))
+### 3 - Put some order into it :
 
-```
+### 4 - Summary :
 
-![](inst/img/Rplot2.png)
-
-
-```{r}
-
-# Play with other rendering arguments to 
-# reorder the chromosomes using the sp2_chr_order, 
-# add some colors by setting the colors argument to TRUE
-# or change the size of the dots : 
-
-plot_synteny_oxford_grid(orthologs,sp1_name = "sp1",
-                                   sp2_name = "sp2",
-                                   sp2_keep_chr_names = c("Y1","Y3","Y7","Y9","Y14","Y19"),
-                                   colors =TRUE,
-                                   sp2_chr_order = c("Y3","Y7","Y14","Y19","Y9","Y1"),
-                                   dot_size = 0.6)
-
-```
-
-![](inst/img/Rplot3.png)
-
-### Calculate contingency table and plot result of fischer test :
-
-```{r}
-
-# calculate contingency table :
-
-contingency_table <- calculate_contingency_table(orthologs)
-
-# most basic usage of plotting function :
-plot_fischer_test(contingency_table,sp1_name = "sp1",
-                                    sp2_name = "sp2)
-
-```
-![](inst/img/Rplot4.png)
-
-```{r}
-# use arguments to filter and reorder the chromosomes on the plot :
-plot_fischer_test(contingency_table,sp1_name = "sp1",
-                                    sp2_name = "sp2,
-                                    sp2_keep_chr_names = c("Y3","Y7","Y14","Y19","Y9","Y1"),
-                                    sp2_chr_order = c("Y3","Y7","Y14","Y19","Y9","Y1"))
-
-```
-
-![](inst/img/Rplot5.png)
 
