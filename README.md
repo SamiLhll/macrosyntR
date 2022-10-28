@@ -84,8 +84,7 @@ fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | sed -e
  
  ```
  
-### 1 - Draw an oxford grid to visualize my data :
-
+### 1 - Draw an oxford grid to visualize the data :
 
 ### 2 - Calculate and plot the significant macrosynteny blocks :
 
