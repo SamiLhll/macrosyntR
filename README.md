@@ -5,19 +5,19 @@
 <!-- badges: end -->
 
 
-An R package to calculate, order and plot the macrosynteny blocks between two species.
+An R package to calculate, automatically order and visualize the macro-synteny blocks between two species.
 
 -----------------------------------------------------------------------   
-<img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/oxford_grid.png" alt="oxford_grid" width="400"/>
-<img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/macrosynt.png" alt="macrosynt" width="400"/>
+<img src="https://github.com/SamiLhll/macrosyntR/blob/55a9b126baee3e88335dd8c834eb5e70b7863aec/inst/img/oxford_grid.png" alt="oxford_grid" width="800"/>
 
 
 # Installation
 
 ```{r}
+
 # Get the development version from GitHub:
 # install.packages("devtools")
-devtools::install_github("SamiLhll/macroSyntR")
+devtools::install_github("SamiLhll/macrosyntR")
 
 ```
 
@@ -26,19 +26,36 @@ devtools::install_github("SamiLhll/macroSyntR")
 
 ### Foreword : 
 
-This package won't calculate the orthologs from the sequences. Make sure to first create a table of mutual best hits.   
-There are many options for this, linux users can use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
-It uses diamond blast so usually it doesn't take more than 2 minutes to run (on a proper computer) 
-Once you've done it you have a two columns table. On each row you'll have the protein IDs of two mutual best hits, the 1st column listing the protein ids of the 1st species, and the second column listing the ids of the 2nd species. 
+This package won't calculate the orthologs from the sequences. As you will have to compute it yourself, I need to clarify that each dot on the oxford grid plot corrspond to one ortholog. It wouldn't work to use orthogroups as defined by OrthoFinder() as it would pack together more than one gene per species. 
+Instead, for linux users I would recommend that you use my shellscript [mbhXpress](https://github.com/SamiLhll/mbhXpress)
+It uses diamond blast so it doesn't take more than few minutes to calculate mutual best hits with a couple of CPUs. 
+
+### Overview :
+
+This package provides the user with 5 functions :
+
+|     Function          |         description                                                                                          | 
+|-----------------------|--------------------------------------------------------------------------------------------------------------|
+| load_mbh_df()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
+| calculate_macrosynt() | calculates all the chromosomes to each other and calculate the significantly conserved macro synteny blocks  |
+| reorder_synteny()     | takes an mbh_table (from load_mbh_df()) and outputs an mbh_table ordered for plot_oxford_grid()              |
+| plot_macrosynt()      | draws a dotplot displaying the significant macro-synteny blocks with their relative amount of orthologs      |
+| plot_oxford_grid()    | draws an oxford grid from an mbh_table (output of either load_mbh_df() or reorder_synteny()                  |    
 
 
-### Description of the input files that you need :
+# Step-by-step tutorial with publicly available data :
+
+### 1 - Generate the input files :
 
 The first step is to load the mutual best hit table (that will have been created with the [generate_MBH_table](https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH) bashscript) along with the genomic coordinates of the genes coding for the proteins on their respective species in BED format.
 
-### load the mutual best hits with genomic coordinates using load_mbh_df() :
+### 2 - Draw an oxford grid to visualize my data :
 
+### 3 - Calculate and plot the significant macrosynteny blocks :
 
+### 4 - Put some order :
+
+### 5 - Summary :
 
 ```{r}
 
@@ -127,3 +144,4 @@ plot_fischer_test(contingency_table,sp1_name = "sp1",
 ```
 
 ![](inst/img/Rplot5.png)
+
