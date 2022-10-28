@@ -8,7 +8,7 @@ plot_oxford_grid(
   mbh_df,
   sp1_label = "",
   sp2_label = "",
-  dot_size = 0.2,
+  dot_size = 0.5,
   colors = FALSE
 )
 }
@@ -19,7 +19,7 @@ plot_oxford_grid(
 
 \item{sp2_label}{string. name of 2nd species to display on the plot}
 
-\item{dot_size}{float. default = 0.2}
+\item{dot_size}{float. default = 0.5}
 
 \item{colors}{logical. default = FALSE}
 }

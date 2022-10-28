@@ -7,7 +7,7 @@
 #' @param mbh_df dataframe. mutual best hits with genomic coordinates loaded by the load_mbh_df()
 #' @param sp1_label string. name of 1st species to display on the plot
 #' @param sp2_label string. name of 2nd species to display on the plot
-#' @param dot_size float. default = 0.2
+#' @param dot_size float. default = 0.5
 #' @param colors logical. default = FALSE 
 #' 
 #' @seealso [load_mbh_df()]
@@ -22,7 +22,7 @@
 plot_oxford_grid <- function(mbh_df,
                              sp1_label = "",
                              sp2_label = "",
-                             dot_size = 0.2,
+                             dot_size = 0.5,
                              colors = FALSE) {
   
   sp1.Index <- sp2.Index <- sp2.Chr <- NULL
