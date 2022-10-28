@@ -48,7 +48,7 @@ It uses diamond blast so it doesn't take more than few minutes to calculate mutu
 
 ### 0 - download and pre-process the data :
 
-I'm going to show how this package can help visualizing the macro-synteny blocks by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (deep-sea tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).   
+I'm going to show how this package can help visualizing the macro-synteny blocks by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).   
 
 Download the sequences of proteins (fasta format) and their genomic coordinates :    
 
@@ -99,6 +99,7 @@ head(MBH_table)
 
 ```
 
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/snapshot1.png" alt="oxford_grid" width="600"/>
 
 ```{r}
 
@@ -108,6 +109,8 @@ plot_oxford_grid(mbh_df = MBH_table,
                  sp2_label = "P.echinospica")
 
 ```
+
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/plot1.png" alt="oxford_grid" width="600"/>
 
 ### 2 - Calculate and plot the significant macrosynteny blocks :
 
@@ -121,6 +124,8 @@ head(Macrosynt_df)
 
 ```
 
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/snapshot2.png" alt="oxford_grid" width="600"/>
+
 ```{r}
 
 # visualize on a plot. Node sizes is proportional to the amount of orthologs :
@@ -129,6 +134,8 @@ plot_macrosynt(macrosynt_df = Macrosynt_df,
                sp2_label = "P.echinospica")
 
 ```
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/plot2.png" alt="oxford_grid" width="600"/>
+
 
 ### 3 - Put some order into it :
 
@@ -143,6 +150,7 @@ plot_oxford_grid(reordered_MBH_table,
                  sp2_label = "P.echinospica")
 ```
 
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/plot3.png" alt="oxford_grid" width="600"/>
 
 ```{r}
 
@@ -156,5 +164,5 @@ plot_macrosynt(macrosynt_df = reordered_Macrosynt_df,
 
 ```
 
-
+<img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/plot4.png" alt="oxford_grid" width="600"/>
 
