@@ -166,3 +166,26 @@ plot_macrosynt(macrosynt_df = reordered_Macrosynt_df,
 
 <img src="https://github.com/SamiLhll/macrosyntR/blob/44d64247350cd8badc88754a8f2e1dcae0aeb78e/inst/img/plot4.png" alt="oxford_grid" width="600"/>
 
+### Summary :
+
+In the previous parts I explained it step by step, but you can get the two last plots with as few lines as :
+
+```{r}
+
+library(dplyr)
+library(macrosyntR)
+
+# load and reorder data :
+MBH_table <- load_mbh_df(mbh_table = "Bflo_vs_Pech.tab",
+                         sp1_bed = "Bfloridae.protein_products.bed",
+                         sp2_bed = "Pechinospica.protein_products.bed") %>%
+  reorder_synteny()
+
+# plot oxford grid :
+plot_oxford_grid(MBH_table, "B.floridae","P.echinospica")
+
+# identify and plot the macro-synteny blocks :
+Macrosynt_df <- calculate_macrosynt(MBH_table)
+plot_macrosynt(Macrosynt_df,"B.floridae","P.echinospica")
+
+```
