@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+.DS_store
 macrosyntR.Rproj
 inst/doc
