@@ -91,9 +91,9 @@ fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | fgrep 
 library(macrosyntR)
 
 # load and integrate data with :
-MBH_table <- macrosyntR::load_mbh_df(mbh_table = "Bflo_vs_Pech.tab",
-                                     sp1_bed = "Bfloridae.protein_products.bed",
-                                     sp2_bed = "Pechinospica.protein_products.bed")
+MBH_table <- load_mbh_df(mbh_table = "Bflo_vs_Pech.tab",
+                         sp1_bed = "Bfloridae.protein_products.bed",
+                         sp2_bed = "Pechinospica.protein_products.bed")
 
 head(MBH_table)
 
