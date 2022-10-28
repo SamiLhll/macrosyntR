@@ -65,16 +65,16 @@ Download the sequences of proteins (fasta format) and their genomic coordinates 
  
  Compute the mutual best hits of the fasta sequences. Using [mbhXpress](https://github.com/SamiLhll/mbhXpress) you can achieve it by typing the following in your terminal :
  
- ```{bash,eval = FALSE}
+```{bash,eval = FALSE}
  
  # call mbhXpress with using 6 threads :
  bash mbhXpress -a GCF_000003815.2_Bfl_VNyyK_protein.faa -b Pec_ragoo_v1.0.pep.fasta -o Bflo_vs_Pech.tab -t 6
  
- ```
+```
  
 To convert the genome annotation to the [bed file format](https://www.ensembl.org/info/website/upload/bed.html), I'm using the following command lines (if unfamiliar with this you can use a spreadsheet software). The concept is to keep the chrom, chromStart, chromEnd mandatory fields plus the name optional field that links the genomic region with the protein product :   
  
-  ```{bash, eval = FALSE}
+ ```{bash, eval = FALSE}
  
  # B.floridae CSV file to bed
 tail -n +2 proteins_75_971579.csv | cut -d "," -f1,3,4,9  | sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bfloridae.protein_products.bed
@@ -82,14 +82,79 @@ tail -n +2 proteins_75_971579.csv | cut -d "," -f1,3,4,9  | sed -e 's/\"//g' -e 
  # P.echinospica gff file to bed
 fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pechinospica.protein_products.bed
  
- ```
+```
  
 ### 1 - Draw an oxford grid to visualize the data :
 
+```{r}
+
+library(macrosyntR)
+
+# load and integrate data with :
+MBH_table <- macrosyntR::load_mbh_df(mbh_table = "Bflo_vs_Pech.tab",
+                                     sp1_bed = "Bfloridae.protein_products.bed",
+                                     sp2_bed = "Pechinospica.protein_products.bed")
+
+head(MBH_table)
+
+```
+
+
+```{r}
+
+# draw an oxford grid :
+plot_oxford_grid(mbh_df = MBH_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+```
+
 ### 2 - Calculate and plot the significant macrosynteny blocks :
+
+
+```{r}
+
+# Identify macro-synteny blocks by comparing all chromosomes vs all :
+Macrosynt_df <- calculate_macrosynt(mbh_df = MBH_table)
+
+head(Macrosynt_df)
+
+```
+
+```{r}
+
+# visualize on a plot. Node sizes is proportional to the amount of orthologs :
+plot_macrosynt(macrosynt_df = Macrosynt_df,
+               sp1_label = "B.floridaae",
+               sp2_label = "P.echinospica")
+
+```
 
 ### 3 - Put some order into it :
 
-### 4 - Summary :
+```{r}
+
+# compute a new mbh table with reordered chromosome levels :
+reordered_MBH_table <- reorder_synteny(MBH_table)
+
+# see how it looks on oxford grid :
+plot_oxford_grid(reordered_MBH_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+```
+
+
+```{r}
+
+# re-evaluate and plot the macro-synteny blocks :
+
+reordered_Macrosynt_df <- calculate_macrosynt(reordered_MBH_table)
+
+plot_macrosynt(macrosynt_df = reordered_Macrosynt_df,
+               sp1_label = "B.floridaae",
+               sp2_label = "P.echinospica")
+
+```
+
 
 
