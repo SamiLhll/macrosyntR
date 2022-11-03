@@ -18,8 +18,9 @@ An R package to identify, automatically order and visualize the macro-synteny bl
 # install.packages("devtools")
 devtools::install_github("SamiLhll/macrosyntR")
 
-# remove the package :
+# remove the package wto replace it by the CRAN version when available :
 remove.packages("macrosyntR")
+# install.packages("macrosyntR") --> Soon !
 
 ```
 
