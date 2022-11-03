@@ -1,4 +1,4 @@
-# macrosyntR
+# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/3eaae713fe29fd7e9b7894d77ded4007022d223c/inst/img/oxford_grid.png' align="right" height="138.5" /></a>
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -8,7 +8,6 @@
 An R package to identify, automatically order and visualize the macro-synteny blocks between two species.
 
 -----------------------------------------------------------------------   
-<img src="https://github.com/SamiLhll/macrosyntR/blob/3eaae713fe29fd7e9b7894d77ded4007022d223c/inst/img/oxford_grid.png" alt="oxford_grid" width="800"/>
 
 
 # Installation
