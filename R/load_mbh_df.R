@@ -42,10 +42,14 @@ load_mbh_df <- function(mbh_table,
   
   # Calculate the indexes :
   MBH_table_to_return <- MBH_table_to_return %>%
-    dplyr::arrange(sp1.Chr,sp1.Loci) %>%
+    dplyr::group_by(sp1.Chr) %>%
+    dplyr::arrange(sp1.Loci) %>%
     dplyr::mutate(sp1.Index = row_number()) %>%
-    dplyr::arrange(sp2.Chr,sp2.Loci) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(sp2.Chr) %>%
+    dplyr::arrange(sp2.Loci) %>%
     dplyr::mutate(sp2.Index = row_number()) %>%
+    dplyr::ungroup() %>%
     dplyr::select(sp1.ID,sp1.Chr,sp1.Loci,sp1.Index,sp2.ID,sp2.Chr,sp2.Loci,sp2.Index)
   
   MBH_table_to_return$sp1.Chr <- factor(MBH_table_to_return$sp1.Chr)
