@@ -1,4 +1,4 @@
-# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/26bff84585a94b58144de8a5f1727b86127f3600/inst/img/macrosyntR_hex.png' align="right" height="175" /></a>
+# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/d92317b61a770a361bdd09e8862cbe333feb85a2/inst/img/macrosyntR_hexlogo.png' align="right" height="175" /></a>
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
