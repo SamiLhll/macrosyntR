@@ -29,11 +29,16 @@ remove.packages("macrosyntR")
 
 # Getting started :
 
-### Foreword : 
+(To transfer to the vignette : Prepare my input data, overview and step-by-step)
 
-This package won't calculate the orthologs from the sequences. As you will have to compute it yourself, I need to clarify that each dot on the oxford grid correspond to one ortholog. It wouldn't work to use orthogroups as defined by OrthoFinder() as it would pack together more than one gene per species.   
-Instead, for linux users I would recommend that you run [mbhXpress](https://github.com/SamiLhll/mbhXpress).   
-It uses diamond blast so it doesn't take more than few minutes to calculate mutual best hits with a couple of CPUs. 
+
+### Prepare my input data : 
+
+This package won't calculate the orthologs from the sequences. Each dot on the oxford grid correspond to one pair of orthologs. It wouldn't work to use orthogroups as defined by OrthoFinder([Emms and Kelly 2019](https://doi.org/10.1186/s13059-019-1832-y)) as it would pack together more than one gene per species. This package instead requires that each gene would be linked to a single gene from the other species. Linux and Mac users can compute mutual best hits using [mbhXpress](https://github.com/SamiLhll/mbhXpress).   
+It takes two multi-fasta files of protein sequences as input and uses diamond blast ([Buchfink, B., Reuter, K., & Drost, H. (2021)](https://doi.org/10.1038/s41592-021-01101-x)) to compute the mutual best hits in a few minutes. Its output is a single two columns table, containing on each row the sequence ids of one pair of mutual best hits accross the two proteomes. This is the format of the table of orthologs that is expected to be loaded in this package. 
+
+(bedfiles)
+
 
 ### Overview :
 
