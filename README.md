@@ -1,11 +1,13 @@
-# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/3eaae713fe29fd7e9b7894d77ded4007022d223c/inst/img/oxford_grid.png' align="right" height="138.5" /></a>
+# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/26bff84585a94b58144de8a5f1727b86127f3600/inst/img/macrosyntR_hex.png' align="right" height="200" /></a>
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 
-An R package to identify, automatically order and visualize the macro-synteny blocks between two species.
+An R package for pair-wise comparison of synteny conservation accross species atthe genome-wide scale.   
+It takes a table of orthologs and genome annotation files formatted as BED to automatically
+infer significantly conserved blocks, and order them on an oxford grid.   
 
 -----------------------------------------------------------------------   
 
