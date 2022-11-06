@@ -1,7 +1,7 @@
 # macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/045ad5a602d2dd9df06039c7356c26fb7900560a/inst/img/macrosyntR_hexlogo.png' align="right" height="190" /></a>
 
 
-An R package for pair-wise comparison of synteny conservation accross species at the genome-wide scale.
+An R package for evluation of pair-wise synteny conservation accross species at the genome-wide scale.
 It takes a table of orthologs and genome annotation files formatted as BED to automatically
 infer significantly conserved blocks, and order them on an oxford grid.   
 
