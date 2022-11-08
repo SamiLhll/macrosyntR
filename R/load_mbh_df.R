@@ -22,7 +22,7 @@ load_mbh_df <- function(mbh_table,
                         sp2_bed) {
   
   V1 <- V2 <- V3 <- V4 <- NULL
-  sp1.Start <- sp1.End <- sp2_start <- sp2.End <- sp1.Chr <- sp1.Loci <- sp1.Index <- sp2.Chr <- sp2.Loci <- sp2.Index <- sp1.ID <- sp2.ID <- NULL
+  sp1.Start <- sp1.End <- sp2_start <- sp2.End <- sp1.Chr <- sp1.Loci <- sp1.Index <- sp2.Chr <- sp2.Loci <- sp2.Index <- sp1.ID <- sp2.ID <- row_number <- NULL
   
   # open mbh output :
   temp_MBH_table <- utils::read.csv(mbh_table,sep ="\t", header = FALSE) %>%

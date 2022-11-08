@@ -11,7 +11,7 @@
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom igraph components
 #' @importFrom igraph groups
-#' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff
+#' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff desc
 #' 
 #' @export
 
@@ -23,7 +23,7 @@ reorder_synteny <- function(mbh_df,
   significant_entries_for_graph <- significant_association_undirected_graph <- clusters <- cluster_df <- NULL
   sp1_amounts <- sp2_amounts <- NULL
   final_levels_sp1 <- final_levels_sp2 <- NULL
-  significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <-NULL
+  significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <- n <- NULL
   
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
   # Get a table with only significant association using calculate_macrosynt from this package :
@@ -47,7 +47,7 @@ reorder_synteny <- function(mbh_df,
   }
   cluster_df <- data.frame(clust = chroms_in_cluster_as_string,
                            amounts = ortholog_amount_in_cluster) %>%
-    dplyr::arrange(desc(amounts))
+    dplyr::arrange(dplyr::desc(amounts))
   cluster_df$num_clust <- seq(1:length(cluster_df$amounts))
   ##### DONE : Computed order of clusters
   
@@ -70,10 +70,10 @@ reorder_synteny <- function(mbh_df,
     }
     # order the chromosomes from larger to smaller (in amount of orthologs) :
     cluster_levels_sp1_df <- subset(sp1_amounts,sp1.Chr %in% cluster_levels_sp1) %>%
-      dplyr::arrange(desc(n))
+      dplyr::arrange(dplyr::desc(n))
     final_levels_sp1 <- c(final_levels_sp1,as.character(cluster_levels_sp1_df$sp1.Chr))
     cluster_levels_sp2_df <- subset(sp2_amounts,sp2.Chr %in% cluster_levels_sp2) %>%
-      dplyr::arrange(desc(n))
+      dplyr::arrange(dplyr::desc(n))
     final_levels_sp2 <- c(final_levels_sp2,as.character(cluster_levels_sp2_df$sp2.Chr))
     
   }

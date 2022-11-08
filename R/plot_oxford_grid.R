@@ -24,7 +24,7 @@
 #' @export
 
 
-dev_plot_oxford_grid <- function(mbh_df,
+plot_oxford_grid <- function(mbh_df,
                                  sp1_label = "",
                                  sp2_label = "",
                                  dot_size = 0.5,
@@ -34,13 +34,13 @@ dev_plot_oxford_grid <- function(mbh_df,
                                  pvalue_threshold= 0.001,
                                  clusters_color_palette = NULL) {
   
-  sp1.Index <- sp2.Index <- sp2.Chr <- NULL
+  sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
   mbh_df_to_plot <- mbh_df
   ### deal with colors first :
   if (auto_order_clusters) {
     # calculate clusters and reordered synteny
-    mbh_reordered <- dev_reorder_synteny(mbh_df)
+    mbh_reordered <- reorder_synteny(mbh_df)
     mbh_df_to_plot <- mbh_reordered
   }
   # separate dots not in clusters, and dots in clusters
