@@ -20,7 +20,7 @@ infer significantly conserved blocks, and order them on an oxford grid.
 # install.packages("devtools")
 devtools::install_github("SamiLhll/macrosyntR")
 
-# remove the package wto replace it by the CRAN version when available :
+# remove the package to replace it by the CRAN version when available :
 remove.packages("macrosyntR")
 # install.packages("macrosyntR") --> Soon !
 
