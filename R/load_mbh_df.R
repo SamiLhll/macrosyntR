@@ -13,7 +13,7 @@
 #' @return dataframe composed of genomic coordinates and relative index of orthologs on both species
 #'
 #' @import utils
-#' @importFrom dplyr rename mutate group_by arrange ungroup select
+#' @importFrom dplyr rename mutate group_by arrange ungroup select row_number
 #' @export
 
 
@@ -22,7 +22,7 @@ load_mbh_df <- function(mbh_table,
                         sp2_bed) {
   
   V1 <- V2 <- V3 <- V4 <- NULL
-  sp1.Start <- sp1.End <- sp2_start <- sp2.End <- sp1.Chr <- sp1.Loci <- sp1.Index <- sp2.Chr <- sp2.Loci <- sp2.Index <- sp1.ID <- sp2.ID <- row_number <- NULL
+  sp1.Start <- sp1.End <- sp2_start <- sp2.End <- sp1.Chr <- sp1.Loci <- sp1.Index <- sp2.Chr <- sp2.Loci <- sp2.Index <- sp1.ID <- sp2.ID <- NULL
   
   # open mbh output :
   temp_MBH_table <- utils::read.csv(mbh_table,sep ="\t", header = FALSE) %>%
@@ -44,11 +44,11 @@ load_mbh_df <- function(mbh_table,
   MBH_table_to_return <- MBH_table_to_return %>%
     dplyr::group_by(sp1.Chr) %>%
     dplyr::arrange(sp1.Loci) %>%
-    dplyr::mutate(sp1.Index = row_number()) %>%
+    dplyr::mutate(sp1.Index = dplyr::row_number()) %>%
     dplyr::ungroup() %>%
     dplyr::group_by(sp2.Chr) %>%
     dplyr::arrange(sp2.Loci) %>%
-    dplyr::mutate(sp2.Index = row_number()) %>%
+    dplyr::mutate(sp2.Index = dplyr::row_number()) %>%
     dplyr::ungroup() %>%
     dplyr::select(sp1.ID,sp1.Chr,sp1.Loci,sp1.Index,sp2.ID,sp2.Chr,sp2.Loci,sp2.Index)
   
