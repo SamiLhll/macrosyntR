@@ -8,8 +8,10 @@
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
 #' @return A dataframe object
 #'
-#' @import dplyr
-#' @import igraph
+#' @importFrom igraph graph_from_data_frame
+#' @importFrom igraph components
+#' @importFrom igraph groups
+#' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff
 #' 
 #' @export
 

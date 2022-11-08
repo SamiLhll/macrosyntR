@@ -13,7 +13,7 @@
 #'
 #' @importFrom stats fisher.test
 #' @import tidyr
-#' @import dplyr
+#' @importFrom dplyr rename mutate select
 #' 
 #' @export
 

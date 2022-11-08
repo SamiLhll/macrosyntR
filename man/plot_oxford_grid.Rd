@@ -9,7 +9,11 @@ plot_oxford_grid(
   sp1_label = "",
   sp2_label = "",
   dot_size = 0.5,
-  colors = FALSE
+  dot_alpha = 0.4,
+  auto_order_clusters = FALSE,
+  color_clusters = FALSE,
+  pvalue_threshold = 0.001,
+  clusters_color_palette = NULL
 )
 }
 \arguments{
@@ -19,9 +23,17 @@ plot_oxford_grid(
 
 \item{sp2_label}{string. name of 2nd species to display on the plot}
 
-\item{dot_size}{float. default = 0.5}
+\item{dot_size}{float. (default = 0.5)}
 
-\item{colors}{logical. default = FALSE}
+\item{dot_alpha}{flot. (default = 0.4)}
+
+\item{auto_order_clusters}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_synteny()}
+
+\item{color_clusters}{logical. (default = FALSE) color the orthologous pairs in a significant linkage group}
+
+\item{pvalue_threshold}{float. (default = 0.001)}
+
+\item{clusters_color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
 }
 \value{
 A ggplot2 object
@@ -31,4 +43,6 @@ This is a function to plot the oxford grided plot to compare the macro synteny o
 }
 \seealso{
 \code{\link[=load_mbh_df]{load_mbh_df()}}
+
+\code{\link[=reorder_synteny]{reorder_synteny()}}
 }

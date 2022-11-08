@@ -9,10 +9,10 @@ Imports:
   utils,
   ggplot2,
   ggthemes,
+  igraph,
   tidyr,
   reshape2,
-  dplyr,
-  igraph
+  dplyr
 Description: This package is intended to serialize the plotting of oxford grided plot for chromosomal evolution studies. The orthologs (mutual best hits) have to be computed beforehand (using for example the bashscript : https://github.com/SamiLhll/GenomicUtils/blob/a8803782f64c7ff31f0723d9e11f8f7d1a57e907/MacroSynteny/Generate_blastp_MBH).
 Encoding: UTF-8
 LazyData: true

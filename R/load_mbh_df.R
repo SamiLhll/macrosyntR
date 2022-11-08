@@ -13,7 +13,7 @@
 #' @return dataframe composed of genomic coordinates and relative index of orthologs on both species
 #'
 #' @import utils
-#' @import dplyr
+#' @importFrom dplyr rename mutate group_by arrange ungroup select
 #' @export
 
 
