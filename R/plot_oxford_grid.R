@@ -37,7 +37,7 @@ plot_oxford_grid <- function(mbh_df,
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
   mbh_df_to_plot <- mbh_df
-  ### deal with colors first :
+  ### reorder df first :
   if (auto_order_clusters) {
     # calculate clusters and reordered synteny
     mbh_reordered <- reorder_synteny(mbh_df)
@@ -45,6 +45,11 @@ plot_oxford_grid <- function(mbh_df,
   }
   # separate dots not in clusters, and dots in clusters
   if (color_clusters) {
+    ### [Exception here] Check that mbh_df_to_plot has the clust column
+    if (!("clust" %in% colnames(mbh_df_to_plot))) { 
+      stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set auto_order_cluster = TRUE or use reorder_synteny()")
+    }
+    ###
     # convert to character for discrete values coloring :
     temp_macrosynt <- calculate_macrosynt(mbh_df_to_plot)
     temp_mbh_and_macrosynt <- merge(mbh_df_to_plot,temp_macrosynt)

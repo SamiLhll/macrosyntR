@@ -48,7 +48,7 @@ reorder_synteny <- function(mbh_df,
   cluster_df <- data.frame(clust = chroms_in_cluster_as_string,
                            amounts = ortholog_amount_in_cluster) %>%
     dplyr::arrange(dplyr::desc(amounts))
-  cluster_df$num_clust <- seq(1:length(cluster_df$amounts))
+  cluster_df$num_clust <- letters[1:length(cluster_df$amounts)]
   ##### DONE : Computed order of clusters
   
   ##### 3 - Compute order of chromosomes by recomputing the levels of the factor. sorting by descending cluster size then descencding chromosome size.
@@ -91,11 +91,11 @@ reorder_synteny <- function(mbh_df,
     chrom_cluster_list <- strsplit(i,",")[[1]]
     cluster_num <- cluster_num + 1
     temp <- subset(mbh_df_to_return,((sp1.Chr %in% chrom_cluster_list) & (sp2.Chr %in% chrom_cluster_list))) %>%
-      dplyr::mutate(clust = cluster_num)
+      dplyr::mutate(clust = letters[cluster_num])
     final_df_with_groups <- rbind(final_df_with_groups,temp)
   }
   # convert to character for discrete values coloring :
-  final_df_with_groups$clust <- as.character(final_df_with_groups$clust)
+  # final_df_with_groups$clust <- as.character(final_df_with_groups$clust)
   # build a second dataframe with dots not on linkage groups to display in grey :
   non_linkage_df <- final_df_with_groups %>% dplyr::select(-clust)
   # check that the clust column doesn't exist :

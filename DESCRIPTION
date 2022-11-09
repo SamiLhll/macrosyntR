@@ -1,7 +1,7 @@
 Package: macrosyntR
 Type: Package
 Title: This package plots oxford grided plots showing the macrosynteny conservation between two species
-Version: 0.1.1
+Version: 0.2.1
 Authors@R: person("Sami", "El Hilali",email = "elhilali.sami@gmail.com", role = c("aut", "cre"),comment = c(ORCID = "0000-0003-4417-8399"))
 Depends: R (>= 4.1.0)
 Imports:

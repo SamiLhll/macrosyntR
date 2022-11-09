@@ -1,5 +1,7 @@
 ---
 title: "macrosyntR"
+author: "Sami El Hilali"
+date: "2022/11/09"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{macrosyntR}
@@ -14,54 +16,179 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
 
-library(macrosyntR)
+An R package for evaluation of pair-wise synteny conservation at the genome-wide scale. It takes a table of orthologs and genome annotation files formatted as BED to automatically infer significantly conserved blocks, and order them on an oxford grid.
 
-```
+# Overview :
+
+It has 5 functions :   
+
+
+|     Function          |         description                                                                                          | 
+|-----------------------|--------------------------------------------------------------------------------------------------------------|
+| load_mbh_df()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
+| calculate_macrosynt() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
+| reorder_synteny()     | takes an mbh_df (from load_mbh_df()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
+| plot_macrosynt()      | draws a dotplot displaying the significant linkage groups blocks with their relative amount of orthologs      |
+| plot_oxford_grid()    | draws an oxford grid from an mbh_df (output of either load_mbh_df() or reorder_synteny()                  |    
+
+# Step-by-step tutorial :
 
 We demonstrate the usage of the package using publicly available data.   
 
-* Branchiostoma floridae (Simakov et al. 2020) (data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)   
+* Branchiostoma floridae (Simakov et al. 2020)   
+data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)   
 
-* Paraescarpia echinospica (Sun et al. 2021)
+* Paraescarpia echinospica (Sun et al. 2021)   
 (data download : https://doi.org/10.6084/m9.figshare.15050478.v1)
 
-# Pre-process and Load the data using load_mbh_df() :
+### 1 - Pre-process and Load the data :
 
-### Theory :
+#### Foreword :
 
-This package doesn't compute the orthologs. I recommend to compute it as mutual best hits.   
-It is quite fast and accurate when using diamond blast, In case you have no idea on how to do it,
-I made available on github a shell script that would do it for you (see mbhXpress available here : https://github.com/SamiLhll/mbhXpress)   
+This package doesn't compute the orthologs. I recommend to compute it as mutual best hits using [mbhxpress](https://github.com/SamiLhll/mbhXpress). It is fast and accurate as it uses diamond blast.   
 
-Drawing the plots require to have the the following values for each pair of genes :   
-* genomic coordinates on species 1   
-* genomic coordinates on species 2   
+Drawing the plots using this package require to have the following data :   
 
-As any method to get the orthologs between two sets of protein sequences will likely report the sequences unique identifiers, this package provides a method that use these ids to link the BED formatted genomic coordinates of the two species for each orthologous pair.   
+* A two columns table of orthologs (mutual best hits). Each gene must appear only once in the table.   
+* genomic coordinates on species 1 for each gene having an ortholog.   
+* genomic coordinates on species 2 for each gene having an ortholog.   
 
-let's say I have the following orthologs :   
+
+let's say I have the following orthologs :  
+
+```{bash, eval = FALSE}
 sp1.gene.x1  sp2.gene.y1   
 sp1.gene.X2  sp2.gene.y2   
 ...   
 sp1.gene.xn  sp2.gene.yn   
+```
 
-the following genomic coordinates for species1 :   
+then, the genomic coordinates files must look like (BED format) :   
+
+* species1 :
+```{bash, eval = FALSE}
 chr4    200    600    sp1.gene.x1   
 chr8     10    400    sp1.gene.x2   
 ...   
 chr12   900    980    sp1.gene.xn   
+```
 
-and the following genomic coordinates for species2 :   
-chr4    200    600    sp1.gene.x1   
-chr8     10    400    sp1.gene.x2   
+* species2 :
+```{bash, eval = FALSE}
+chr1    100    200    sp2.gene.y1   
+chr6     50    200    sp2.gene.y2   
 ...   
-chr12   900    980    sp1.gene.xn   
+chr8   300    480    sp2.gene.yn   
+```
 
-### Example :
+#### Example :
 
-The next functions would work if you input a dataframe shaped as the one produced by load_mbh_df().
+I'm going to show how this package can help visualizing the linkage groups by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
+
+Download the sequences of proteins (fasta format) and their genomic coordinates :    
+
+ - B.floridae : 
+ The data are available on ncbi at https://www.ncbi.nlm.nih.gov/genome/?term=txid7739   
+ get the protein sequences at  by clicking the "Download sequences in FASTA format for protein".   
+ get the genomic coordinates by clicking "Download genome annotation in tabular format" and further click download as csv.   
+ 
+ - P.echinospica :   
+ The data are available on figshare.   
+ get the protein sequences here : https://figshare.com/ndownloader/files/28945467   
+ get the genome annotation here : https://figshare.com/ndownloader/files/28945458   
+ 
+ 
+ Compute the mutual best hits of the fasta sequences. Using [mbhXpress](https://github.com/SamiLhll/mbhXpress) you can achieve it by typing the following in your terminal :   
+ 
+```{bash,eval = FALSE}
+ # In the terminal :
+ # call mbhXpress with using 6 threads :
+ bash mbhXpress -a GCF_000003815.2_Bfl_VNyyK_protein.faa -b Pec_ragoo_v1.0.pep.fasta -o Bflo_vs_Pech.tab -t 6
+ 
+```
+ 
+To convert the genome annotation to the [bed file format](https://www.ensembl.org/info/website/upload/bed.html), I'm using the following command lines (if unfamiliar with this you can use a spreadsheet software). The concept is to keep the chrom, chromStart, chromEnd mandatory fields plus the name optional field that links the genomic region with the protein product :   
+ 
+```{bash, eval = FALSE}
+ # In the terminal :
+ # B.floridae CSV file to bed
+tail -n +2 proteins_75_971579.csv | cut -d "," -f1,3,4,9  | \
+sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bfloridae.protein_products.bed
+
+ # P.echinospica gff file to bed
+fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | \
+fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pechinospica.protein_products.bed
+ 
+```
+
+Now the data are ready to be loaded into R using macrosyntR :
+
+```{r setup}
+library(macrosyntR)
+```
+
+```{r}
+my_orthologs_table <- load_mbh_df(mbh_table = "../inst/extdata/Bflo_vs_Pech.tab",
+                                  sp1_bed = "../inst/extdata/Bflo.protein_products.bed",
+                                  sp2_bed = "../inst/extdata/Pech.protein_products.bed")
+
+head(my_orthologs_table)
+
+```
+
+### 2 - Compute linkage groups and plot :
+
+Let's compute the pairs of chromosomes that have a significant amount of orthologs using calculate_macrosynt().
+We can visualize the results on a dot plot using plot_macrosnyt() and see the distributions of orthologs on an oxford grid using plot_oxford_grid()
+
+```{r}
+# visualize the loaded data on a oxford grid :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+# compute significance and visualize on a dotplot :
+macrosynteny_df <- calculate_macrosynt(my_orthologs_table)
+head(macrosynteny_df)
+plot_macrosynt(macrosynteny_df,
+               sp1_label = "B.floridae",
+               sp2_label = "P.echinospica")
+
+```
+
+### 3 - Reorder chromosome levels to group the linkage groups in clusters :
+
+```{r}
+# visualize the loaded data on a oxford grid :
+my_orthologs_table_reordered <- reorder_synteny(my_orthologs_table)
+plot_oxford_grid(my_orthologs_table_reordered,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+# compute significance and visualize on a dotplot :
+macrosynteny_df_reordered <- calculate_macrosynt(my_orthologs_table_reordered)
+plot_macrosynt(macrosynteny_df_reordered,
+               sp1_label = "B.floridae",
+               sp2_label = "P.echinospica")
+
+```
+
+### 4 - Plot directly with reordering the linkage groups and coloring the clusters :
+
+```{r}
+# visualize the loaded data on a oxford grid :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 auto_order_clusters = TRUE,
+                 color_clusters = TRUE)
+
+# Change the vector of colors, 1 color per cluster, we see on the plot above that we have 10 clusters :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 auto_order_clusters = TRUE,
+                 color_clusters = TRUE,
+                 clusters_color_palette = c("#FFA500","#FFA500", "#1E90FF","#FFA500", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22"))
 
 
-
+```
