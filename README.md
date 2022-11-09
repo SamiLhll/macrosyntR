@@ -47,13 +47,25 @@ Once I calculated the orthologs, comparing the data from the lancelet Branchiost
 
 library(macrosyntR)
 
-# load table of mutual best hits and integrate genomic coordinates
-my_orthologs_table <- load_mbh_df()
+# load table of mutual best hits and integrate genomic coordinates :
+my_orthologs_table <- load_mbh_df(mbh_table = "DATA/Bflo_vs_Pech.tab",
+                                  sp1_bed = "DATA/Bfloridae.protein_products.bed",
+                                  sp2_bed = "DATA/Pechinospica.protein_products.bed")
 
 # draw an oxford grid with auto-clustering and coloring of the linkage groups :
-plot_oxford_grid()
+plot_oxford_grid(mbh_df = my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 auto_order_clusters = TRUE,
+                 color_clusters = TRUE)
 
 ```
+
+# More info / contacts :
+
+If you're having problems with this package, or want to see other features implemented, feel free to open an issue here
+or send an email at :   
+elhilali.sami@gmail.com
 
 ### Prepare my input data : 
 
