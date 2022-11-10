@@ -65,7 +65,7 @@ plot_oxford_grid(mbh_df = my_orthologs_table,
 
 # Getting help
 
-If you're having problems with this package, or want to see other features implemented, feel free to open an issue here
-or send an email at :   
+Need help, Identified a bug, or want to see other features implemented ?   
+Feel free to open an issue here or send an email at :   
 elhilali.sami@gmail.com
 
