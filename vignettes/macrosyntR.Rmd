@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-An R package for evaluation of pair-wise synteny conservation at the genome-wide scale. It takes a table of orthologs and genome annotation files formatted as BED to automatically infer significantly conserved blocks, and order them on an oxford grid.
+An R package for evaluation of pair-wise synteny conservation at the genome-wide scale. It takes a table of orthologs and genome annotation files formatted as BED to automatically infer significantly conserved linkage groups, and order them on an oxford grid.
 
 # Overview :
 
@@ -29,7 +29,7 @@ It has 5 functions :
 | load_mbh_df()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
 | calculate_macrosynt() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
 | reorder_synteny()     | takes an mbh_df (from load_mbh_df()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
-| plot_macrosynt()      | draws a dotplot displaying the significant linkage groups blocks with their relative amount of orthologs      |
+| plot_macrosynt()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
 | plot_oxford_grid()    | draws an oxford grid from an mbh_df (output of either load_mbh_df() or reorder_synteny()                  |    
 
 # Step-by-step tutorial :

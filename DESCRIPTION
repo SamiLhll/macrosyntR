@@ -1,8 +1,9 @@
 Package: macrosyntR
 Type: Package
-Title: A package for pair-wise comparison of synteny conservation at the genome-wide scale.
+Title: A package for pair-wise comparison of synteny conservation at the genome-wide scale
 Version: 0.2.2
-Authors@R: person("Sami", "El Hilali",email = "elhilali.sami@gmail.com", role = c("aut", "cre"),comment = c(ORCID = "0000-0003-4417-8399"))
+Authors@R: person("Sami", "El Hilali",email = "elhilali.sami@gmail.com", 
+  role = c("aut", "cre"),comment = c(ORCID = "0000-0003-4417-8399"))
 Depends: R (>= 4.1.0)
 Imports:
   stats,
@@ -13,7 +14,9 @@ Imports:
   tidyr,
   reshape2,
   dplyr
-Description: package for evaluation of pair-wise synteny conservation at the genome-wide scale. It takes a table of orthologs and genome annotation files formatted as BED to automatically infer significantly conserved linkage groups, and order them on an oxford grid.
+Description: A package for evaluation of pair-wise synteny conservation at the genome-wide scale. 
+  It takes a table of orthologs and genome annotation files formatted as BED to automatically infer 
+  significantly conserved linkage groups, and order them on an oxford grid.
 Encoding: UTF-8
 LazyData: true
 License: GPL-3
