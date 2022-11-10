@@ -27,7 +27,7 @@ remove.packages("macrosyntR")
 ```
 
 
-# Getting started :
+# Usage
 
 Check out the vignette for a comprehensive step-by-step tutorial where I illustrate how the package works using publicly available data, and how to customize the analysis. 
 
@@ -60,10 +60,10 @@ plot_oxford_grid(mbh_df = my_orthologs_table,
 
 ```
 
-<a><img src='https://github.com/SamiLhll/macrosyntR/blob/4a59a555bcec21a82119fe12a0f1b93dca2fdc6e/inst/img/Bflo_Pech.png' align="center" height="400" /></a>   
+<a><img src='https://github.com/SamiLhll/macrosyntR/blob/1c6dd09793e41bcbe2850669614cef3905925b3c/inst/img/Bflo_Pech_oxf_grid.png' align="center" height="400" /></a>   
 
 
-# More info / contacts :
+# Getting help
 
 If you're having problems with this package, or want to see other features implemented, feel free to open an issue here
 or send an email at :   
