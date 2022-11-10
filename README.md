@@ -3,7 +3,7 @@
 
 An R package for evaluation of pair-wise synteny conservation at the genome-wide scale.
 It takes a table of orthologs and genome annotation files formatted as BED to automatically
-infer significantly conserved blocks, and order them on an oxford grid.   
+infer significantly conserved linkage groups, and order them on an oxford grid.   
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
