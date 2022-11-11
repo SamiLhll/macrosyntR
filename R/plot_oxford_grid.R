@@ -51,7 +51,7 @@ plot_oxford_grid <- function(mbh_df,
     }
     ###
     # convert to character for discrete values coloring :
-    temp_macrosynt <- calculate_macrosynt(mbh_df_to_plot)
+    temp_macrosynt <- calculate_macrosynt(mbh_df)
     temp_mbh_and_macrosynt <- merge(mbh_df_to_plot,temp_macrosynt)
     final_df_with_groups <- subset(temp_mbh_and_macrosynt,significant == "yes")
     non_linkage_df <- subset(temp_mbh_and_macrosynt, significant == "no")
