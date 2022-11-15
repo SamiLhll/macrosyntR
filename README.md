@@ -1,4 +1,4 @@
-# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/5db3512442b0ca271b69dc34dc5989190f0fbcc0/inst/img/macrosyntR.png' align="right" height="190" /></a>
+# macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/f7c23587e2ae4c08b3709d8ac046128497a8fe60/inst/img/macrosyntR_logo.150pp.png' align="right" height="190" /></a>
 
 
 An R package for evaluation of pair-wise synteny conservation at the genome-wide scale.
