@@ -1,6 +1,6 @@
-# reorder_syneny
+# reorder_macrosynteny
 #
-# This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
+# This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering.
 #' @title Reorder the mbh_df before plotting
 #' @description his is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
 #'
@@ -18,7 +18,7 @@
 #' @export
 
 
-reorder_synteny <- function(orthologs_df,
+reorder_macrosynteny <- function(orthologs_df,
                             pvalue_threshold = 0.001) {
   
   contingency_table <- significant_entries <- significant_entries_for_graph <- NULL
