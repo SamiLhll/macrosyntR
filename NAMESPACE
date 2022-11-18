@@ -2,7 +2,7 @@
 
 export(compute_macrosynteny)
 export(load_orthologs)
-export(plot_macrosynt)
+export(plot_macrosynteny)
 export(plot_oxford_grid)
 export(reorder_synteny)
 import(ggplot2)

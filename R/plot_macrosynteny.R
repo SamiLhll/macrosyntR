@@ -1,4 +1,4 @@
-# plot_macrosynt
+# plot_macrosynteny
 #
 # This is a function to plot the result of compute_macrosynteny()
 #' @title Plot Macro-synteny
@@ -16,9 +16,9 @@
 #' @export
 
 
-plot_macrosynt <- function(macrosynt_df,
-                           sp1_label="",
-                           sp2_label="") {
+plot_macrosynteny <- function(macrosynt_df,
+                              sp1_label="",
+                              sp2_label="") {
   
   sp1.Chr <- sp2.Chr <- orthologs <- significant <- NULL
   

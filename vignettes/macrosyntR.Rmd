@@ -28,9 +28,9 @@ It has 5 functions :
 |-----------------------|--------------------------------------------------------------------------------------------------------------|
 | load_orthologs()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
 | compute_macrosynteny() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
-| reorder_synteny()     | takes an mbh_df (from load_mbh_df()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
-| plot_macrosynt()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
-| plot_oxford_grid()    | draws an oxford grid from an mbh_df (output of either load_mbh_df() or reorder_synteny()                  |    
+| reorder_synteny()     | takes an mbh_df (from load_orthologs()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
+| plot_macrosynteny()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
+| plot_oxford_grid()    | draws an oxford grid from an orthologs_df (output of either load_orthologs() or reorder_synteny()                  |    
 
 # Step-by-step tutorial :
 
@@ -152,9 +152,9 @@ plot_oxford_grid(my_orthologs_table,
 # compute significance and visualize on a dotplot :
 macrosynteny_df <- compute_macrosynteny(my_orthologs_table)
 head(macrosynteny_df)
-plot_macrosynt(macrosynteny_df,
-               sp1_label = "B.floridae",
-               sp2_label = "P.echinospica")
+plot_macrosynteny(macrosynteny_df,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
 
 ```
 
@@ -168,9 +168,9 @@ plot_oxford_grid(my_orthologs_table_reordered,
                  sp2_label = "P.echinospica")
 # compute significance and visualize on a dotplot :
 macrosynteny_df_reordered <- compute_macrosynteny(my_orthologs_table_reordered)
-plot_macrosynt(macrosynteny_df_reordered,
-               sp1_label = "B.floridae",
-               sp2_label = "P.echinospica")
+plot_macrosynteny(macrosynteny_df_reordered,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
 
 ```
 
