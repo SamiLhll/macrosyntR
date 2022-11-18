@@ -46,11 +46,11 @@ data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)
 
 #### Foreword :
 
-This package doesn't compute the orthologs. I recommend to compute it as mutual best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.   
+This package doesn't compute the orthologs. I recommend to compute it as reciprocal best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.   
 
 Drawing the plots using this package require to have the following data :   
 
-* A two columns table of orthologs (mutual best hits). Each gene must appear only once in the table.   
+* A two columns table of orthologs (reciprocal best hits). Each gene must appear only once in the table.   
 * genomic coordinates on species 1 for each gene having an ortholog.   
 * genomic coordinates on species 2 for each gene having an ortholog.   
 
@@ -99,7 +99,7 @@ Download the sequences of proteins (fasta format) and their genomic coordinates 
  get the genome annotation here : https://figshare.com/ndownloader/files/28945458   
  
  
- Compute the mutual best hits of the fasta sequences. Using [rbhXpress](https://github.com/SamiLhll/rbhXpress) you can achieve it by typing the following in your terminal :   
+ Compute the reciprocal best hits of the fasta sequences. Using [rbhXpress](https://github.com/SamiLhll/rbhXpress) you can achieve it by typing the following in your terminal :   
  
 ```{bash,eval = FALSE}
  # In the terminal :
