@@ -8,9 +8,9 @@ knitr::opts_chunk$set(
 library(macrosyntR)
 
 ## -----------------------------------------------------------------------------
-my_orthologs_table <- load_mbh_df(mbh_table = "../inst/extdata/Bflo_vs_Pech.tab",
-                                  sp1_bed = "../inst/extdata/Bflo.protein_products.bed",
-                                  sp2_bed = "../inst/extdata/Pech.protein_products.bed")
+my_orthologs_table <- load_orthologs(orthologs_table = "../inst/extdata/Bflo_vs_Pech.tab",
+                                     sp1_bed = "../inst/extdata/Bflo.protein_products.bed",
+                                     sp2_bed = "../inst/extdata/Pech.protein_products.bed")
 
 head(my_orthologs_table)
 

@@ -4,10 +4,10 @@
 \alias{calculate_macrosynt}
 \title{Calculate contingency table}
 \usage{
-calculate_macrosynt(mbh_df, pvalue_threshold = 0.001)
+calculate_macrosynt(orthologs_df, pvalue_threshold = 0.001)
 }
 \arguments{
-\item{mbh_df}{dataframe. mutual best hits with genomic coordinates loaded with load_mbh_df()}
+\item{orthologs_df}{dataframe. orthologs with genomic coordinates loaded with load_orthologs()}
 
 \item{pvalue_threshold}{numeric. threshold for significancy. (default equals 0.001)}
 }

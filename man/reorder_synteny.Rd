@@ -4,10 +4,10 @@
 \alias{reorder_synteny}
 \title{Reorder the mbh_df before plotting}
 \usage{
-reorder_synteny(mbh_df, pvalue_threshold = 0.001)
+reorder_synteny(orthologs_df, pvalue_threshold = 0.001)
 }
 \arguments{
-\item{mbh_df}{dataframe. mutual best hits with genomic coordinates loaded with load_mbh_df()}
+\item{orthologs_df}{dataframe. mutual best hits with genomic coordinates loaded with load_orthologs()}
 
 \item{pvalue_threshold}{numeric. threshold for significancy. (default equals 0.001)}
 }
@@ -15,5 +15,8 @@ reorder_synteny(mbh_df, pvalue_threshold = 0.001)
 A dataframe object
 }
 \description{
-his is a function to reorder an mbh_df, that was generated with load_mbh_df(). It allows for automatic reordering, or manual filtering and reordering.
+his is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
+}
+\seealso{
+\code{\link[=load_orthologs]{load_orthologs()}}
 }

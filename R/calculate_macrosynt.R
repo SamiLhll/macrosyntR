@@ -6,7 +6,7 @@
 #'   apply fischer test to calculate the significant associations. It outputs a datafram shaped as following :
 #'   sp1.Chr,sp2.Chr,orthologs,pval
 #'
-#' @param mbh_df dataframe. mutual best hits with genomic coordinates loaded with load_mbh_df()
+#' @param orthologs_df dataframe. orthologs with genomic coordinates loaded with load_orthologs()
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
 #' 
 #' @return A dataframe object
@@ -19,24 +19,24 @@
 #' @export
 
 
-calculate_macrosynt <- function(mbh_df,pvalue_threshold = 0.001) {
+calculate_macrosynt <- function(orthologs_df,pvalue_threshold = 0.001) {
   
   ### construct the contingency table :
   final_i <- final_j <- final_a <- final_b <- final_c <- final_d <- NULL
   sp1.Chr <- sp2.Chr <- value <- variable <- pvalues_value <- pvalues_adj <- odds <- a <- significant <-NULL
   
-  for (i in unique(mbh_df$sp1.Chr)) {
-    subsetted_mbh_df_in <- subset(mbh_df,sp1.Chr == i)
-    subsetted_mbh_df_out <- subset(mbh_df,sp1.Chr != i)
-    compared_specie_scaffs <- unique(subsetted_mbh_df_in$sp2.Chr)
+  for (i in unique(orthologs_df$sp1.Chr)) {
+    subsetted_orthologs_df_in <- subset(orthologs_df,sp1.Chr == i)
+    subsetted_orthologs_df_out <- subset(orthologs_df,sp1.Chr != i)
+    compared_specie_scaffs <- unique(subsetted_orthologs_df_in$sp2.Chr)
     for (j in compared_specie_scaffs) {
-      cell_a <- length(subset(subsetted_mbh_df_in, sp2.Chr == j)$sp1.Chr)
+      cell_a <- length(subset(subsetted_orthologs_df_in, sp2.Chr == j)$sp1.Chr)
       final_a <- c(final_a,cell_a)
-      cell_b <- length(subset(subsetted_mbh_df_out, sp2.Chr == j)$sp1.Chr)
+      cell_b <- length(subset(subsetted_orthologs_df_out, sp2.Chr == j)$sp1.Chr)
       final_b <- c(final_b,cell_b)
-      cell_c <- length(subset(subsetted_mbh_df_in, sp2.Chr != j)$sp1.Chr)
+      cell_c <- length(subset(subsetted_orthologs_df_in, sp2.Chr != j)$sp1.Chr)
       final_c <- c(final_c,cell_c)
-      cell_d <- length(subset(subsetted_mbh_df_out, sp2.Chr != j)$sp1.Chr)
+      cell_d <- length(subset(subsetted_orthologs_df_out, sp2.Chr != j)$sp1.Chr)
       final_d <- c(final_d,cell_d)
       final_j <- c(final_j,j)
     }
@@ -89,9 +89,9 @@ calculate_macrosynt <- function(mbh_df,pvalue_threshold = 0.001) {
   macrosynt_df <- contingency_table %>%
     dplyr::select(sp1.Chr,sp2.Chr,a,pvalues_value,significant,pvalues_adj) %>%
     dplyr::rename(orthologs = a,pval = pvalues_value)
-  # copy the levels of mbh_df to keep the same ordering when plotting :
-  macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr,levels = levels(mbh_df$sp1.Chr))
-  macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr,levels = levels(mbh_df$sp2.Chr))
+  # copy the levels of orthologs_df to keep the same ordering when plotting :
+  macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr,levels = levels(orthologs_df$sp1.Chr))
+  macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr,levels = levels(orthologs_df$sp2.Chr))
   
   return(macrosynt_df)
   

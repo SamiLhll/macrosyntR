@@ -26,7 +26,7 @@ It has 5 functions :
 
 |     Function          |         description                                                                                          | 
 |-----------------------|--------------------------------------------------------------------------------------------------------------|
-| load_mbh_df()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
+| load_orthologs()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
 | calculate_macrosynt() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
 | reorder_synteny()     | takes an mbh_df (from load_mbh_df()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
 | plot_macrosynt()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
@@ -46,7 +46,7 @@ data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)
 
 #### Foreword :
 
-This package doesn't compute the orthologs. I recommend to compute it as mutual best hits using [mbhxpress](https://github.com/SamiLhll/mbhXpress). It is fast and accurate as it uses diamond blast.   
+This package doesn't compute the orthologs. I recommend to compute it as mutual best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.   
 
 Drawing the plots using this package require to have the following data :   
 
@@ -99,7 +99,7 @@ Download the sequences of proteins (fasta format) and their genomic coordinates 
  get the genome annotation here : https://figshare.com/ndownloader/files/28945458   
  
  
- Compute the mutual best hits of the fasta sequences. Using [mbhXpress](https://github.com/SamiLhll/mbhXpress) you can achieve it by typing the following in your terminal :   
+ Compute the mutual best hits of the fasta sequences. Using [rbhXpress](https://github.com/SamiLhll/rbhXpress) you can achieve it by typing the following in your terminal :   
  
 ```{bash,eval = FALSE}
  # In the terminal :
@@ -131,9 +131,9 @@ library(macrosyntR)
 ```
 
 ```{r}
-my_orthologs_table <- load_mbh_df(mbh_table = "../inst/extdata/Bflo_vs_Pech.tab",
-                                  sp1_bed = "../inst/extdata/Bflo.protein_products.bed",
-                                  sp2_bed = "../inst/extdata/Pech.protein_products.bed")
+my_orthologs_table <- load_orthologs(orthologs_table = "../inst/extdata/Bflo_vs_Pech.tab",
+                                     sp1_bed = "../inst/extdata/Bflo.protein_products.bed",
+                                     sp2_bed = "../inst/extdata/Pech.protein_products.bed")
 
 head(my_orthologs_table)
 

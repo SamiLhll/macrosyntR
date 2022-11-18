@@ -1,12 +1,13 @@
 # reorder_syneny
 #
-# This is a function to reorder an mbh_df, that was generated with load_mbh_df(). It allows for automatic reordering, or manual filtering and reordering.
+# This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
 #' @title Reorder the mbh_df before plotting
-#' @description his is a function to reorder an mbh_df, that was generated with load_mbh_df(). It allows for automatic reordering, or manual filtering and reordering.
+#' @description his is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
 #'
-#' @param mbh_df dataframe. mutual best hits with genomic coordinates loaded with load_mbh_df()
+#' @param orthologs_df dataframe. mutual best hits with genomic coordinates loaded with load_orthologs()
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
 #' @return A dataframe object
+#' @seealso [load_orthologs()]
 #'
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom igraph components
@@ -16,7 +17,7 @@
 #' @export
 
 
-reorder_synteny <- function(mbh_df,
+reorder_synteny <- function(orthologs_df,
                             pvalue_threshold = 0.001) {
   
   contingency_table <- significant_entries <- significant_entries_for_graph <- NULL
@@ -27,7 +28,7 @@ reorder_synteny <- function(mbh_df,
   
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
   # Get a table with only significant association using calculate_macrosynt from this package :
-  contingency_table <- calculate_macrosynt(mbh_df,pvalue_threshold)
+  contingency_table <- calculate_macrosynt(orthologs_df,pvalue_threshold)
   significant_entries <- subset(contingency_table,significant == "yes")
   
   # build an Undirected Graph between sp1.chr and sp2.chr containing all significant edges :
@@ -61,7 +62,7 @@ reorder_synteny <- function(mbh_df,
     cluster_levels_sp1 <- NULL
     cluster_levels_sp2 <- NULL
     for (chrom in chrom_cluster_list) {
-      if (chrom %in% mbh_df$sp1.Chr) {
+      if (chrom %in% orthologs_df$sp1.Chr) {
         cluster_levels_sp1 <- c(cluster_levels_sp1,chrom)
       }
       else {
@@ -77,9 +78,9 @@ reorder_synteny <- function(mbh_df,
     final_levels_sp2 <- c(final_levels_sp2,as.character(cluster_levels_sp2_df$sp2.Chr))
     
   }
-  mbh_df_to_return <- subset(mbh_df, (sp1.Chr %in% final_levels_sp1) & (sp2.Chr %in% final_levels_sp2))
-  mbh_df_to_return$sp1.Chr <- factor(mbh_df_to_return$sp1.Chr,levels = final_levels_sp1)
-  mbh_df_to_return$sp2.Chr <- factor(mbh_df_to_return$sp2.Chr,levels = final_levels_sp2)
+  orthologs_df_to_return <- subset(orthologs_df, (sp1.Chr %in% final_levels_sp1) & (sp2.Chr %in% final_levels_sp2))
+  orthologs_df_to_return$sp1.Chr <- factor(orthologs_df_to_return$sp1.Chr,levels = final_levels_sp1)
+  orthologs_df_to_return$sp2.Chr <- factor(orthologs_df_to_return$sp2.Chr,levels = final_levels_sp2)
   ##### DONE : Computed order of chromosomes
   
   ##### 4 - Add an additional column with clusters number :
@@ -90,7 +91,7 @@ reorder_synteny <- function(mbh_df,
   for (i in chrom_clusters_reordered){
     chrom_cluster_list <- strsplit(i,",")[[1]]
     cluster_num <- cluster_num + 1
-    temp <- subset(mbh_df_to_return,((sp1.Chr %in% chrom_cluster_list) & (sp2.Chr %in% chrom_cluster_list))) %>%
+    temp <- subset(orthologs_df_to_return,((sp1.Chr %in% chrom_cluster_list) & (sp2.Chr %in% chrom_cluster_list))) %>%
       dplyr::mutate(clust = letters[cluster_num])
     final_df_with_groups <- rbind(final_df_with_groups,temp)
   }
@@ -99,14 +100,14 @@ reorder_synteny <- function(mbh_df,
   # build a second dataframe with dots not on linkage groups to display in grey :
   non_linkage_df <- final_df_with_groups %>% dplyr::select(-clust)
   # check that the clust column doesn't exist :
-  if ("clust" %in% colnames(mbh_df_to_return)) {
-    mbh_df_to_return <- mbh_df_to_return %>%
+  if ("clust" %in% colnames(orthologs_df_to_return)) {
+    orthologs_df_to_return <- orthologs_df_to_return %>%
       dplyr::select(-clust)
   }
-  non_linkage_df <- dplyr::setdiff(mbh_df_to_return,non_linkage_df) %>%
+  non_linkage_df <- dplyr::setdiff(orthologs_df_to_return,non_linkage_df) %>%
     dplyr::mutate(clust = "0")
   final_df_with_groups <- rbind(final_df_with_groups,non_linkage_df)
-  mbh_df_to_return <- merge(mbh_df_to_return,final_df_with_groups)
+  orthologs_df_to_return <- merge(orthologs_df_to_return,final_df_with_groups)
   
-  return(mbh_df_to_return)
+  return(orthologs_df_to_return)
 }

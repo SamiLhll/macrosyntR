@@ -5,7 +5,7 @@
 \title{plot the Macro-synteny as an oxford grid.}
 \usage{
 plot_oxford_grid(
-  mbh_df,
+  orthologs_df,
   sp1_label = "",
   sp2_label = "",
   dot_size = 0.5,
@@ -17,7 +17,7 @@ plot_oxford_grid(
 )
 }
 \arguments{
-\item{mbh_df}{dataframe. mutual best hits with genomic coordinates loaded by the load_mbh_df()}
+\item{orthologs_df}{dataframe. orthologs with genomic coordinates loaded by the load_orthologs()}
 
 \item{sp1_label}{string. name of 1st species to display on the plot}
 
@@ -39,10 +39,10 @@ plot_oxford_grid(
 A ggplot2 object
 }
 \description{
-This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_mbh_df()
+This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
 }
 \seealso{
-\code{\link[=load_mbh_df]{load_mbh_df()}}
+\code{\link[=load_orthologs]{load_orthologs()}}
 
 \code{\link[=reorder_synteny]{reorder_synteny()}}
 }

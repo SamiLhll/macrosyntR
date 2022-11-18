@@ -2,9 +2,9 @@
 #
 # This is a function to plot the oxford grided plot to compare the macro synteny of two species
 #' @title plot the Macro-synteny as an oxford grid.
-#' @description This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_mbh_df()
+#' @description This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
 #'
-#' @param mbh_df dataframe. mutual best hits with genomic coordinates loaded by the load_mbh_df()
+#' @param orthologs_df dataframe. orthologs with genomic coordinates loaded by the load_orthologs()
 #' @param sp1_label string. name of 1st species to display on the plot
 #' @param sp2_label string. name of 2nd species to display on the plot
 #' @param dot_size float. (default = 0.5)
@@ -14,7 +14,7 @@
 #' @param pvalue_threshold float. (default = 0.001) 
 #' @param clusters_color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
 #' 
-#' @seealso [load_mbh_df()]
+#' @seealso [load_orthologs()]
 #' @seealso [reorder_synteny()]
 #' 
 #' @return A ggplot2 object
@@ -24,7 +24,7 @@
 #' @export
 
 
-plot_oxford_grid <- function(mbh_df,
+plot_oxford_grid <- function(orthologs_df,
                                  sp1_label = "",
                                  sp2_label = "",
                                  dot_size = 0.5,
@@ -36,25 +36,25 @@ plot_oxford_grid <- function(mbh_df,
   
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
-  mbh_df_to_plot <- mbh_df
+  orthologs_df_to_plot <- orthologs_df
   ### reorder df first :
   if (auto_order_clusters) {
     # calculate clusters and reordered synteny
-    mbh_reordered <- reorder_synteny(mbh_df)
-    mbh_df_to_plot <- mbh_reordered
+    orthologs_reordered <- reorder_synteny(orthologs_df)
+    orthologs_df_to_plot <- orthologs_reordered
   }
   # separate dots not in clusters, and dots in clusters
   if (color_clusters) {
-    ### [Exception here] Check that mbh_df_to_plot has the clust column
-    if (!("clust" %in% colnames(mbh_df_to_plot))) { 
+    ### [Exception here] Check that orthologs_df_to_plot has the clust column
+    if (!("clust" %in% colnames(orthologs_df_to_plot))) { 
       stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set auto_order_cluster = TRUE or use reorder_synteny()")
     }
     ###
     # convert to character for discrete values coloring :
-    temp_macrosynt <- calculate_macrosynt(mbh_df)
-    temp_mbh_and_macrosynt <- merge(mbh_df_to_plot,temp_macrosynt)
-    final_df_with_groups <- subset(temp_mbh_and_macrosynt,significant == "yes")
-    non_linkage_df <- subset(temp_mbh_and_macrosynt, significant == "no")
+    temp_macrosynt <- calculate_macrosynt(orthologs_df)
+    temp_orthologs_and_macrosynt <- merge(orthologs_df_to_plot,temp_macrosynt)
+    final_df_with_groups <- subset(temp_orthologs_and_macrosynt,significant == "yes")
+    non_linkage_df <- subset(temp_orthologs_and_macrosynt, significant == "no")
     
     # initialize the plot with colors :
     p <- ggplot2::ggplot(final_df_with_groups,ggplot2::aes(x=sp1.Index,y=sp2.Index,color = clust)) + 
@@ -70,7 +70,7 @@ plot_oxford_grid <- function(mbh_df,
     }
   }
   else {
-    p <- ggplot2::ggplot(mbh_df_to_plot,ggplot2::aes(x=sp1.Index,y=sp2.Index)) + ggplot2::geom_jitter(size=dot_size,alpha=dot_alpha)
+    p <- ggplot2::ggplot(orthologs_df_to_plot,ggplot2::aes(x=sp1.Index,y=sp2.Index)) + ggplot2::geom_jitter(size=dot_size,alpha=dot_alpha)
   }
   ### build the plot :
   p <- p + ggthemes::theme_tufte() +
@@ -90,7 +90,7 @@ plot_oxford_grid <- function(mbh_df,
                    panel.grid = ggplot2::element_blank(),
                    panel.border = ggplot2::element_rect(fill = NA, color = "gray",size=0.1),
                    panel.background = ggplot2::element_rect(fill = "white", colour = "white")) +
-    ggplot2::labs(y=sp2_label, x= paste0("(",length(mbh_df_to_plot$sp1.ID)," orthologs)"),title = sp1_label)
+    ggplot2::labs(y=sp2_label, x= paste0("(",length(orthologs_df_to_plot$sp1.ID)," orthologs)"),title = sp1_label)
   
   return(p)
   
