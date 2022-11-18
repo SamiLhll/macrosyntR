@@ -1,25 +1,24 @@
-# calculate_macrosynt
+# compute_macrosynteny
 #
-# This is a function to generate the contingency table of an MBH dataframe and apply fischer test to calculate the significant associations.
-#' @title Calculate contingency table
-#' @description This is a function to generate the contingency table of an MBH dataframe and 
-#'   apply fischer test to calculate the significant associations. It outputs a datafram shaped as following :
-#'   sp1.Chr,sp2.Chr,orthologs,pval
+# This is a function to generate the contingency table of an orthologs dataframe and apply fischer test to calculate the significant associations.
+#' @title Compute significant macrosynteny blocks
+#' @description This is a function to generate the contingency table of an orthologs dataframe and 
+#'   apply fischer test to calculate the significant associations. It outputs a dataframe shaped as following :
+#'   sp1.Chr,sp2.Chr,a,pval,significant,pval_adj
 #'
 #' @param orthologs_df dataframe. orthologs with genomic coordinates loaded with load_orthologs()
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
 #' 
 #' @return A dataframe object
 #'
-#' @importFrom stats fisher.test
-#' @importFrom stats p.adjust
+#' @importFrom stats fisher.test p.adjust
 #' @import tidyr
 #' @importFrom dplyr rename mutate select
 #' 
 #' @export
 
 
-calculate_macrosynt <- function(orthologs_df,pvalue_threshold = 0.001) {
+compute_macrosynteny <- function(orthologs_df,pvalue_threshold = 0.001) {
   
   ### construct the contingency table :
   final_i <- final_j <- final_a <- final_b <- final_c <- final_d <- NULL
@@ -77,8 +76,8 @@ calculate_macrosynt <- function(orthologs_df,pvalue_threshold = 0.001) {
   
   contingency_table <- merge(contingency_table,p_values.melted) %>%
     dplyr::mutate(pvalues_adj = stats::p.adjust(pvalues_value)) %>%
-    dplyr::mutate(significant = "yes",
-                  significant = replace(significant,pvalues_adj > pvalue_threshold,"no"))
+    dplyr::mutate(significant = "no",
+                  significant = replace(significant,pvalues_adj <= pvalue_threshold,"yes"))
   
   contingency_table <- merge(contingency_table,odds_values.melted) %>%
     dplyr::mutate(odds = "> 1",
@@ -88,7 +87,7 @@ calculate_macrosynt <- function(orthologs_df,pvalue_threshold = 0.001) {
   ### reshape before returning :
   macrosynt_df <- contingency_table %>%
     dplyr::select(sp1.Chr,sp2.Chr,a,pvalues_value,significant,pvalues_adj) %>%
-    dplyr::rename(orthologs = a,pval = pvalues_value)
+    dplyr::rename(orthologs = a,pval = pvalues_value,pval_adj = pvalues_adj)
   # copy the levels of orthologs_df to keep the same ordering when plotting :
   macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr,levels = levels(orthologs_df$sp1.Chr))
   macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr,levels = levels(orthologs_df$sp2.Chr))

@@ -51,7 +51,7 @@ plot_oxford_grid <- function(orthologs_df,
     }
     ###
     # convert to character for discrete values coloring :
-    temp_macrosynt <- calculate_macrosynt(orthologs_df)
+    temp_macrosynt <- compute_macrosynteny(orthologs_df)
     temp_orthologs_and_macrosynt <- merge(orthologs_df_to_plot,temp_macrosynt)
     final_df_with_groups <- subset(temp_orthologs_and_macrosynt,significant == "yes")
     non_linkage_df <- subset(temp_orthologs_and_macrosynt, significant == "no")

@@ -19,4 +19,6 @@ his is a function to reorder an orthologs_df, that was generated with load_ortho
 }
 \seealso{
 \code{\link[=load_orthologs]{load_orthologs()}}
+
+\code{\link[=compute_macrosynteny]{compute_macrosynteny()}}
 }

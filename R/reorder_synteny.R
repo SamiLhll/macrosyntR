@@ -8,6 +8,7 @@
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
 #' @return A dataframe object
 #' @seealso [load_orthologs()]
+#' @seealso [compute_macrosynteny()]
 #'
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom igraph components
@@ -27,8 +28,8 @@ reorder_synteny <- function(orthologs_df,
   significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <- n <- NULL
   
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
-  # Get a table with only significant association using calculate_macrosynt from this package :
-  contingency_table <- calculate_macrosynt(orthologs_df,pvalue_threshold)
+  # Get a table with only significant association using compute_macrosynteny from this package :
+  contingency_table <- compute_macrosynteny(orthologs_df,pvalue_threshold)
   significant_entries <- subset(contingency_table,significant == "yes")
   
   # build an Undirected Graph between sp1.chr and sp2.chr containing all significant edges :
