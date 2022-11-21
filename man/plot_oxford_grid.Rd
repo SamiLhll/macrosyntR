@@ -10,7 +10,8 @@ plot_oxford_grid(
   sp2_label = "",
   dot_size = 0.5,
   dot_alpha = 0.4,
-  auto_order_clusters = FALSE,
+  reorder = FALSE,
+  keep_only_significant = FALSE,
   color_clusters = FALSE,
   pvalue_threshold = 0.001,
   clusters_color_palette = NULL
@@ -27,7 +28,9 @@ plot_oxford_grid(
 
 \item{dot_alpha}{flot. (default = 0.4)}
 
-\item{auto_order_clusters}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
+\item{reorder}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
+
+\item{keep_only_significant}{logical. (default = FALSE)}
 
 \item{color_clusters}{logical. (default = FALSE) color the orthologous pairs in a significant linkage group}
 

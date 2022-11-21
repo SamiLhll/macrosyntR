@@ -4,18 +4,24 @@
 \alias{reorder_macrosynteny}
 \title{Reorder the mbh_df before plotting}
 \usage{
-reorder_macrosynteny(orthologs_df, pvalue_threshold = 0.001)
+reorder_macrosynteny(
+  orthologs_df,
+  pvalue_threshold = 0.001,
+  keep_only_significant = FALSE
+)
 }
 \arguments{
 \item{orthologs_df}{dataframe. mutual best hits with genomic coordinates loaded with load_orthologs()}
 
 \item{pvalue_threshold}{numeric. threshold for significancy. (default equals 0.001)}
+
+\item{keep_only_significant}{logical. (default equals FALSE)}
 }
 \value{
 A dataframe object
 }
 \description{
-his is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
+This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It retrieves communities using igraph::cluster_fast_greedy.
 }
 \seealso{
 \code{\link[=load_orthologs]{load_orthologs()}}

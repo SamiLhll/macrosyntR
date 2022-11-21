@@ -1,42 +1,48 @@
 # reorder_macrosynteny
 #
-# This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering.
+# This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It retrieves communities using igraph::cluster_fast_greedy.
 #' @title Reorder the mbh_df before plotting
-#' @description his is a function to reorder an orthologs_df, that was generated with load_orthologs(). It allows for automatic reordering, or manual filtering and reordering.
+#' @description This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It retrieves communities using igraph::cluster_fast_greedy.
 #'
 #' @param orthologs_df dataframe. mutual best hits with genomic coordinates loaded with load_orthologs()
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
+#' @param keep_only_significant logical. (default equals FALSE)
 #' @return A dataframe object
 #' @seealso [load_orthologs()]
 #' @seealso [compute_macrosynteny()]
 #'
-#' @importFrom igraph graph_from_data_frame
-#' @importFrom igraph components
-#' @importFrom igraph groups
+#' @importFrom igraph graph_from_data_frame cluster_fast_greedy groups
 #' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff desc
 #' 
 #' @export
 
 
 reorder_macrosynteny <- function(orthologs_df,
-                            pvalue_threshold = 0.001) {
+                                 pvalue_threshold = 0.001,
+                                 keep_only_significant = FALSE) {
   
   contingency_table <- significant_entries <- significant_entries_for_graph <- NULL
   significant_entries_for_graph <- significant_association_undirected_graph <- clusters <- cluster_df <- NULL
   sp1_amounts <- sp2_amounts <- NULL
   final_levels_sp1 <- final_levels_sp2 <- NULL
-  significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <- n <- NULL
+  significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <- n <- weight <- NULL
   
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
   # Get a table with only significant association using compute_macrosynteny from this package :
   contingency_table <- compute_macrosynteny(orthologs_df,pvalue_threshold)
-  significant_entries <- subset(contingency_table,significant == "yes")
+  if (keep_only_significant) {
+    significant_entries <- subset(contingency_table,significant == "yes")
+  }
+  else {
+    significant_entries <- contingency_table
+  }
   
-  # build an Undirected Graph between sp1.chr and sp2.chr containing all significant edges :
-  significant_entries_for_graph <- significant_entries %>% dplyr::select(-significant,-pval,-orthologs) %>% dplyr::rename(from = sp1.Chr,to = sp2.Chr)
+  
+  # build an Undirected weighted graph between sp1.chr and sp2.chr containing all significant edges :
+  significant_entries_for_graph <- significant_entries %>% dplyr::select(-significant,-pval,) %>% dplyr::rename(from = sp1.Chr,to = sp2.Chr, weight = orthologs)
   # compute clusters of sp1.Chr and sp2.Chr that are directly or indirectly connected in the graph :
   significant_association_undirected_graph <- igraph::graph_from_data_frame(significant_entries_for_graph, directed = F)
-  clusters <- igraph::components(significant_association_undirected_graph)
+  clusters <- igraph::cluster_fast_greedy(significant_association_undirected_graph)
   ##### DONE : Built the graph
   
   ##### 2 - Compute amounts of orthologs in each cluster and order them by attributing them an index from 1 to n (1 being the larger cluster) :

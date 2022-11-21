@@ -9,7 +9,8 @@
 #' @param sp2_label string. name of 2nd species to display on the plot
 #' @param dot_size float. (default = 0.5)
 #' @param dot_alpha flot. (default = 0.4)
-#' @param auto_order_clusters logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
+#' @param reorder logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
+#' @param keep_only_significant logical. (default = FALSE)
 #' @param color_clusters logical. (default = FALSE) color the orthologous pairs in a significant linkage group
 #' @param pvalue_threshold float. (default = 0.001) 
 #' @param clusters_color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
@@ -25,29 +26,30 @@
 
 
 plot_oxford_grid <- function(orthologs_df,
-                                 sp1_label = "",
-                                 sp2_label = "",
-                                 dot_size = 0.5,
-                                 dot_alpha = 0.4,
-                                 auto_order_clusters = FALSE,
-                                 color_clusters = FALSE,
-                                 pvalue_threshold= 0.001,
-                                 clusters_color_palette = NULL) {
+                             sp1_label = "",
+                             sp2_label = "",
+                             dot_size = 0.5,
+                             dot_alpha = 0.4,
+                             reorder = FALSE,
+                             keep_only_significant = FALSE,
+                             color_clusters = FALSE,
+                             pvalue_threshold= 0.001,
+                             clusters_color_palette = NULL) {
   
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
   orthologs_df_to_plot <- orthologs_df
   ### reorder df first :
-  if (auto_order_clusters) {
+  if (reorder) {
     # calculate clusters and reordered synteny
-    orthologs_reordered <- reorder_macrosynteny(orthologs_df)
+    orthologs_reordered <- reorder_macrosynteny(orthologs_df,pvalue_threshold = pvalue_threshold,keep_only_significant = keep_only_significant)
     orthologs_df_to_plot <- orthologs_reordered
   }
   # separate dots not in clusters, and dots in clusters
   if (color_clusters) {
     ### [Exception here] Check that orthologs_df_to_plot has the clust column
     if (!("clust" %in% colnames(orthologs_df_to_plot))) { 
-      stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set auto_order_cluster = TRUE or use reorder_macrosynteny()")
+      stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set reorder = TRUE or use reorder_macrosynteny()")
     }
     ###
     # convert to character for discrete values coloring :

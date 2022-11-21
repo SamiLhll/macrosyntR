@@ -46,16 +46,7 @@ plot_macrosynteny(macrosynteny_df_reordered,
 plot_oxford_grid(my_orthologs_table,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica",
-                 auto_order_clusters = TRUE,
+                 reorder = TRUE,
                  color_clusters = TRUE)
-
-# Change the vector of colors, 1 color per cluster, we see on the plot above that we have 10 clusters :
-plot_oxford_grid(my_orthologs_table,
-                 sp1_label = "B.floridae",
-                 sp2_label = "P.echinospica",
-                 auto_order_clusters = TRUE,
-                 color_clusters = TRUE,
-                 clusters_color_palette = c("#FFA500","#FFA500", "#1E90FF","#FFA500", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22"))
-
 
 
