@@ -27,7 +27,7 @@ plot_oxford_grid(
 
 \item{dot_alpha}{flot. (default = 0.4)}
 
-\item{auto_order_clusters}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_synteny()}
+\item{auto_order_clusters}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
 
 \item{color_clusters}{logical. (default = FALSE) color the orthologous pairs in a significant linkage group}
 
@@ -44,5 +44,5 @@ This is a function to plot the oxford grided plot to compare the macro synteny o
 \seealso{
 \code{\link[=load_orthologs]{load_orthologs()}}
 
-\code{\link[=reorder_synteny]{reorder_synteny()}}
+\code{\link[=reorder_macrosynteny]{reorder_macrosynteny()}}
 }

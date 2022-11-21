@@ -21,24 +21,24 @@ plot_oxford_grid(my_orthologs_table,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica")
 # compute significance and visualize on a dotplot :
-macrosynteny_df <- calculate_macrosynt(my_orthologs_table)
+macrosynteny_df <- compute_macrosynteny(my_orthologs_table)
 head(macrosynteny_df)
-plot_macrosynt(macrosynteny_df,
-               sp1_label = "B.floridae",
-               sp2_label = "P.echinospica")
+plot_macrosynteny(macrosynteny_df,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
 
 
 ## -----------------------------------------------------------------------------
 # visualize the loaded data on a oxford grid :
-my_orthologs_table_reordered <- reorder_synteny(my_orthologs_table)
+my_orthologs_table_reordered <- reorder_macrosynteny(my_orthologs_table)
 plot_oxford_grid(my_orthologs_table_reordered,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica")
 # compute significance and visualize on a dotplot :
-macrosynteny_df_reordered <- calculate_macrosynt(my_orthologs_table_reordered)
-plot_macrosynt(macrosynteny_df_reordered,
-               sp1_label = "B.floridae",
-               sp2_label = "P.echinospica")
+macrosynteny_df_reordered <- compute_macrosynteny(my_orthologs_table_reordered)
+plot_macrosynteny(macrosynteny_df_reordered,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
 
 
 ## -----------------------------------------------------------------------------
