@@ -12,9 +12,9 @@ plot_oxford_grid(
   dot_alpha = 0.4,
   reorder = FALSE,
   keep_only_significant = FALSE,
-  color_clusters = FALSE,
+  color_by = NULL,
   pvalue_threshold = 0.001,
-  clusters_color_palette = NULL
+  color_palette = NULL
 )
 }
 \arguments{
@@ -32,11 +32,11 @@ plot_oxford_grid(
 
 \item{keep_only_significant}{logical. (default = FALSE)}
 
-\item{color_clusters}{logical. (default = FALSE) color the orthologous pairs in a significant linkage group}
+\item{color_by}{string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.}
 
 \item{pvalue_threshold}{float. (default = 0.001)}
 
-\item{clusters_color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
+\item{color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
 }
 \value{
 A ggplot2 object

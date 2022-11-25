@@ -182,6 +182,6 @@ plot_oxford_grid(my_orthologs_table,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica",
                  reorder = TRUE,
-                 color_clusters = TRUE)
+                 color_by = "clust")
 
 ```

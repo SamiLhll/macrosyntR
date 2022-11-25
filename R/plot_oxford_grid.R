@@ -11,9 +11,9 @@
 #' @param dot_alpha flot. (default = 0.4)
 #' @param reorder logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
 #' @param keep_only_significant logical. (default = FALSE)
-#' @param color_clusters logical. (default = FALSE) color the orthologous pairs in a significant linkage group
+#' @param color_by string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.
 #' @param pvalue_threshold float. (default = 0.001) 
-#' @param clusters_color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
+#' @param color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
 #' 
 #' @seealso [load_orthologs()]
 #' @seealso [reorder_macrosynteny()]
@@ -32,9 +32,9 @@ plot_oxford_grid <- function(orthologs_df,
                              dot_alpha = 0.4,
                              reorder = FALSE,
                              keep_only_significant = FALSE,
-                             color_clusters = FALSE,
+                             color_by = NULL,
                              pvalue_threshold= 0.001,
-                             clusters_color_palette = NULL) {
+                             color_palette = NULL) {
   
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
@@ -46,11 +46,11 @@ plot_oxford_grid <- function(orthologs_df,
     orthologs_df_to_plot <- orthologs_reordered
   }
   # separate dots not in clusters, and dots in clusters
-  if (color_clusters) {
-    ### [Exception here] Check that orthologs_df_to_plot has the clust column
-    if (!("clust" %in% colnames(orthologs_df_to_plot))) { 
-      stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set reorder = TRUE or use reorder_macrosynteny()")
-    }
+  if (! is.null(color_by)) {
+    # ### [Exception here] Check that orthologs_df_to_plot has the clust column
+    # if (!(color_ %in% colnames(orthologs_df_to_plot))) { 
+    #   stop("Asked to color the clusters but the clust column couldn't be found in the data. Make sure to set reorder = TRUE or use reorder_macrosynteny()")
+    # }
     ###
     # convert to character for discrete values coloring :
     temp_macrosynt <- compute_macrosynteny(orthologs_df)
@@ -59,16 +59,17 @@ plot_oxford_grid <- function(orthologs_df,
     non_linkage_df <- subset(temp_orthologs_and_macrosynt, significant == "no")
     
     # initialize the plot with colors :
-    p <- ggplot2::ggplot(final_df_with_groups,ggplot2::aes(x=sp1.Index,y=sp2.Index,color = clust)) + 
+    color_by_sym <- ggplot2::ensym(color_by)
+    p <- ggplot2::ggplot(final_df_with_groups,ggplot2::aes(x=sp1.Index,y=sp2.Index,color = !!color_by_sym)) + 
       ggplot2::geom_point(size=dot_size,alpha=dot_alpha) +
       ggplot2::geom_point(data = non_linkage_df,ggplot2::aes(x=sp1.Index,y=sp2.Index),
                           color="gray",
                           size = dot_size,
                           alpha = dot_alpha)
-    if (! is.null(clusters_color_palette)) {
+    if (! is.null(color_palette)) {
       #### [Exception here] : check that length(clusters_color_palette) == length(levels(final_df_with_groups$clust))
       p <- p +
-        ggplot2::scale_color_manual(values = clusters_color_palette)
+        ggplot2::scale_color_manual(values = color_palette)
     }
   }
   else {

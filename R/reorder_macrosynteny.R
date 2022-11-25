@@ -43,6 +43,7 @@ reorder_macrosynteny <- function(orthologs_df,
   # compute clusters of sp1.Chr and sp2.Chr that are directly or indirectly connected in the graph :
   significant_association_undirected_graph <- igraph::graph_from_data_frame(significant_entries_for_graph, directed = F)
   clusters <- igraph::cluster_fast_greedy(significant_association_undirected_graph)
+
   ##### DONE : Built the graph
   
   ##### 2 - Compute amounts of orthologs in each cluster and order them by attributing them an index from 1 to n (1 being the larger cluster) :
