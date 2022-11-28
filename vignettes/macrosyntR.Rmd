@@ -84,7 +84,7 @@ chr8   300    480    sp2.gene.yn
 
 #### Example :
 
-I'm going to show how this package can help visualizing the linkage groups by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
+I'm going to show usage of this package by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
 
 Download the sequences of proteins (fasta format) and their genomic coordinates :    
 
@@ -141,17 +141,40 @@ head(my_orthologs_table)
 
 ### 2 - Compute linkage groups and plot :
 
-Let's compute the pairs of chromosomes that have a significant amount of orthologs using calculate_macrosynt().
-We can visualize the results on a dot plot using plot_macrosnyt() and see the distributions of orthologs on an oxford grid using plot_oxford_grid()
+Let's compute the pairs of chromosomes that have a significant amount of orthologs using compute_macrosynteny().
+We can visualize the results on a dot plot using plot_macrosnyteny() and see the distributions of orthologs on an oxford grid using plot_oxford_grid()
 
 ```{r}
+
+# compute significance :
+macrosynteny_df <- compute_macrosynteny(my_orthologs_table)
+head(macrosynteny_df)
+
+```
+
+
+```{r,eval = FALSE}
+
 # visualize the loaded data on a oxford grid :
 plot_oxford_grid(my_orthologs_table,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica")
-# compute significance and visualize on a dotplot :
-macrosynteny_df <- compute_macrosynteny(my_orthologs_table)
-head(macrosynteny_df)
+
+# Visualize the results of the test of significance :
+plot_macrosynteny(macrosynteny_df,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
+
+```
+
+```{r,echo = FALSE,out.width = c('300px','300px')}
+
+# visualize the loaded data on a oxford grid :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# Visualize the results of the test of significance :
 plot_macrosynteny(macrosynteny_df,
                   sp1_label = "B.floridae",
                   sp2_label = "P.echinospica")
@@ -160,7 +183,29 @@ plot_macrosynteny(macrosynteny_df,
 
 ### 3 - Reorder chromosome levels to group the linkage groups in clusters :
 
-```{r}
+#### 3.1 - Automatic reordering using a network-based greedy algorithm :
+
+Reordering the chromosomes using a network based greedy algorithm can be performed by calling the function reorder_macrosynteny.
+It returns an orthologs_df with reordered levels in sp1.Chr and sp2.Chr. These columns are factors where the levels determine the plotting order.
+You'll see the results of the clustering, when drawing the oxford grid of this newly generated orthologs data.frame
+
+```{r,eval = FALSE}
+
+# visualize the loaded data on a oxford grid :
+my_orthologs_table_reordered <- reorder_macrosynteny(my_orthologs_table)
+plot_oxford_grid(my_orthologs_table_reordered,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# compute significance and visualize on a dotplot :
+macrosynteny_df_reordered <- compute_macrosynteny(my_orthologs_table_reordered)
+plot_macrosynteny(macrosynteny_df_reordered,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
+
+```
+
+```{r,echo = FALSE}
 # visualize the loaded data on a oxford grid :
 my_orthologs_table_reordered <- reorder_macrosynteny(my_orthologs_table)
 plot_oxford_grid(my_orthologs_table_reordered,
@@ -174,14 +219,87 @@ plot_macrosynteny(macrosynteny_df_reordered,
 
 ```
 
-### 4 - Plot directly with reordering the linkage groups and coloring the clusters :
+#### 3.2 - Manually reorder/subset the Chromosomes :
 
-```{r}
-# visualize the loaded data on a oxford grid :
+If you would like to subset some chromosomes of interest and manually reorder them you can still take advantage of functions implemented to handle data.frames.
+This task is out of the scope of this package, and can achieved using base R :
+
+```{r,eval = FALSE}
+# select only the orthologs falling in the chromosomes of interest and plot: 
+subset_of_orthologs <- subset(my_orthologs_table, sp1.Chr %in% c("BFL13","BFL15","BFL2","BFL3") & sp2.Chr %in% c("PEC2","PEC5","PEC11"))
+
+plot_oxford_grid(subset_of_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# reorder :
+subset_of_orthologs$sp2.Chr <- factor(subset_of_orthologs$sp2.Chr,levels = c("PEC5","PEC11","PEC2"))
+plot_oxford_grid(subset_of_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# Compute and plot macrosynteny :
+macrosynteny_of_subset <- compute_macrosynteny(subset_of_orthologs)
+plot_macrosynteny(macrosynteny_of_subset,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+```
+
+```{r,echo = FALSE,out.width = c('300px','300px')}
+# select only the orthologs falling in the chromosomes of interest and plot: 
+subset_of_orthologs <- subset(my_orthologs_table, sp1.Chr %in% c("BFL13","BFL15","BFL2","BFL3") & sp2.Chr %in% c("PEC2","PEC5","PEC11"))
+
+plot_oxford_grid(subset_of_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# reorder :
+subset_of_orthologs$sp2.Chr <- factor(subset_of_orthologs$sp2.Chr,levels = c("PEC5","PEC11","PEC2"))
+plot_oxford_grid(subset_of_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+
+```
+
+
+### 4 - Plot directly with reordering the linkage groups and coloring  :
+
+The reordering can be performed on the row when calling plot_oxford_grid() by setting the reorder argument to TRUE.
+
+```{r,eval = FALSE}
+
+# visualize the loaded data on a oxford grid  with reordering and coloring by cluster :
 plot_oxford_grid(my_orthologs_table,
                  sp1_label = "B.floridae",
                  sp2_label = "P.echinospica",
                  reorder = TRUE,
                  color_by = "clust")
+
+# redo and color by sp1.Chr instead :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "sp1.Chr")
+
+```
+
+```{r,echo = FALSE,out.width = c('300px','300px')}
+
+# visualize the loaded data on a oxford grid  with reordering and coloring by cluster :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "clust")
+
+# redo and color by sp2.Chr instead :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "sp2.Chr")
 
 ```
