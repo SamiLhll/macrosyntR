@@ -46,21 +46,40 @@ Once you have your pairs of orthologs, getting an ordered oxford grid using this
 
 library(macrosyntR)
 
-# load table of mutual best hits and integrate genomic coordinates :
-my_orthologs_table <- load_mbh_df(mbh_table = "DATA/Bflo_vs_Pech.tab",
-                                  sp1_bed = "DATA/Bfloridae.protein_products.bed",
-                                  sp2_bed = "DATA/Pechinospica.protein_products.bed")
+# Load table of orthologs and integrate with genomic coordinates :
+my_orthologs <- load_orthologs(orthologs_table = "DATA/Bflo_vs_Pech.tab",
+                               sp1_bed = "DATA/Bfloridae.protein_products.bed",
+                               sp2_bed = "DATA/Pechinospica.protein_products.bed")
 
-# draw an oxford grid with auto-clustering and coloring of the linkage groups :
-plot_oxford_grid(mbh_df = my_orthologs_table,
-                 sp1_label = "B.floridae",
-                 sp2_label = "P.echinospica",
-                 auto_order_clusters = TRUE,
-                 color_clusters = TRUE)
+# Draw an oxford grid :
+p1 <- plot_oxford_grid(my_orthologs,
+                       sp1_label = "B.floridae",
+                       sp2_label = "P.echinospica")
+p1
+
+# Automatically reorder the oxford grid and color the detected clusters (communities):
+p2 <- plot_oxford_grid(my_orthologs,
+                       sp1_label = "B.floridae",
+                       sp2_label = "P.echinospica",
+                       reorder = TRUE,
+                       color_by = "clust")
+p2
+
+# Plot the significant linkage groups :
+my_macrosynteny <- compute_macrosynteny(my_orthologs)
+p3 <- plot_macrosynteny(my_macrosynteny)
+p3
+
+
+# Call the reordering function, test significance and plot it :
+my_orthologs_reordered <- reorder_macrosynteny(my_orthologs)
+my_macrosynteny <- compute_macrosynteny(my_orthologs_reordered)
+p4 <- plot_macrosynteny(my_macrosynteny)
+p4
 
 ```
 
-<a><img src='https://github.com/SamiLhll/macrosyntR/blob/1c6dd09793e41bcbe2850669614cef3905925b3c/inst/img/Bflo_Pech_oxf_grid.png' align="center" height="400" /></a>   
+<a><img src='https://github.com/SamiLhll/macrosyntR/blob/a5f008b3b596f6ec1c4a73952fde7bf3fbdad57c/inst/img/example.png' align="center" height="650" /></a>   
 
 
 # Getting help
