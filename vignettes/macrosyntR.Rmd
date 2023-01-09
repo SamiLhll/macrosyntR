@@ -30,7 +30,7 @@ It has 5 functions :
 | compute_macrosynteny() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
 | reorder_macrosynteny()     | takes an mbh_df (from load_orthologs()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
 | plot_macrosynteny()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
-| plot_oxford_grid()    | draws an oxford grid from an orthologs_df (output of either load_orthologs() or reorder_synteny()                  |    
+| plot_oxford_grid()    | draws an oxford grid from an orthologs_df (output of either load_orthologs() or reorder_macrosynteny()                  |    
 
 # Step-by-step tutorial :
 
