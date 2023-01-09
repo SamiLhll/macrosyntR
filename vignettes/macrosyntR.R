@@ -130,3 +130,20 @@ plot_oxford_grid(subset_of_orthologs,
 #                   color_by = "sp1.Chr")
 #  
 
+## ----echo = FALSE,out.width = c('300px','300px')------------------------------
+
+# visualize the loaded data on a oxford grid  with reordering and coloring by cluster :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "clust")
+
+# redo and color by sp2.Chr instead :
+plot_oxford_grid(my_orthologs_table,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "sp2.Chr")
+
+
