@@ -17,7 +17,7 @@ Imports:
   dplyr
 Description: Use standard genomic file format to evaluate pair-wise synteny conservation at the genome-wide scale. 
   It takes a table of orthologs and genome annotation files formatted as BED to automatically infer 
-  significantly conserved linkage groups, and order them on an Oxford Grid.
+  significantly conserved linkage groups, and order them on an Oxford Grid using a network based greedy algorithm.
 Encoding: UTF-8
 LazyData: true
 License: GPL-3
