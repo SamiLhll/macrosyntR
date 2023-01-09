@@ -24,9 +24,9 @@ load_orthologs <- function(orthologs_table,
   V1 <- V2 <- V3 <- V4 <- NULL
   sp1.Start <- sp1.End <- sp2.Start <- sp2.End <- sp1.Chr <- sp1.Loci <- sp1.Index <- sp2.Chr <- sp2.Loci <- sp2.Index <- sp1.ID <- sp2.ID <- NULL
   
-  # open orthologs :
-  temp_orthologs_table <- utils::read.csv(orthologs_table,sep ="\t", header = FALSE) %>%
-    dplyr::rename(sp1.ID = V1, sp2.ID = V2)
+  # Error check : 1 - species1_bed and species2_bed contains at least 4 fields (tab separated)
+  # Error check : 2 - temp_orthologs_table contains two fields (tab separated)
+
   # open and arrange species1 bedfile :
   species1_bed <- utils::read.csv(sp1_bed, sep = "\t",header = FALSE) %>%
     dplyr::rename(sp1.Chr = V1, sp1.Start = V2,sp1.End = V3, sp1.ID = V4) %>%
@@ -36,6 +36,13 @@ load_orthologs <- function(orthologs_table,
     dplyr::rename(sp2.Chr = V1, sp2.Start = V2,sp2.End = V3, sp2.ID = V4) %>%
     dplyr::mutate(sp2.Loci = (sp2.Start + sp2.End) /2)
   
+  # open orthologs :
+  temp_orthologs_table <- utils::read.csv(orthologs_table,sep ="\t", header = FALSE)
+  # Error check : the orthologs table must contain two columns
+  if(length(temp_orthologs_table) != 2) {stop("The table of orthologs must contain two columns separated by a \"\\t\"")}
+  temp_orthologs_table <- temp_orthologs_table %>%
+    dplyr::rename(sp1.ID = V1, sp2.ID = V2)
+    
   # add the genomic coordinates to the orthologs table :
   temp_orthologs_table <- merge(temp_orthologs_table,species1_bed)
   orthologs_table_to_return <- merge(temp_orthologs_table,species2_bed)
@@ -54,5 +61,8 @@ load_orthologs <- function(orthologs_table,
   
   orthologs_table_to_return$sp1.Chr <- factor(orthologs_table_to_return$sp1.Chr)
   orthologs_table_to_return$sp2.Chr <- factor(orthologs_table_to_return$sp2.Chr)
+    
+  # Error check : 3 - Check that names (4th field of bed files) match the orthologs table
+  
   return(orthologs_table_to_return)
 }
