@@ -28,11 +28,15 @@ load_orthologs <- function(orthologs_table,
   # Error check : 2 - temp_orthologs_table contains two fields (tab separated)
 
   # open and arrange species1 bedfile :
-  species1_bed <- utils::read.csv(sp1_bed, sep = "\t",header = FALSE) %>%
+  species1_bed <- utils::read.csv(sp1_bed, sep = "\t",header = FALSE)
+  if (length(species1_bed) < 4) { stop("The bed files must be tab separated and contain at least 4 fields (coordinates and name)")}
+  species1_bed <- species1_bed %>%
     dplyr::rename(sp1.Chr = V1, sp1.Start = V2,sp1.End = V3, sp1.ID = V4) %>%
     dplyr::mutate(sp1.Loci = (sp1.Start + sp1.End) /2)
   # open and arrange species2 bedfile :
-  species2_bed <- utils::read.csv(sp2_bed, sep = "\t",header = FALSE) %>%
+  species2_bed <- utils::read.csv(sp2_bed, sep = "\t",header = FALSE)
+  if (length(species2_bed) < 4) { stop("The bed files must be tab separated and contain at least 4 fields (coordinates and name)")}
+  species2_bed <- species2_bed %>%
     dplyr::rename(sp2.Chr = V1, sp2.Start = V2,sp2.End = V3, sp2.ID = V4) %>%
     dplyr::mutate(sp2.Loci = (sp2.Start + sp2.End) /2)
   
@@ -45,7 +49,11 @@ load_orthologs <- function(orthologs_table,
     
   # add the genomic coordinates to the orthologs table :
   temp_orthologs_table <- merge(temp_orthologs_table,species1_bed)
+  # Error check : Check that names (4th field of bed files) match the orthologs table
+  if (length(temp_orthologs_table$sp1.ID) == 0) {stop("Names (4th column) in sp1_bed don't match with any field in the table of orthologs")}
   orthologs_table_to_return <- merge(temp_orthologs_table,species2_bed)
+  # Error check : Check that names (4th field of bed files) match the orthologs table
+  if (length(orthologs_table_to_return$sp1.ID) == 0){ stop("Names (4th column) in sp2_bed don't match with any field in the table of orthologs")}
   
   # Calculate the indexes :
   orthologs_table_to_return <- orthologs_table_to_return %>%
@@ -62,7 +70,6 @@ load_orthologs <- function(orthologs_table,
   orthologs_table_to_return$sp1.Chr <- factor(orthologs_table_to_return$sp1.Chr)
   orthologs_table_to_return$sp2.Chr <- factor(orthologs_table_to_return$sp2.Chr)
     
-  # Error check : 3 - Check that names (4th field of bed files) match the orthologs table
   
   return(orthologs_table_to_return)
 }
