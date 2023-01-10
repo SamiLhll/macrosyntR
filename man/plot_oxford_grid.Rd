@@ -24,9 +24,9 @@ plot_oxford_grid(
 
 \item{sp2_label}{string. name of 2nd species to display on the plot}
 
-\item{dot_size}{float. (default = 0.5)}
+\item{dot_size}{numeric. (default = 0.5)}
 
-\item{dot_alpha}{flot. (default = 0.4)}
+\item{dot_alpha}{numeric. (default = 0.4)}
 
 \item{reorder}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
 
@@ -34,7 +34,7 @@ plot_oxford_grid(
 
 \item{color_by}{string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.}
 
-\item{pvalue_threshold}{float. (default = 0.001)}
+\item{pvalue_threshold}{numeric. (default = 0.001)}
 
 \item{color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
 }

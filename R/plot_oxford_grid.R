@@ -7,12 +7,12 @@
 #' @param orthologs_df dataframe. orthologs with genomic coordinates loaded by the load_orthologs()
 #' @param sp1_label string. name of 1st species to display on the plot
 #' @param sp2_label string. name of 2nd species to display on the plot
-#' @param dot_size float. (default = 0.5)
-#' @param dot_alpha flot. (default = 0.4)
+#' @param dot_size numeric. (default = 0.5)
+#' @param dot_alpha numeric. (default = 0.4)
 #' @param reorder logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
 #' @param keep_only_significant logical. (default = FALSE)
 #' @param color_by string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.
-#' @param pvalue_threshold float. (default = 0.001) 
+#' @param pvalue_threshold numeric. (default = 0.001) 
 #' @param color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
 #' 
 #' @seealso [load_orthologs()]
@@ -39,6 +39,47 @@ plot_oxford_grid <- function(orthologs_df,
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
   orthologs_df_to_plot <- orthologs_df
+  # Error check : proper format for arguments :
+  if (!(is.character(sp1_label) & length(sp1_label) == 1)) { stop("Wrong format for argument 'sp1_label'. Must be a single value of type character")}
+  if (!(is.character(sp2_label) & length(sp2_label) == 1)) { stop("Wrong format for argument 'sp2_label'. Must be a single value of type character")}
+  if (!(is.numeric(dot_size) & length(dot_size) == 1)) { stop("Wrong format for argument 'dot_size'. Must be a single value of type numeric")}
+  if (!(is.numeric(dot_alpha) & length(dot_alpha) == 1)) { stop("Wrong format for argument 'dot_alpha'. Must be a single value of type numeric")}
+  if (!(is.logical(reorder) & length(reorder) == 1)) { stop("Wrong format for argument 'reorder'. Must be a single value of type logical")}
+  if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must of type logical")}
+  if(!(is.null(color_by))) {
+    if (reorder) {
+      if (!((color_by %in% colnames(orthologs_df) | color_by == "clust") & length(color_by) == 1 & is.character(color_by))) {
+        stop("Wrong format for 'color_by' argument. Must be a single value of type character and correspond to the name of one column of the orthologs_df")
+      }
+    }
+    else if (!(color_by %in% colnames(orthologs_df) & length(color_by) == 1 & is.character(color_by))) { 
+      stop("Wrong format for 'color_by' argument. Must be a single value of type character and correspond to the name of one column of the orthologs_df")
+      }
+  }
+  if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
+  if (!(is.null(color_by))) {
+    if (color_by != "clust") {
+      if (!(is.null(color_palette) & (length(color_palette) != length(orthologs_df[[color_by]])))) {stop("Wrong format in argument 'color_palette'. Must be a list of colors with as much values as the amount of unique elements in the column specified in the argument 'color_by'")}
+    }
+  }
+  
+  # Error check : format of orthologs_df 
+  required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
+  for (i in required_fields) {
+    if (isFALSE(i %in% colnames(orthologs_df))) {
+      required_fields_character <- paste(required_fields,sep=",")
+      stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+    }
+  }
+  # Error check : orthologs_df is empty
+  if (length(orthologs_df) == 0) {stop("Table provided through the orthologs_df argument is empty")}
+  # Warning check : when number of chromosomes is too high
+  if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
+    warning(paste0("The first species in the orthologs_df has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  if (length(unique(orthologs_df$sp2.Chr)) >= 300) { 
+    warning(paste0("The second species in the orthologs_df has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
   ### reorder df first :
   if (reorder) {
     # calculate clusters and reordered synteny

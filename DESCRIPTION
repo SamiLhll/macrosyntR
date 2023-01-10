@@ -1,9 +1,16 @@
 Package: macrosyntR
 Type: Package
-Title: Draw Oxford Grids
+Title: Draw ordered Oxford Grids
 Version: 0.2.10
-Authors@R: person("Sami", "El Hilali",email = "elhilali.sami@gmail.com", 
-  role = c("aut", "cre"),comment = c(ORCID = "0000-0003-4417-8399"))
+Authors@R: c(person(given="Sami",
+ family ="El Hilali",
+ email = "elhilali.sami@gmail.com",
+ role = c("aut", "cre"),
+ comment = c(ORCID = "0000-0003-4417-8399")),
+ person(given="Richard",
+ family="Copley",
+ role = "aut")
+  )
 Maintainer: Sami El Hilali <elhilali.sami@gmail.com>
 Depends: R (>= 4.1.0)
 Imports:
@@ -16,7 +23,7 @@ Imports:
   reshape2,
   dplyr
 Description: Use standard genomic file format to evaluate pair-wise synteny conservation at the genome-wide scale. 
-  It takes a table of orthologs and genome annotation files formatted as BED to automatically infer 
+  It takes a table of orthologs and genome annotation files to automatically infer 
   significantly conserved linkage groups, and order them on an Oxford Grid using a network based greedy algorithm.
 Encoding: UTF-8
 LazyData: true
