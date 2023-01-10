@@ -1,7 +1,7 @@
 Package: macrosyntR
 Type: Package
 Title: Draw ordered Oxford Grids
-Version: 0.2.10
+Version: 0.2.11
 Authors@R: c(person(given="Sami",
  family ="El Hilali",
  email = "elhilali.sami@gmail.com",
@@ -9,7 +9,8 @@ Authors@R: c(person(given="Sami",
  comment = c(ORCID = "0000-0003-4417-8399")),
  person(given="Richard",
  family="Copley",
- role = "aut")
+ role = "aut",
+ comment = c(ORCID = "0000-0001-7846-4954"))
   )
 Maintainer: Sami El Hilali <elhilali.sami@gmail.com>
 Depends: R (>= 4.1.0)

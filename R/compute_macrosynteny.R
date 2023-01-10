@@ -23,6 +23,25 @@ compute_macrosynteny <- function(orthologs_df,pvalue_threshold = 0.001) {
   ### construct the contingency table :
   final_i <- final_j <- final_a <- final_b <- final_c <- final_d <- NULL
   sp1.Chr <- sp2.Chr <- value <- variable <- pvalues_value <- pvalues_adj <- odds <- a <- significant <-NULL
+  # Error check : proper format for arguments :
+  if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
+  # Error check : format of orthologs_df 
+  required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
+  for (i in required_fields) {
+    if (isFALSE(i %in% colnames(orthologs_df))) {
+      required_fields_character <- paste(required_fields,sep=",")
+      stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+    }
+  }
+  # Error check : orthologs_df is empty
+  if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the orthologs_df argument is empty")}
+  # Warning check : when number of chromosomes is too high
+  if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
+    warning(paste0("The first species in the orthologs_df has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  if (length(unique(orthologs_df$sp2.Chr)) >= 300) { 
+    warning(paste0("The second species in the orthologs_df has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
   
   for (i in unique(orthologs_df$sp1.Chr)) {
     subsetted_orthologs_df_in <- subset(orthologs_df,sp1.Chr == i)

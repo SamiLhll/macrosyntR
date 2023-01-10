@@ -22,6 +22,26 @@ plot_macrosynteny <- function(macrosynt_df,
   
   sp1.Chr <- sp2.Chr <- orthologs <- significant <- NULL
   
+  # Error check : proper format for arguments :
+  if (!(is.character(sp1_label) & length(sp1_label) == 1)) { stop("Wrong format for argument 'sp1_label'. Must be a single value of type character")}
+  if (!(is.character(sp2_label) & length(sp2_label) == 1)) { stop("Wrong format for argument 'sp2_label'. Must be a single value of type character")}
+  # Error check : proper formatting of macrosynt_df
+  required_fields <- c("sp1.Chr","sp2.Chr","orthologs","pval","significant","pval_adj")
+  for (i in required_fields) {
+    if (isFALSE(i %in% colnames(macrosynt_df))) {
+      stop("Missing fields in the provided 'macrosynt_df'. All the following columns are required : sp1.Chr, sp2.Chr, orthologs, pval, significant, pval_adj")
+    }
+  }
+  # Error check : macrosynt_df is empty
+  if (length(macrosynt_df$sp1.Chr) == 0) {stop("Table provided through the 'macrosynt_df' argument is empty")}
+  # Warning check : when number of chromosomes is too high
+  if (length(unique(macrosynt_df$sp1.Chr)) >= 300) { 
+    warning(paste0("The first species in the 'macrosynt_df' has ",length(unique(macrosynt_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  if (length(unique(macrosynt_df$sp2.Chr)) >= 300) { 
+    warning(paste0("The second species in the 'macrosynt_df' has ",length(unique(macrosynt_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  
   macrosynt_df_to_plot <- macrosynt_df
   
   ### Plot :

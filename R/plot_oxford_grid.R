@@ -45,7 +45,7 @@ plot_oxford_grid <- function(orthologs_df,
   if (!(is.numeric(dot_size) & length(dot_size) == 1)) { stop("Wrong format for argument 'dot_size'. Must be a single value of type numeric")}
   if (!(is.numeric(dot_alpha) & length(dot_alpha) == 1)) { stop("Wrong format for argument 'dot_alpha'. Must be a single value of type numeric")}
   if (!(is.logical(reorder) & length(reorder) == 1)) { stop("Wrong format for argument 'reorder'. Must be a single value of type logical")}
-  if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must of type logical")}
+  if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must be of type logical")}
   if(!(is.null(color_by))) {
     if (reorder) {
       if (!((color_by %in% colnames(orthologs_df) | color_by == "clust") & length(color_by) == 1 & is.character(color_by))) {
@@ -67,18 +67,17 @@ plot_oxford_grid <- function(orthologs_df,
   required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
   for (i in required_fields) {
     if (isFALSE(i %in% colnames(orthologs_df))) {
-      required_fields_character <- paste(required_fields,sep=",")
-      stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+      stop("Missing fields in the provided 'orthologs_df'. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
     }
   }
   # Error check : orthologs_df is empty
-  if (length(orthologs_df) == 0) {stop("Table provided through the orthologs_df argument is empty")}
+  if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the 'orthologs_df' argument is empty")}
   # Warning check : when number of chromosomes is too high
   if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
-    warning(paste0("The first species in the orthologs_df has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+    warning(paste0("The first species in the 'orthologs_df' has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
   }
   if (length(unique(orthologs_df$sp2.Chr)) >= 300) { 
-    warning(paste0("The second species in the orthologs_df has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+    warning(paste0("The second species in the 'orthologs_df' has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
   }
   ### reorder df first :
   if (reorder) {

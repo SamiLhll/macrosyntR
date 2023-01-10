@@ -27,6 +27,28 @@ reorder_macrosynteny <- function(orthologs_df,
   final_levels_sp1 <- final_levels_sp2 <- NULL
   significant <- pval <- orthologs <- sp1.Chr <- sp2.Chr <- amounts <- clust <- n <- weight <- NULL
   
+  # Error check : 
+  # Error check : proper format for arguments :
+  if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
+  if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must be of type logical")}
+  # Error check : proper formatting of macrosynt_df
+  # Error check : format of orthologs_df 
+  required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
+  for (i in required_fields) {
+    if (isFALSE(i %in% colnames(orthologs_df))) {
+      stop("Missing fields in the provided 'orthologs_df'. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+    }
+  }
+  # Error check : orthologs_df is empty
+  if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the 'orthologs_df' argument is empty")}
+  # Warning check : when number of chromosomes is too high
+  if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
+    warning(paste0("The first species in the 'orthologs_df' has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  if (length(unique(orthologs_df$sp2.Chr)) >= 300) { 
+    warning(paste0("The second species in the 'orthologs_df' has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
+  }
+  
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
   # Get a table with only significant association using compute_macrosynteny from this package :
   contingency_table <- compute_macrosynteny(orthologs_df,pvalue_threshold)
