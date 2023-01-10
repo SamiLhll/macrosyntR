@@ -7,11 +7,11 @@
 load_orthologs(orthologs_table, sp1_bed, sp2_bed)
 }
 \arguments{
-\item{orthologs_table}{string. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2)}
+\item{orthologs_table}{character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2)}
 
-\item{sp1_bed}{string. Full path to the genomic coordinates of the genes on species1 (BED format)}
+\item{sp1_bed}{character. Full path to the genomic coordinates of the genes on species1 (BED format)}
 
-\item{sp2_bed}{string. Full path to the genomic coordinates of the genes on species2 (BED format)}
+\item{sp2_bed}{character. Full path to the genomic coordinates of the genes on species2 (BED format)}
 }
 \value{
 dataframe composed of genomic coordinates and relative index of orthologs on both species

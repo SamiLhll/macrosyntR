@@ -5,8 +5,8 @@
 #' @description This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
 #'
 #' @param orthologs_df dataframe. orthologs with genomic coordinates loaded by the load_orthologs()
-#' @param sp1_label string. name of 1st species to display on the plot
-#' @param sp2_label string. name of 2nd species to display on the plot
+#' @param sp1_label character. name of 1st species to display on the plot
+#' @param sp2_label character. name of 2nd species to display on the plot
 #' @param dot_size numeric. (default = 0.5)
 #' @param dot_alpha numeric. (default = 0.4)
 #' @param reorder logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()

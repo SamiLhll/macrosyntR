@@ -20,9 +20,9 @@ plot_oxford_grid(
 \arguments{
 \item{orthologs_df}{dataframe. orthologs with genomic coordinates loaded by the load_orthologs()}
 
-\item{sp1_label}{string. name of 1st species to display on the plot}
+\item{sp1_label}{character. name of 1st species to display on the plot}
 
-\item{sp2_label}{string. name of 2nd species to display on the plot}
+\item{sp2_label}{character. name of 2nd species to display on the plot}
 
 \item{dot_size}{numeric. (default = 0.5)}
 

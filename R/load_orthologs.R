@@ -6,9 +6,9 @@
 #'   in the two species under study. It outputs a data.frame shaped as following :
 #'   sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.Index 
 #'
-#' @param orthologs_table string. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2)
-#' @param sp1_bed string. Full path to the genomic coordinates of the genes on species1 (BED format)
-#' @param sp2_bed string. Full path to the genomic coordinates of the genes on species2 (BED format)
+#' @param orthologs_table character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2)
+#' @param sp1_bed character. Full path to the genomic coordinates of the genes on species1 (BED format)
+#' @param sp2_bed character. Full path to the genomic coordinates of the genes on species2 (BED format)
 
 #' @return dataframe composed of genomic coordinates and relative index of orthologs on both species
 #'

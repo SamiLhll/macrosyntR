@@ -9,9 +9,9 @@ plot_macrosynteny(macrosynt_df, sp1_label = "", sp2_label = "")
 \arguments{
 \item{macrosynt_df}{dataframe of contingency table with p-values calculated by the compute_macrosynteny() function}
 
-\item{sp1_label}{string. The name of the species1 to display on the plot}
+\item{sp1_label}{character. The name of the species1 to display on the plot}
 
-\item{sp2_label}{string. The name of the species2 to put on the plot}
+\item{sp2_label}{character. The name of the species2 to put on the plot}
 }
 \value{
 ggplot2 object
