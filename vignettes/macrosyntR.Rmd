@@ -94,9 +94,7 @@ Download the sequences of proteins (fasta format) and their genomic coordinates 
  get the genomic coordinates by clicking "Download genome annotation in tabular format" and further click download as csv.   
  
  - P.echinospica :   
- The data are available on figshare.   
- get the protein sequences here : https://figshare.com/ndownloader/files/28945467   
- get the genome annotation here : https://figshare.com/ndownloader/files/28945458   
+ The data are available on figshare under the doi : [10.6084/m9.figshare.15050478](https://doi.org/10.6084/m9.figshare.15050478) 
  
  
  Compute the reciprocal best hits of the fasta sequences. Using [rbhXpress](https://github.com/SamiLhll/rbhXpress) you can achieve it by typing the following in your terminal :   
