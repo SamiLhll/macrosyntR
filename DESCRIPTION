@@ -24,8 +24,9 @@ Imports:
   reshape2,
   dplyr
 Description: Use standard genomics file format (BED) to evaluate the pair-wise synteny conservation at the genome-wide scale. 
-  It takes as input a table of orthologous genes and genome annotation files formatted as BED <https://www.ensembl.org/info/website/upload/bed.html>.
-  It allows to automatically infer the significantly conserved linkage groups as described in Simakov et al. (2020) <doi:10.1038/s41559-020-1156-z>, and order them on an Oxford Grid (Edwards (1991) <doi:10.1111/j.1469-1809.1991.tb00394.x>).
+  It takes as input a table of orthologous genes and genome annotation files formatted as BED <https://www.ensembl.org/info/website/upload/bed.html>
+  The purpose of it is to infer the significantly conserved linkage groups as described in Simakov et al. (2020) <doi:10.1038/s41559-020-1156-z>. and display them on an Oxford Grid (Edwards (1991) <doi:10.1111/j.1469-1809.1991.tb00394.x>).
+  It features an algorithm to automatically order the chromosomes on the Oxford Grid to improve its interpretability. 
   The ordering is performed by using a network-based greedy algorithm to find communities (Clauset et al. (2004) <doi:10.1103/PhysRevE.70.066111>), as implemented in the R package igraph <https://igraph.org/>.
 Encoding: UTF-8
 LazyData: true
