@@ -15,6 +15,13 @@
 #' @import tidyr
 #' @importFrom dplyr rename mutate select
 #' 
+#' @examples 
+#' # basic usage of compute_macrosynteny : 
+#' my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+#'                                sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+#'                                sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+#' my_macrosynteny <- compute_macrosynteny(my_orthologs)
+#' 
 #' @export
 
 

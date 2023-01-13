@@ -13,6 +13,17 @@
 #' @return ggplot2 object
 #'
 #' @import ggplot2
+#' 
+#' @examples 
+#' # basic usage of plot_macrosynteny : 
+#' my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+#'                                sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+#'                                sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+#' my_macrosynteny <- compute_macrosynteny(my_orthologs)
+#' plot_macrosynteny(my_macrosynteny,
+#'                   sp1_label = "B.floridae,
+#'                   sp2_label = "P.echinospica")
+#' 
 #' @export
 
 

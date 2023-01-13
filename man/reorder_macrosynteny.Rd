@@ -23,6 +23,15 @@ A dataframe object
 \description{
 This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It retrieves communities using igraph::cluster_fast_greedy.
 }
+\examples{
+# basic usage of plot_oxford_grid : 
+my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+                               sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+                               sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+
+my_orthologs_reordered <- reorder_macrosynteny(my_orthologs)
+
+}
 \seealso{
 \code{\link[=load_orthologs]{load_orthologs()}}
 

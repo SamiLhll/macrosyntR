@@ -44,6 +44,24 @@ A ggplot2 object
 \description{
 This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
 }
+\examples{
+# basic usage of plot_oxford_grid : 
+my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+                               sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+                               sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+
+plot_oxford_grid(my_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica")
+
+# plot a reordered Oxford Grid and color by cluster :
+plot_oxford_grid(my_orthologs,
+                 sp1_label = "B.floridae",
+                 sp2_label = "P.echinospica",
+                 reorder = TRUE,
+                 color_by = "clust")
+ 
+}
 \seealso{
 \code{\link[=load_orthologs]{load_orthologs()}}
 

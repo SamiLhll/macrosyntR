@@ -14,6 +14,14 @@
 #' @importFrom igraph graph_from_data_frame cluster_fast_greedy groups
 #' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff desc
 #' 
+#'@examples 
+#' # basic usage of plot_oxford_grid : 
+#' my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+#'                                sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+#'                                sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+#' 
+#' my_orthologs_reordered <- reorder_macrosynteny(my_orthologs)
+#' 
 #' @export
 
 

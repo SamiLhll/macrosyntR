@@ -19,6 +19,24 @@ ggplot2 object
 \description{
 This is a function to generate the contingency table of an MBH dataframe and apply fischer test to calculate the significant associations.
 }
+\examples{
+# basic usage of plot_macrosynteny : 
+
+orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
+bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
+bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+
+my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
+                               sp1_bed = bedfile_sp1,
+                               sp2_bed = bedfile_sp2)
+                               
+my_macrosynteny <- compute_macrosynteny(my_orthologs)
+
+plot_macrosynteny(my_macrosynteny,
+                  sp1_label = "B.floridae",
+                  sp2_label = "P.echinospica")
+
+}
 \seealso{
 \code{\link[=compute_macrosynteny]{compute_macrosynteny()}}
 }

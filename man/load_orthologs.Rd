@@ -23,8 +23,8 @@ sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.
 }
 \examples{
 # basic usage of load_orthologs
-load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
-               sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
-               sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+                               sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+                               sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
 
 }

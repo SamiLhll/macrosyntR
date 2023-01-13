@@ -19,3 +19,11 @@ This is a function to generate the contingency table of an orthologs dataframe a
 apply fischer test to calculate the significant associations. It outputs a dataframe shaped as following :
 sp1.Chr,sp2.Chr,a,pval,significant,pval_adj
 }
+\examples{
+# basic usage of compute_macrosynteny : 
+my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+                               sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+                               sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+my_macrosynteny <- compute_macrosynteny(my_orthologs)
+
+}
