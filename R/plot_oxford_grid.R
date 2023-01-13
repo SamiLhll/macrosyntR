@@ -25,9 +25,14 @@
 #' 
 #' @examples 
 #' # basic usage of plot_oxford_grid : 
-#' my_orthologs <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
-#'                                sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
-#'                                sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+#' 
+#' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
+#' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
+#' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#' 
+#' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
+#'                                sp1_bed = bedfile_sp1,
+#'                                sp2_bed = bedfile_sp2)
 #'
 #' plot_oxford_grid(my_orthologs,
 #'                  sp1_label = "B.floridae",
