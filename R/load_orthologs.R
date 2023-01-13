@@ -14,6 +14,13 @@
 #'
 #' @import utils
 #' @importFrom dplyr rename mutate group_by arrange ungroup select row_number
+#' 
+#' @examples 
+#' # basic usage of load_orthologs
+#' load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
+#'                sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+#'                sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+#' 
 #' @export
 
 
