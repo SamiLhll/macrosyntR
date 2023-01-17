@@ -34,7 +34,7 @@ It has 5 functions :
 
 # Step-by-step tutorial :
 
-We demonstrate the usage of the package using publicly available data.   
+We demonstrate the usage of the package using a subset of publicly available data.   
 
 * Branchiostoma floridae (Simakov et al. 2020)   
 data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)   
@@ -82,6 +82,7 @@ chr6     50    200    sp2.gene.y2
 chr8   300    480    sp2.gene.yn   
 ```
 
+
 #### Example :
 
 I'm going to show usage of this package by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
@@ -118,9 +119,9 @@ sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bflo.protein_products.
 fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | \
 fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pech.protein_products.bed
 
-# Note that I further filtered the data attached with the package to save space by keeping only the coordinates of orthologous genes.
-
 ```
+
+**Please note that I generated a subset of these datasets, and kept only 2500 ortholog pairs to lower the compilation time**.
 
 Now the data are ready to be loaded into R using macrosyntR :
 

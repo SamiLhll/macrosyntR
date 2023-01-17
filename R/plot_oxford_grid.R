@@ -26,25 +26,22 @@
 #' @examples 
 #' # basic usage of plot_oxford_grid : 
 #' 
-#' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
-#' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
-#' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#' orthologs_table <- system.file("extdata","my_orthologs.tab",package="macrosyntR")
 #' 
-#' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
-#'                                sp1_bed = bedfile_sp1,
-#'                                sp2_bed = bedfile_sp2)
+#' my_orthologs <- read.table(orthologs_table,header=TRUE)
 #'
 #' plot_oxford_grid(my_orthologs,
 #'                  sp1_label = "B.floridae",
 #'                  sp2_label = "P.echinospica")
 #' 
 #' # plot a reordered Oxford Grid and color by cluster :
+#' \dontrun{
 #' plot_oxford_grid(my_orthologs,
 #'                  sp1_label = "B.floridae",
 #'                  sp2_label = "P.echinospica",
 #'                  reorder = TRUE,
 #'                  color_by = "clust")
-#'  
+#'  }
 #' @export
 
 

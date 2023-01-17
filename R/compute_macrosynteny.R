@@ -18,13 +18,9 @@
 #' @examples 
 #' # basic usage of compute_macrosynteny : 
 #' 
-#' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
-#' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
-#' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#' orthologs_table <- system.file("extdata","my_orthologs.tab",package="macrosyntR")
 #' 
-#' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
-#'                                sp1_bed = bedfile_sp1,
-#'                                sp2_bed = bedfile_sp2)
+#' my_orthologs <- read.table(orthologs_table,header=TRUE)
 #'                                
 #' my_macrosynteny <- compute_macrosynteny(my_orthologs)
 #' 
@@ -121,8 +117,18 @@ compute_macrosynteny <- function(orthologs_df,pvalue_threshold = 0.001) {
     dplyr::select(sp1.Chr,sp2.Chr,a,pvalues_value,significant,pvalues_adj) %>%
     dplyr::rename(orthologs = a,pval = pvalues_value,pval_adj = pvalues_adj)
   # copy the levels of orthologs_df to keep the same ordering when plotting :
-  macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr,levels = levels(orthologs_df$sp1.Chr))
-  macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr,levels = levels(orthologs_df$sp2.Chr))
+  if (is.factor(orthologs_df$sp1.Chr)) {
+    macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr,levels = levels(orthologs_df$sp1.Chr))
+  }
+  else {
+    macrosynt_df$sp1.Chr <- factor(macrosynt_df$sp1.Chr)
+  }
+  if (is.factor(orthologs_df$sp1.Chr)) {
+    macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr,levels = levels(orthologs_df$sp2.Chr))
+  }
+  else {
+    macrosynt_df$sp2.Chr <- factor(macrosynt_df$sp2.Chr)
+  }
   
   return(macrosynt_df)
   
