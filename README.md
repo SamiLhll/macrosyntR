@@ -7,6 +7,7 @@ infer significantly conserved linkage groups, and order them on an oxford grid.
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+  [![CRAN](http://www.r-pkg.org/badges/version/macrosyntR)](https://cran.r-project.org/package=macrosyntR)
 <!-- badges: end -->
 
 -----------------------------------------------------------------------   
