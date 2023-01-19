@@ -16,7 +16,8 @@ infer significantly conserved linkage groups, and order them on an oxford grid.
 
 ```{r}
 
-# Before this package is submitted to CRAN,
+# A stable version is available on CRAN and can be downloaded using :
+install.packages("macrosyntR")
 # get the development version from GitHub using devtools :
 # install.packages("devtools")
 devtools::install_github("SamiLhll/macrosyntR",build_vignettes = TRUE)
