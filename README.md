@@ -3,11 +3,12 @@
 
 An R package for evaluation of pair-wise synteny conservation at the genome-wide scale.
 It takes a table of orthologs and genome annotation files formatted as BED to automatically
-infer significantly conserved linkage groups, and order them on an oxford grid.   
+infer significantly conserved linkage groups, and order them on an oxford grid using a network based greedy algorithm.   
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-  [![CRAN](http://www.r-pkg.org/badges/version/macrosyntR)](https://cran.r-project.org/package=macrosyntR)
+  [![CRAN](http://www.r-pkg.org/badges/version/macrosyntR)](https://cran.r-project.org/package=macrosyntR) 
+  [![bioRxiv:10.1101/2023.01.26.525673](https://img.shields.io/badge/bioRxiv-10.1101/2023.01.26.525673-d87f80.svg)](https://doi.org/10.1101/2023.01.26.525673)
 <!-- badges: end -->
 
 -----------------------------------------------------------------------   
@@ -89,4 +90,10 @@ p4
 Need help, Identified a bug, or want to see other features implemented ?   
 Feel free to open an issue here or send an email at :   
 elhilali.sami@gmail.com
+
+# Citation
+
+If used in your research, please cite :   
+
+* El Hilali S and Copley R, "macrosyntR : Drawing automatically ordered Oxford Grids from standard genomic files in R", preprint (2023). [doi:10.1101/2023.01.26.525673](https://doi.org/10.1101/2023.01.26.525673)
 
