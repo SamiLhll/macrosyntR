@@ -3,7 +3,7 @@
 
 An R package for evaluation of pair-wise synteny conservation at the genome-wide scale.
 It takes a table of orthologs and genome annotation files formatted as BED to automatically
-infer significantly conserved linkage groups, and order them on an oxford grid using a network based greedy algorithm.   
+infer significantly conserved linkage groups, and order them on an Oxford grid using a network based greedy algorithm.   
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -40,10 +40,10 @@ To start drawing an oxford grid using this package, you'll need three files :
 * 2 - A bed file listing the genomic coordinates and sequence names of all the orthologs of the 1st species (with names matching the first column of file 1)   
 * 3 - A bed file, same as the other, for the 2nd species. (with names matching those of the first column of file 2)
 
-### Get an automatically ordered and colored oxford grid :
+### Get an automatically ordered and colored Oxford grid :
 
 To illustrate the results of the package we compare the publicly available data from the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the Siboglinidae Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203))   
-Once you have your pairs of orthologs, getting an ordered oxford grid using this package is achieved as following :   
+Once you have your pairs of orthologs, getting an ordered Oxford grid using this package is achieved as following :   
 
 ```{r}
 
@@ -60,7 +60,7 @@ p1 <- plot_oxford_grid(my_orthologs,
                        sp2_label = "P.echinospica")
 p1
 
-# Automatically reorder the oxford grid and color the detected clusters (communities):
+# Automatically reorder the Oxford grid and color the detected clusters (communities):
 p2 <- plot_oxford_grid(my_orthologs,
                        sp1_label = "B.floridae",
                        sp2_label = "P.echinospica",
