@@ -60,10 +60,10 @@ load_orthologs <- function(orthologs_table,
     dplyr::rename(sp1.ID = V1, sp2.ID = V2)
     
   # add the genomic coordinates to the orthologs table :
-  temp_orthologs_table <- merge(temp_orthologs_table,species1_bed)
+  temp_orthologs_table <- merge(temp_orthologs_table,species1_bed,by="sp1.ID")
   # Error check : Check that names (4th field of bed files) match the orthologs table
   if (length(temp_orthologs_table$sp1.ID) == 0) {stop("Names (4th column) in sp1_bed don't match with any field in the table of orthologs")}
-  orthologs_table_to_return <- merge(temp_orthologs_table,species2_bed)
+  orthologs_table_to_return <- merge(temp_orthologs_table,species2_bed,by="sp2.ID")
   # Error check : Check that names (4th field of bed files) match the orthologs table
   if (length(orthologs_table_to_return$sp1.ID) == 0){ stop("Names (4th column) in sp2_bed don't match with any field in the table of orthologs")}
   
