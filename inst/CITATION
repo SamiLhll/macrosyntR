@@ -1,0 +1,19 @@
+citHeader("To cite macrosyntR in publications, use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "macrosyntR : Drawing automatically ordered Oxford Grids from standard genomic files in R",
+  author   = personList(
+      as.person("Sami El Hilali"),
+      as.person("Richard R. Copley")
+  ),
+  journal  = "BioRxiv",
+  year     = "2023",
+  url      = "https://www.biorxiv.org/content/10.1101/2023.01.26.525673v1",
+  doi      = "10.1101/2023.01.26.525673",
+  textVersion = paste(
+      "El Hilali, S., Copley, R.",
+      "macrosyntR : Drawing automatically ordered Oxford Grids from standard genomic files in R.",
+      "BioRxiv (2023). https://doi.org/10.1101/2023.01.26.525673"
+  )
+)
