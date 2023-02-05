@@ -179,3 +179,18 @@ scale_color_manual(values = c("gray45","darkgreen")) +
   theme(legend.position = "right")
 
 
+## -----------------------------------------------------------------------------
+
+library(dplyr)
+
+# Let's color only the orthologs that were previously selected in the part 3.2 :
+my_orthologs_table_modified <- my_orthologs_table_reordered %>%
+  mutate(selected = "no") %>%
+  mutate(selected = replace(selected,sp1.ID %in% subset_of_orthologs$sp1.ID,"yes"))
+
+plot_oxford_grid(my_orthologs_table_modified,
+                 color_by = "selected",
+                 color_palette = c("black","firebrick"))
+
+
+
