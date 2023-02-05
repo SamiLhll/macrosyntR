@@ -147,3 +147,35 @@ plot_oxford_grid(my_orthologs_table,
                  color_by = "sp2.Chr")
 
 
+## -----------------------------------------------------------------------------
+
+library(ggplot2)
+
+# legend on right (works also with "top" and "left") :
+plot_macrosynteny(macrosynteny_df_reordered) +
+  theme(legend.position = "right")
+
+
+## -----------------------------------------------------------------------------
+
+# Check how many colors are necessary :
+print(length(unique(my_orthologs_table_reordered$sp2.Chr)))
+
+# change color_palette using plot_oxford_grid option color_palette :
+color_palette_Pechinospica_chromosomes <- c("#A52A2A", "#FFD39B", "#66CDAA", "#8EE5EE", "#7FFF00", "#FFD700", "#FF7F00", "#474747", "#6495ED", "#FF3030", "#0000EE", "#FF1493", "#8A2BE2", "#080808")
+
+
+plot_oxford_grid(my_orthologs_table_reordered,
+                 color_by = "sp2.Chr",
+                 color_palette = color_palette_Pechinospica_chromosomes)
+
+
+## -----------------------------------------------------------------------------
+
+# change the colors in plot_macrosynteny using ggplot2 functions :
+
+plot_macrosynteny(macrosynteny_df_reordered) +
+scale_color_manual(values = c("gray45","darkgreen")) +
+  theme(legend.position = "right")
+
+

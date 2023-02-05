@@ -79,7 +79,8 @@ plot_oxford_grid <- function(orthologs_df,
   if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
   if (!(is.null(color_by))) {
     if (color_by != "clust") {
-      if (!(is.null(color_palette) & (length(color_palette) != length(orthologs_df[[color_by]])))) {stop("Wrong format in argument 'color_palette'. Must be a list of colors with as much values as the amount of unique elements in the column specified in the argument 'color_by'")}
+      if (!(is.null(color_palette)) & (length(color_palette) < length(unique(orthologs_df[[color_by]])))) {stop(paste("Wrong format in argument 'color_palette'. Must be a list of colors with as much values as the amount of unique elements in the column specified in the argument 'color_by'. color palette has ",
+                                                                                                               length(color_palette)," elements, while the color_by column is ",length(unique(orthologs_df[[color_by]]))))}
     }
   }
   
@@ -144,7 +145,7 @@ plot_oxford_grid <- function(orthologs_df,
                    strip.text.y=ggplot2::element_text(family="sans",angle=0,size = 7),
                    axis.title.x =ggplot2::element_text(family="sans",size=10),
                    axis.title.y =ggplot2::element_text(family="sans",size=12),
-                   plot.title =ggplot2::element_text(family="sans",size=12,hjust = 0.5),
+                   plot.subtitle =ggplot2::element_text(family="sans",size=12,hjust = 0.5),
                    strip.background=ggplot2::element_rect(colour="white",fill="white"),
                    plot.background = ggplot2::element_rect(fill = "white",colour = "white"),
                    axis.ticks = ggplot2::element_blank(),
@@ -153,7 +154,7 @@ plot_oxford_grid <- function(orthologs_df,
                    panel.grid = ggplot2::element_blank(),
                    panel.border = ggplot2::element_rect(fill = NA, color = "gray",size=0.1),
                    panel.background = ggplot2::element_rect(fill = "white", colour = "white")) +
-    ggplot2::labs(y=sp2_label, x= paste0("(",length(orthologs_df_to_plot$sp1.ID)," orthologs)"),title = sp1_label)
+    ggplot2::labs(y=sp2_label, x= paste0("(",length(orthologs_df_to_plot$sp1.ID)," orthologs)"),subtitle = sp1_label)
   
   return(p)
   

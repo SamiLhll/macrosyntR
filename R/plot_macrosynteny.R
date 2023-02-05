@@ -73,8 +73,8 @@ plot_macrosynteny <- function(macrosynt_df,
                           axis.text.x = ggplot2::element_text(family = "sans",size = 7,angle=90),
                           axis.text.y = ggplot2::element_text(family = "sans",size = 7),
                           axis.title = ggplot2::element_text(family = "sans",size = 12),
-                          legend.text = ggplot2::element_text(size = 10),
-                          legend.title = ggplot2::element_text(size = 12),
+                          legend.text = ggplot2::element_text(size = 8),
+                          legend.title = ggplot2::element_text(size = 10),
                           plot.title = ggplot2::element_text(family = "sans",size=12,hjust = 0.5),
                           plot.background = ggplot2::element_rect(fill = "white",colour = "white"))
   

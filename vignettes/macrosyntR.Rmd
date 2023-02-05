@@ -30,7 +30,7 @@ It has 5 functions :
 | compute_macrosynteny() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
 | reorder_macrosynteny()     | takes an mbh_df (from load_orthologs()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
 | plot_macrosynteny()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
-| plot_oxford_grid()    | draws an oxford grid from an orthologs_df (output of either load_orthologs() or reorder_macrosynteny()                  |    
+| plot_oxford_grid()    | draws an Oxford grid from an orthologs_df (output of either load_orthologs() or reorder_macrosynteny()                  |    
 
 # Step-by-step tutorial :
 
@@ -121,7 +121,7 @@ fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pech.prot
 
 ```
 
-**Please note that I generated a subset of these datasets, and kept only 2500 ortholog pairs to lower the compilation time**.
+**Please note that  the example dataset attached to this package is a subset. I kept only 2500 ortholog pairs to lower the compilation time**.
 
 Now the data are ready to be loaded into R using macrosyntR :
 
@@ -302,3 +302,72 @@ plot_oxford_grid(my_orthologs_table,
                  color_by = "sp2.Chr")
 
 ```
+
+### 5 - Customize the plots :
+
+Plots returned from both plot_oxford_grid() and plot_macrosynteny() are ggplot objects and it is possible to further customizing them using the vocabulary from the ggplot2 package.
+
+#### 5.1 - display the legend :
+
+```{r}
+
+library(ggplot2)
+
+# legend on right (works also with "top" and "left") :
+plot_macrosynteny(macrosynteny_df_reordered) +
+  theme(legend.position = "right")
+
+```
+
+
+
+#### 5.2 - change the color palette :
+
+plot_oxford_grid() features an option color_palette, but it is also possible to set it using scale_color_manual() from ggplot2 :
+
+```{r}
+
+# Check how many colors are necessary :
+print(length(unique(my_orthologs_table_reordered$sp2.Chr)))
+
+# change color_palette using plot_oxford_grid option color_palette :
+color_palette_Pechinospica_chromosomes <- c("#A52A2A", "#FFD39B", "#66CDAA", "#8EE5EE", "#7FFF00", "#FFD700", "#FF7F00", "#474747", "#6495ED", "#FF3030", "#0000EE", "#FF1493", "#8A2BE2", "#080808")
+
+
+plot_oxford_grid(my_orthologs_table_reordered,
+                 color_by = "sp2.Chr",
+                 color_palette = color_palette_Pechinospica_chromosomes)
+
+```
+
+```{r}
+
+# change the colors in plot_macrosynteny using ggplot2 functions :
+
+plot_macrosynteny(macrosynteny_df_reordered) +
+scale_color_manual(values = c("gray45","darkgreen")) +
+  theme(legend.position = "right")
+
+```
+
+# 6 - Integrate additional information using colors :
+
+The data returned by load_orthologs(), reorder_synteny(), and compute_macrosynteny() are data.frame objects. I can thus add external information based on protein IDs by merging it with another dataframe, and then take advantage of using colors to display the new information on the plot :
+
+
+```{r}
+
+library(dplyr)
+
+# Let's color only the orthologs that were previously selected in the part 3.2 :
+my_orthologs_table_modified <- my_orthologs_table_reordered %>%
+  mutate(selected = "no") %>%
+  mutate(selected = replace(selected,sp1.ID %in% subset_of_orthologs$sp1.ID,"yes"))
+
+plot_oxford_grid(my_orthologs_table_modified,
+                 color_by = "selected",
+                 color_palette = c("black","firebrick"))
+
+
+```
+
