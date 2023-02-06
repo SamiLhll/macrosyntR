@@ -14,6 +14,7 @@
 #' @param color_by string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.
 #' @param pvalue_threshold numeric. (default = 0.001) 
 #' @param color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
+#' @param shade_non_significant logical? (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"
 #' 
 #' @seealso [load_orthologs()]
 #' @seealso [reorder_macrosynteny()]
@@ -54,7 +55,8 @@ plot_oxford_grid <- function(orthologs_df,
                              keep_only_significant = FALSE,
                              color_by = NULL,
                              pvalue_threshold= 0.001,
-                             color_palette = NULL) {
+                             color_palette = NULL,
+                             shade_non_significant = TRUE) {
   
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
@@ -66,6 +68,7 @@ plot_oxford_grid <- function(orthologs_df,
   if (!(is.numeric(dot_alpha) & length(dot_alpha) == 1)) { stop("Wrong format for argument 'dot_alpha'. Must be a single value of type numeric")}
   if (!(is.logical(reorder) & length(reorder) == 1)) { stop("Wrong format for argument 'reorder'. Must be a single value of type logical")}
   if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must be of type logical")}
+  if (!(is.logical(shade_non_significant) & length(shade_non_significant) == 1)) { stop("Wrong format for argument 'shade_non_significant'. Must be of type logical")}
   if(!(is.null(color_by))) {
     if (reorder) {
       if (!((color_by %in% colnames(orthologs_df) | color_by == "clust") & length(color_by) == 1 & is.character(color_by))) {
@@ -122,11 +125,19 @@ plot_oxford_grid <- function(orthologs_df,
     # initialize the plot with colors :
     color_by_sym <- ggplot2::ensym(color_by)
     p <- ggplot2::ggplot(final_df_with_groups,ggplot2::aes(x=sp1.Index,y=sp2.Index,color = !!color_by_sym)) + 
-      ggplot2::geom_point(size=dot_size,alpha=dot_alpha) +
-      ggplot2::geom_point(data = non_linkage_df,ggplot2::aes(x=sp1.Index,y=sp2.Index),
-                          color="gray",
-                          size = dot_size,
-                          alpha = dot_alpha)
+      ggplot2::geom_point(size=dot_size,alpha=dot_alpha)
+    # Check shade_non_significant:
+    if (shade_non_significant) {
+      p <- p + ggplot2::geom_point(data = non_linkage_df,ggplot2::aes(x=sp1.Index,y=sp2.Index),
+                                   color="gray",
+                                   size = dot_size,
+                                   alpha = dot_alpha)
+    }
+    else { p <- p + ggplot2::geom_point(data = non_linkage_df,ggplot2::aes(x=sp1.Index,y=sp2.Index,color = !!color_by_sym),
+                                        size = dot_size,
+                                        alpha = dot_alpha)
+    }
+      
     if (! is.null(color_palette)) {
       #### [Exception here] : check that length(clusters_color_palette) == length(levels(final_df_with_groups$clust))
       p <- p +

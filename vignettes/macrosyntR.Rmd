@@ -368,6 +368,13 @@ plot_oxford_grid(my_orthologs_table_modified,
                  color_by = "selected",
                  color_palette = c("black","firebrick"))
 
+# set the argument shade_non_significant to FALSE to have colors on all the genes of interest :
+
+plot_oxford_grid(my_orthologs_table_modified,
+                 color_by = "selected",
+                 shade_non_significant = FALSE,
+                 color_palette = c("black","firebrick"))
+
 
 ```
 

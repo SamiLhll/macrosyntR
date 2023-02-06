@@ -14,7 +14,8 @@ plot_oxford_grid(
   keep_only_significant = FALSE,
   color_by = NULL,
   pvalue_threshold = 0.001,
-  color_palette = NULL
+  color_palette = NULL,
+  shade_non_significant = TRUE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ plot_oxford_grid(
 \item{pvalue_threshold}{numeric. (default = 0.001)}
 
 \item{color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
+
+\item{shade_non_significant}{logical? (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"}
 }
 \value{
 A ggplot2 object
