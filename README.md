@@ -95,5 +95,5 @@ elhilali.sami@gmail.com
 
 If used in your research, please cite :   
 
-* El Hilali S and Copley R, "macrosyntR : Drawing automatically ordered Oxford Grids from standard genomic files in R", preprint (2023). [doi:10.1101/2023.01.26.525673](https://doi.org/10.1101/2023.01.26.525673)
+* El Hilali, S., Copley R., "macrosyntR : Drawing automatically ordered Oxford Grids from standard genomic files in R", bioRxiv (2023). [doi:10.1101/2023.01.26.525673](https://doi.org/10.1101/2023.01.26.525673)
 
