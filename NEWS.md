@@ -1,0 +1,19 @@
+# macrosyntR 0.2.17
+
+
+### Bug fixes :
+
+* Corrected a bug that occurred when loading bed files with more than 3 fields in 'load_orthologs()'.
+This function now handles bed files that have fields after the 4th column (seqName).   
+
+* Corrected a bug that happened when trying to set a custom color palette through the color_palette argument in 'plot_oxford_grid()'. It is now possible to set a custom color palette as a list of color names.
+
+### New features :
+
+* 'plot_oxford_grid()' now features an option to (dis)able the coloring of orthologs depending on if they
+occur on significant linkage groups or not. By default, when setting a color_by argument, the orthologs that are located on non-significant linkage groups are displayed in grey. It is possible to disable this behavior by calling the function with setting argument *shade_non_significant* to *TRUE*.
+
+### Enhancements :
+
+* Added a `NEWS.md` file to track changes to the package.   
+* Added documentation about how to customize the plots
