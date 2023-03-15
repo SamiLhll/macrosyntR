@@ -1,3 +1,10 @@
+# macrosyntR 0.2.18
+
+### New features :
+
+* creation of the function reverse_species_order(). It takes an orthologs_df as input and
+outputs it with sp1 changed in sp2 and the other way around.
+
 # macrosyntR 0.2.17
 
 
