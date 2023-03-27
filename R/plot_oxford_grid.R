@@ -2,7 +2,7 @@
 #
 # This is a function to plot the oxford grided plot to compare the macro synteny of two species
 #' @title plot the Macro-synteny as an oxford grid.
-#' @description This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
+#' @description This is a function to plot the oxford grided plot to compare the macro synteny of two species. It requires as input an orthologs_df loaded by load_orthologs()
 #'
 #' @param orthologs_df dataframe. orthologs with genomic coordinates loaded by the load_orthologs()
 #' @param sp1_label character. name of 1st species to display on the plot

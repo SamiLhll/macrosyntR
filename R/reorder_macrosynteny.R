@@ -15,9 +15,10 @@
 #'
 #' @importFrom igraph graph_from_data_frame cluster_fast_greedy groups
 #' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff desc
+#' @importFrom stringr str_subset
 #' 
 #'@examples 
-#' # basic usage of plot_oxford_grid : 
+#' # basic usage of reorder_macrosynteny : 
 #' 
 #' orthologs_table <- system.file("extdata","my_orthologs.tab",package="macrosyntR")
 #' 
@@ -82,7 +83,6 @@ reorder_macrosynteny <- function(orthologs_df,
   ##### DONE : Built the graph
   
   ##### 2 - Compute amounts of orthologs in each cluster and order them by attributing them an index from 1 to n (1 being the larger cluster) :
-  # print(igraph::groups(clusters))
   chroms_in_cluster_as_string <- NULL
   ortholog_amount_in_cluster <- NULL
   for (list_of_chrom_in_cluster in igraph::groups(clusters)) {
@@ -104,14 +104,10 @@ reorder_macrosynteny <- function(orthologs_df,
     sp1_amounts <- significant_entries %>% dplyr::group_by(sp1.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
     sp2_amounts <- significant_entries %>% dplyr::group_by(sp2.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
     chrom_clusters_reordered <- cluster_df$clust
-    # print(chrom_clusters_reordered)
     for (i in final_levels_sp1) {
-      # print(i)
       matching_clusters <- stringr::str_subset(chrom_clusters_reordered,paste0(i,","))
       chrom_cluster_list <- strsplit(matching_clusters,",")[[1]]
-      # print(chrom_cluster_list)
       for (chrom in chrom_cluster_list) {
-        # print(chrom)
         if (!(chrom %in% final_levels_sp1)) {
           if (!(chrom %in% final_levels_sp2)) {
             final_levels_sp2 <- c(final_levels_sp2,chrom)

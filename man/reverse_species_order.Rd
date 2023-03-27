@@ -19,7 +19,7 @@ It outputs a data.frame shaped as following :
 sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.Index
 }
 \examples{
-# basic usage of load_orthologs :
+# basic usage of reverse_species_order :
 
 orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
 bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")

@@ -21,7 +21,7 @@ An R package for evaluation of pair-wise synteny conservation at the genome-wide
 
 # Overview :
 
-It has 5 functions :   
+It has 7 functions :   
 
 
 |     Function          |         description                                                                                          | 
@@ -31,6 +31,8 @@ It has 5 functions :
 | reorder_macrosynteny()     | takes an mbh_df (from load_orthologs()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
 | plot_macrosynteny()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
 | plot_oxford_grid()    | draws an Oxford grid from an orthologs_df (output of either load_orthologs() or reorder_macrosynteny()                  |    
+| reverse_species_order() | returns an orthologs_df where sp1 became sp2 and the other way around |
+| get_syntenic_genes() | compute all blocks containing at least two consecutive genes (relative order) in both species and returns the details as a table |
 
 # Step-by-step tutorial :
 
@@ -352,7 +354,7 @@ scale_color_manual(values = c("gray45","darkgreen")) +
 
 # 6 - Integrate additional information using colors :
 
-The data returned by load_orthologs(), reorder_synteny(), and compute_macrosynteny() are data.frame objects. I can thus add external information based on protein IDs by merging it with another dataframe, and then take advantage of using colors to display the new information on the plot :
+The data returned by load_orthologs(), reorder_macrosynteny(), and compute_macrosynteny() are data.frame objects. I can thus add external information based on protein IDs by merging it with another dataframe, and then take advantage of using colors to display the new information on the plot :
 
 
 ```{r}

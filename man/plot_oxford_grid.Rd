@@ -15,7 +15,9 @@ plot_oxford_grid(
   color_by = NULL,
   pvalue_threshold = 0.001,
   color_palette = NULL,
-  shade_non_significant = TRUE
+  shade_non_significant = TRUE,
+  reverse_species = FALSE,
+  keep_sp1_raw_order = FALSE
 )
 }
 \arguments{
@@ -39,13 +41,17 @@ plot_oxford_grid(
 
 \item{color_palette}{vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.}
 
-\item{shade_non_significant}{logical? (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"}
+\item{shade_non_significant}{logical. (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"}
+
+\item{reverse_species}{logical. (default = FALSE) When TRUE the x and y axis of the plot are reversed. sp1 is displayed on the y axis and sp2 is displayed on the x axis.}
+
+\item{keep_sp1_raw_order}{logical.(default equals FALSE) tells if the reordering should be constrained on the species1 and change just the order of the species2}
 }
 \value{
 A ggplot2 object
 }
 \description{
-This is a function to plot the oxford grided plot to compare the macro synteny of two species. Its input will have been loaded using load_orthologs()
+This is a function to plot the oxford grided plot to compare the macro synteny of two species. It requires as input an orthologs_df loaded by load_orthologs()
 }
 \examples{
 # basic usage of plot_oxford_grid : 

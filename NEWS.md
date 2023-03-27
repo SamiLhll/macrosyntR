@@ -2,7 +2,10 @@
 
 ### New features :
 
-* creation of the function reverse_species_order(). It takes an orthologs_df as input and
+* created the function get_syntenic_genes(). It takes an orthologs_df as input and
+outputs a table with the details of all detected blocks of two or more consecutive genes.
+
+* created the function reverse_species_order(). It takes an orthologs_df as input and
 outputs it with sp1 changed in sp2 and the other way around. It can be called in plot_oxford_grid().
 
 * Added the argument keep_sp1_raw_order in reorder_macrosynteny(). When set to TRUE, it returns an orthologs_df with only the sp2.Chr reordered, and doesn't change the order of sp1.Chr compared with the input data. It can be also be called in plot_oxford_grid().

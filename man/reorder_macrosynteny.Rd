@@ -7,7 +7,8 @@
 reorder_macrosynteny(
   orthologs_df,
   pvalue_threshold = 0.001,
-  keep_only_significant = FALSE
+  keep_only_significant = FALSE,
+  keep_sp1_raw_order = FALSE
 )
 }
 \arguments{
@@ -15,7 +16,9 @@ reorder_macrosynteny(
 
 \item{pvalue_threshold}{numeric. threshold for significancy. (default equals 0.001)}
 
-\item{keep_only_significant}{logical. (default equals FALSE)}
+\item{keep_only_significant}{logical. (default equals FALSE) tells if the non significant linkage groups should be removed. It drastically speeds up the computation when using one highly fragmented genome.}
+
+\item{keep_sp1_raw_order}{logical. (default equals FALSE) tells if the reordering should be constrained on the species1 and change just the order of the species2}
 }
 \value{
 A dataframe object
@@ -24,7 +27,7 @@ A dataframe object
 This is a function to reorder an orthologs_df, that was generated with load_orthologs(). It retrieves communities using igraph::cluster_fast_greedy.
 }
 \examples{
-# basic usage of plot_oxford_grid : 
+# basic usage of reorder_macrosynteny : 
 
 orthologs_table <- system.file("extdata","my_orthologs.tab",package="macrosyntR")
 
