@@ -14,7 +14,9 @@
 #' @param color_by string/variable name. (default = NULL) column of the orthologs_df to use to color the dots.
 #' @param pvalue_threshold numeric. (default = 0.001) 
 #' @param color_palette vector. (default = NULL) list of colors (as string under double quote) for the clusters. The amount of colors must match the amount of clusters.
-#' @param shade_non_significant logical? (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"
+#' @param shade_non_significant logical. (default = TRUE) When TRUE the orthologs located on non-significant linkage groups are displayed in "grey"
+#' @param reverse_species logical. (default = FALSE) When TRUE the x and y axis of the plot are reversed. sp1 is displayed on the y axis and sp2 is displayed on the x axis.
+#' @param keep_sp1_raw_order logical.(default equals FALSE) tells if the reordering should be constrained on the species1 and change just the order of the species2
 #' 
 #' @seealso [load_orthologs()]
 #' @seealso [reorder_macrosynteny()]
@@ -56,7 +58,9 @@ plot_oxford_grid <- function(orthologs_df,
                              color_by = NULL,
                              pvalue_threshold= 0.001,
                              color_palette = NULL,
-                             shade_non_significant = TRUE) {
+                             shade_non_significant = TRUE,
+                             reverse_species = FALSE,
+                             keep_sp1_raw_order = FALSE) {
   
   sp1.Index <- sp2.Index <- sp2.Chr <-significant <- clust <- NULL
   
@@ -69,6 +73,9 @@ plot_oxford_grid <- function(orthologs_df,
   if (!(is.logical(reorder) & length(reorder) == 1)) { stop("Wrong format for argument 'reorder'. Must be a single value of type logical")}
   if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must be of type logical")}
   if (!(is.logical(shade_non_significant) & length(shade_non_significant) == 1)) { stop("Wrong format for argument 'shade_non_significant'. Must be of type logical")}
+  if (!(is.logical(reverse_species) & length(reverse_species) == 1)) { stop("Wrong format for argument 'reverse_species'. Must be of type logical")}
+  if (!(is.logical(keep_sp1_raw_order) & length(keep_sp1_raw_order) == 1)) { stop("Wrong format for argument 'keep_sp1_raw_order'. Must be of type logical")}
+  
   if(!(is.null(color_by))) {
     if (reorder) {
       if (!((color_by %in% colnames(orthologs_df) | color_by == "clust") & length(color_by) == 1 & is.character(color_by))) {
@@ -103,10 +110,17 @@ plot_oxford_grid <- function(orthologs_df,
   if (length(unique(orthologs_df$sp2.Chr)) >= 300) { 
     warning(paste0("The second species in the 'orthologs_df' has ",length(unique(orthologs_df$sp2.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
   }
+  ### reverse species if needed :
+  if (reverse_species) {
+    orthologs_df <- reverse_species_order(orthologs_df)
+  }
+  
   ### reorder df first :
   if (reorder) {
     # calculate clusters and reordered synteny
-    orthologs_reordered <- reorder_macrosynteny(orthologs_df,pvalue_threshold = pvalue_threshold,keep_only_significant = keep_only_significant)
+    orthologs_reordered <- reorder_macrosynteny(orthologs_df,pvalue_threshold = pvalue_threshold,
+                                                keep_only_significant = keep_only_significant,
+                                                keep_sp1_raw_order = keep_sp1_raw_order)
     orthologs_df_to_plot <- orthologs_reordered
   }
   # separate dots not in clusters, and dots in clusters

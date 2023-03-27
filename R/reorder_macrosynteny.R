@@ -6,7 +6,9 @@
 #'
 #' @param orthologs_df dataframe. mutual best hits with genomic coordinates loaded with load_orthologs()
 #' @param pvalue_threshold numeric. threshold for significancy. (default equals 0.001)
-#' @param keep_only_significant logical. (default equals FALSE)
+#' @param keep_only_significant logical. (default equals FALSE) tells if the non significant linkage groups should be removed. It drastically speeds up the computation when using one highly fragmented genome.
+#' @param keep_sp1_raw_order logical. (default equals FALSE) tells if the reordering should be constrained on the species1 and change just the order of the species2
+#' 
 #' @return A dataframe object
 #' @seealso [load_orthologs()]
 #' @seealso [compute_macrosynteny()]
@@ -28,7 +30,8 @@
 
 reorder_macrosynteny <- function(orthologs_df,
                                  pvalue_threshold = 0.001,
-                                 keep_only_significant = FALSE) {
+                                 keep_only_significant = FALSE,
+                                 keep_sp1_raw_order = FALSE) {
   
   contingency_table <- significant_entries <- significant_entries_for_graph <- NULL
   significant_entries_for_graph <- significant_association_undirected_graph <- clusters <- cluster_df <- NULL
@@ -40,6 +43,7 @@ reorder_macrosynteny <- function(orthologs_df,
   # Error check : proper format for arguments :
   if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
   if (!(is.logical(keep_only_significant) & length(keep_only_significant) == 1)) { stop("Wrong format for argument 'keep_only_significant'. Must be of type logical")}
+  if (!(is.logical(keep_sp1_raw_order) & length(keep_sp1_raw_order) == 1)) { stop("Wrong format for argument 'keep_sp1_raw_order'. Must be of type logical")}
   # Error check : proper formatting of macrosynt_df
   # Error check : format of orthologs_df 
   required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
@@ -74,10 +78,11 @@ reorder_macrosynteny <- function(orthologs_df,
   # compute clusters of sp1.Chr and sp2.Chr that are directly or indirectly connected in the graph :
   significant_association_undirected_graph <- igraph::graph_from_data_frame(significant_entries_for_graph, directed = F)
   clusters <- igraph::cluster_fast_greedy(significant_association_undirected_graph)
-
+  
   ##### DONE : Built the graph
   
   ##### 2 - Compute amounts of orthologs in each cluster and order them by attributing them an index from 1 to n (1 being the larger cluster) :
+  # print(igraph::groups(clusters))
   chroms_in_cluster_as_string <- NULL
   ortholog_amount_in_cluster <- NULL
   for (list_of_chrom_in_cluster in igraph::groups(clusters)) {
@@ -93,30 +98,53 @@ reorder_macrosynteny <- function(orthologs_df,
   
   ##### 3 - Compute order of chromosomes by recomputing the levels of the factor. sorting by descending cluster size then descencding chromosome size.
   # get a table with number of orthologs for each chromosome
-  sp1_amounts <- significant_entries %>% dplyr::group_by(sp1.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
-  sp2_amounts <- significant_entries %>% dplyr::group_by(sp2.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
-  chrom_clusters_reordered <- cluster_df$clust
-  for(chrom_cluster in chrom_clusters_reordered) {
-    chrom_cluster_list <- strsplit(chrom_cluster,",")[[1]]
-    cluster_levels_sp1 <- NULL
-    cluster_levels_sp2 <- NULL
-    for (chrom in chrom_cluster_list) {
-      if (chrom %in% orthologs_df$sp1.Chr) {
-        cluster_levels_sp1 <- c(cluster_levels_sp1,chrom)
-      }
-      else {
-        cluster_levels_sp2 <- c(cluster_levels_sp2,chrom)
+  if (keep_sp1_raw_order) {
+    final_levels_sp1 <- levels(orthologs_df$sp1.Chr)
+    final_levels_sp2 <- NULL
+    sp1_amounts <- significant_entries %>% dplyr::group_by(sp1.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
+    sp2_amounts <- significant_entries %>% dplyr::group_by(sp2.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
+    chrom_clusters_reordered <- cluster_df$clust
+    # print(chrom_clusters_reordered)
+    for (i in final_levels_sp1) {
+      # print(i)
+      matching_clusters <- stringr::str_subset(chrom_clusters_reordered,paste0(i,","))
+      chrom_cluster_list <- strsplit(matching_clusters,",")[[1]]
+      # print(chrom_cluster_list)
+      for (chrom in chrom_cluster_list) {
+        # print(chrom)
+        if (!(chrom %in% final_levels_sp1)) {
+          if (!(chrom %in% final_levels_sp2)) {
+            final_levels_sp2 <- c(final_levels_sp2,chrom)
+          }
+        }
       }
     }
-    # order the chromosomes from larger to smaller (in amount of orthologs) :
-    cluster_levels_sp1_df <- subset(sp1_amounts,sp1.Chr %in% cluster_levels_sp1) %>%
-      dplyr::arrange(dplyr::desc(n))
-    final_levels_sp1 <- c(final_levels_sp1,as.character(cluster_levels_sp1_df$sp1.Chr))
-    cluster_levels_sp2_df <- subset(sp2_amounts,sp2.Chr %in% cluster_levels_sp2) %>%
-      dplyr::arrange(dplyr::desc(n))
-    final_levels_sp2 <- c(final_levels_sp2,as.character(cluster_levels_sp2_df$sp2.Chr))
-    
   }
+  else {
+    sp1_amounts <- significant_entries %>% dplyr::group_by(sp1.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
+    sp2_amounts <- significant_entries %>% dplyr::group_by(sp2.Chr) %>% dplyr::summarise(n=sum(orthologs)) %>% dplyr::ungroup()
+    chrom_clusters_reordered <- cluster_df$clust
+    for(chrom_cluster in chrom_clusters_reordered) {
+      chrom_cluster_list <- strsplit(chrom_cluster,",")[[1]]
+      cluster_levels_sp1 <- NULL
+      cluster_levels_sp2 <- NULL
+      for (chrom in chrom_cluster_list) {
+        if (chrom %in% orthologs_df$sp1.Chr) {
+          cluster_levels_sp1 <- c(cluster_levels_sp1,chrom)
+        }
+        else {
+          cluster_levels_sp2 <- c(cluster_levels_sp2,chrom)
+        }
+      }
+      # order the chromosomes from larger to smaller (in amount of orthologs) :
+      cluster_levels_sp1_df <- subset(sp1_amounts,sp1.Chr %in% cluster_levels_sp1) %>%
+        dplyr::arrange(dplyr::desc(n))
+      final_levels_sp1 <- c(final_levels_sp1,as.character(cluster_levels_sp1_df$sp1.Chr))
+      cluster_levels_sp2_df <- subset(sp2_amounts,sp2.Chr %in% cluster_levels_sp2) %>%
+        dplyr::arrange(dplyr::desc(n))
+      final_levels_sp2 <- c(final_levels_sp2,as.character(cluster_levels_sp2_df$sp2.Chr))
+      
+    }}
   orthologs_df_to_return <- subset(orthologs_df, (sp1.Chr %in% final_levels_sp1) & (sp2.Chr %in% final_levels_sp2))
   orthologs_df_to_return$sp1.Chr <- factor(orthologs_df_to_return$sp1.Chr,levels = final_levels_sp1)
   orthologs_df_to_return$sp2.Chr <- factor(orthologs_df_to_return$sp2.Chr,levels = final_levels_sp2)
