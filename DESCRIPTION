@@ -1,7 +1,7 @@
 Package: macrosyntR
 Type: Package
 Title: Draw Ordered Oxford Grids
-Version: 0.2.18
+Version: 0.2.19
 Authors@R: c(person(given="Sami",
  family ="El Hilali",
  email = "elhilali.sami@gmail.com",
