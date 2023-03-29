@@ -1,4 +1,4 @@
-# macrosyntR 0.2.18
+# macrosyntR 0.2.19
 
 ### New features :
 
