@@ -83,7 +83,14 @@ p4
 ```
 
 <a><img src='https://github.com/SamiLhll/macrosyntR/blob/a5f008b3b596f6ec1c4a73952fde7bf3fbdad57c/inst/img/example.png' align="center" height="650" /></a>   
+# Additional ressources
 
+### Computing orthologs as reciprocal best hits :
+If you don't know how to do it, I masde an util called rbhXpress that uses Diamond blast to generate an output compatible with macrosyntR.
+Please find more details in the following repository : [rbhXpress](https://github.com/SamiLhll/rbhXpress)
+
+### Using OrthoFinder output : 
+I implemented a shell script that extracts all single copy orthologs from a run of OrthoFinder and turns it into pairwise tables for all the species. Please find more details in the following repository : [OF_to_macrosyntR](https://github.com/SamiLhll/OF_to_macrosyntR)
 
 # Getting help
 
