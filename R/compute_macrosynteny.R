@@ -35,11 +35,12 @@ compute_macrosynteny <- function(orthologs_df,pvalue_threshold = 0.001) {
   # Error check : proper format for arguments :
   if (!(is.numeric(pvalue_threshold) & length(pvalue_threshold) == 1)) {stop("Wrong format for 'pvalue_threshold' argument. Must be a single value of type numeric")}
   # Error check : format of orthologs_df 
-  required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
+  # required_fields <- c("sp1.ID","sp1.Index","sp1.Chr","sp2.ID","sp2.Index","sp2.Chr")
+  required_fields <- c("sp1.ID","sp1.Chr","sp2.ID","sp2.Chr")
   for (i in required_fields) {
     if (isFALSE(i %in% colnames(orthologs_df))) {
-      required_fields_character <- paste(required_fields,sep=",")
-      stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+      # stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Index,sp1.Chr,sp2.ID,sp2.Index,sp2.Chr")
+      stop("Missing fields in the provided orthologs_df. All the following columns are required : sp1.ID,sp1.Chr,sp2.ID,sp2.Chr")
     }
   }
   # Error check : orthologs_df is empty
