@@ -55,6 +55,16 @@ reorder_macrosynteny <- function(orthologs_df,
   }
   # Error check : orthologs_df is empty
   if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the 'orthologs_df' argument is empty")}
+  # check that chromosome names are unique :
+  chromosomes_sp1 <- chromosomes_sp2 <- uniqueness <- NULL
+  chromosomes_sp1 <- levels(orthologs_df$sp1.Chr)
+  chromosomes_sp2 <- levels(orthologs_df$sp2.Chr)
+  uniqueness <- chromosomes_sp1 %in% chromosomes_sp2
+  for (not_unique in uniqueness) {
+    if (not_unique) {
+      stop("Found redundant chromosome names. Each species must have its own set of unique chromosome names in order to run the reordering algorithm.")
+    }
+  }
   # Warning check : when number of chromosomes is too high
   if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
     warning(paste0("The first species in the 'orthologs_df' has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))

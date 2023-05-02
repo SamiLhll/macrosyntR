@@ -1,3 +1,10 @@
+# macrosyntR 0.2.21
+
+### Enhancements :
+
+* added control when chromosome names are redundant in the 'orthologs_df' provided to 'reorder_macrosynteny()'.
+It now raises an error with explanations about what's wrong.
+
 # macrosyntR 0.2.19
 
 ### New features :
