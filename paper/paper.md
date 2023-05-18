@@ -53,11 +53,11 @@ BED files can be easily generated from other common formats such as GTF and GFF 
 
 The function 'compute_macrosynteny()' builds a contingency table of the number of shared orthologs in each possible chromosome pairing. The significant associations are computed using Fisher’s exact test as described in [@Simakov:2020]. The result is a data.frame object containing the number of orthologs, multiple-testing adjusted p-values that can be visualized using the function 'plot_macrosynteny()' (Figure 1A).
 
-![A. macrosyntR workflow for the drawing of an oxford Grid and a macrosynteny plot. B. Detection of communities to order the chromosomes. Each vertice corresponds to a chromosome from one of the two species. The edges are weighted by the amount of shared orthologs. A fast greedy algorithm is applied to detect the communities before plotting a reordered Oxford Grid.](F1.large.jpg)
-
 ### Visualizing the orthologs on an Oxford grid
 
 The Oxford grid is drawn using the function 'plot_oxford_grid()'. Each dot corresponds to an orthologous pair (from the function 'load_orthologs()') with x and y coordinates being the relative order index on the chromosomes taken from the BED files. The dots are organized in squared facets, corresponding to the chromosomes (entry Chrom from the BED files). The limits of these squares are proportional to the total amount of genes on each scale. Many features are customizable, such as the labels, the color, size and transparency of the dots.
+
+![A. macrosyntR workflow for the drawing of an oxford Grid and a macrosynteny plot. B. Detection of communities to order the chromosomes. Each vertice corresponds to a chromosome from one of the two species. The edges are weighted by the amount of shared orthologs. A fast greedy algorithm is applied to detect the communities before plotting a reordered Oxford Grid.](F1.large.jpg){width = 100%}
 
 ### Clustering the conserved macrosynteny blocks
 
@@ -65,8 +65,7 @@ It is helpful to reorder the facets to interpret the results especially when ana
 
 We implemented a clustering algorithm that allows for a good interpretability of the results in a limited amount of computational time (Figure 1B). Data are modeled in a network where every chromosome from the two species is modeled as a node, and weighted edges are created between every pair of nodes. The weights correspond to the number of shared orthologs between the two nodes that they connect. The linkage groups are retrieved by organizing the chromosomes into communities using the greedy algorithm implemented in the function 'cluster_fast_greedy()' from igraph v.1.3.0 [@Csardi:2006] It finds the local optimal communities at each step and is designed to handle large networks with an approximate linear complexity [@Clauset:2004].
 
-The ordering is then performed by decreasing size of both the "communities", and the chromosomes (in amount of orthologs) from left to right (species 1) and top to bottom (species 2).
-This algorithm performs well even when comparing a chromosomal level genome assembly with a more fragmented one. Computation time can be reduced by using the argument 'keep_only_significant'. 
+The ordering is then performed by decreasing size of both the "communities", and the chromosomes (in amount of orthologs) from left to right (species 1) and top to bottom (species 2). This algorithm performs well even when comparing a chromosomal level genome assembly with a more fragmented one. Computation time can be reduced by using the argument 'keep_only_significant'. 
 
 ### Example using public datasets
 
@@ -74,9 +73,10 @@ To demonstrate the use of the package, we compare two publicly available dataset
 
 # Availability
 
-A stable version is available on CRAN (https://CRAN.R-project.org/package=macrosyntR) (“install.packages(‘macrosyntR’)”) and the developmental version is hosted on github at : https://github.com/SamiLhll/macrosyntR 
+A stable version is available on CRAN (https://CRAN.R-project.org/package=macrosyntR) ("install.packages('macrosyntR')") and the developmental version is hosted on github at : https://github.com/SamiLhll/macrosyntR 
 
 # Acknowledgements
 
-This work was supported by the HFSP grant RGP0028/2018. We thank Aida Verdes, Katharina Barros for giving constructive feedback on the package and Mohamed Khamla (LBDV) for drawing of the Hex Logo.
+This work was supported by the HFSP grant RGP0028/2018. We thank Aida Verdes for giving constructive feedback on the package and Mohamed Khamla (LBDV) for drawing of the Hex Logo.
 
+# References
