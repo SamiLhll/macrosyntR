@@ -57,7 +57,7 @@ The function 'compute_macrosynteny()' builds a contingency table of the number o
 
 The Oxford grid is drawn using the function 'plot_oxford_grid()'. Each dot corresponds to an orthologous pair (from the function 'load_orthologs()') with x and y coordinates being the relative order index on the chromosomes taken from the BED files. The dots are organized in squared facets, corresponding to the chromosomes (entry Chrom from the BED files). The limits of these squares are proportional to the total amount of genes on each scale. Many features are customizable, such as the labels, the color, size and transparency of the dots.
 
-![A. macrosyntR workflow for the drawing of an oxford Grid and a macrosynteny plot. B. Detection of communities to order the chromosomes. Each vertice corresponds to a chromosome from one of the two species. The edges are weighted by the amount of shared orthologs. A fast greedy algorithm is applied to detect the communities before plotting a reordered Oxford Grid.](F1.large.jpg){width = 100%}
+![A. macrosyntR workflow for the drawing of an oxford Grid and a macrosynteny plot. B. Detection of communities to order the chromosomes. Each vertice corresponds to a chromosome from one of the two species. The edges are weighted by the amount of shared orthologs. A fast greedy algorithm is applied to detect the communities before plotting a reordered Oxford Grid.](F1.large.jpg){ width=90% }
 
 ### Clustering the conserved macrosynteny blocks
 
