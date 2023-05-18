@@ -73,7 +73,7 @@ To demonstrate the use of the package, we compare two publicly available dataset
 
 # Availability
 
-A stable version is available on CRAN [(https://CRAN.R-project.org/package=macrosyntR)](https://CRAN.R-project.org/package=macrosyntR) ("install.packages('macrosyntR')") and the developmental version is hosted on github at : [https://github.com/SamiLhll/macrosyntR](https://github.com/SamiLhll/macrosyntR) 
+A stable version is available on CRAN [(https://CRAN.R-project.org/package=macrosyntR)](https://CRAN.R-project.org/package=macrosyntR) and can be installed using the command 'install.packages("macrosyntR")'. A developmental version is hosted on github at : [https://github.com/SamiLhll/macrosyntR](https://github.com/SamiLhll/macrosyntR) 
 
 # Acknowledgements
 
