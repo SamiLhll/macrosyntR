@@ -7,7 +7,7 @@ tags:
   - evolution
   - visualization
 authors:
-  - name: Sami El Hilali
+  - name: Sami El_Hilali
     orcid: 0000-0003-4417-8399
     affiliation: 1
     corresponding: true
