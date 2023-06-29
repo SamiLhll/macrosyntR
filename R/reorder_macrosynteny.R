@@ -57,8 +57,8 @@ reorder_macrosynteny <- function(orthologs_df,
   if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the 'orthologs_df' argument is empty")}
   # check that chromosome names are unique :
   chromosomes_sp1 <- chromosomes_sp2 <- uniqueness <- NULL
-  chromosomes_sp1 <- levels(orthologs_df$sp1.Chr)
-  chromosomes_sp2 <- levels(orthologs_df$sp2.Chr)
+  chromosomes_sp1 <- unique(orthologs_df$sp1.Chr)
+  chromosomes_sp2 <- unique(orthologs_df$sp2.Chr)
   uniqueness <- chromosomes_sp1 %in% chromosomes_sp2
   for (not_unique in uniqueness) {
     if (not_unique) {
