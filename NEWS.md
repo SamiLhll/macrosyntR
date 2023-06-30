@@ -1,3 +1,11 @@
+# macrosyntR 0.3.1
+
+### Enhancements :
+
+* Redundant chromosome names from one species to another are now accepted   
+
+* load_orthologs now handles more than two species. It uses the argument 'bedfiles' instead of sp1_bed and sp2_bed which are still working but warns that 'bedfiles' can be used instead. 
+
 # macrosyntR 0.2.21
 
 ### Enhancements :
