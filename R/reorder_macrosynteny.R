@@ -15,7 +15,7 @@
 #'
 #' @importFrom igraph graph_from_data_frame cluster_fast_greedy groups
 #' @importFrom dplyr select rename arrange group_by summarise ungroup mutate setdiff desc
-#' @importFrom stringr str_subset
+#' @importFrom stringr str_subset str_replace
 #' 
 #'@examples 
 #' # basic usage of reorder_macrosynteny : 
@@ -55,16 +55,6 @@ reorder_macrosynteny <- function(orthologs_df,
   }
   # Error check : orthologs_df is empty
   if (length(orthologs_df$sp1.Chr) == 0) {stop("Table provided through the 'orthologs_df' argument is empty")}
-  # check that chromosome names are unique :
-  chromosomes_sp1 <- chromosomes_sp2 <- uniqueness <- NULL
-  chromosomes_sp1 <- unique(orthologs_df$sp1.Chr)
-  chromosomes_sp2 <- unique(orthologs_df$sp2.Chr)
-  uniqueness <- chromosomes_sp1 %in% chromosomes_sp2
-  for (not_unique in uniqueness) {
-    if (not_unique) {
-      stop("Found redundant chromosome names. Each species must have its own set of unique chromosome names in order to run the reordering algorithm.")
-    }
-  }
   # Warning check : when number of chromosomes is too high
   if (length(unique(orthologs_df$sp1.Chr)) >= 300) { 
     warning(paste0("The first species in the 'orthologs_df' has ",length(unique(orthologs_df$sp1.Chr))," chromosomes. Computational time can be very long on fragmented genomes"))
@@ -74,6 +64,11 @@ reorder_macrosynteny <- function(orthologs_df,
   }
   
   ##### 1 - Build an undirected and unweighted graph of connected chromosomes (significant amount of orthologs)
+  # rename_chromosomes to ensure uniqueness of names in graph :
+  levels(orthologs_df$sp1.Chr) <- paste0("sp1_Chr_",levels(orthologs_df$sp1.Chr))
+  levels(orthologs_df$sp2.Chr) <- paste0("sp2_Chr_",levels(orthologs_df$sp2.Chr))
+  # These prefix are removed at the end of the function
+  
   # Get a table with only significant association using compute_macrosynteny from this package :
   contingency_table <- compute_macrosynteny(orthologs_df,pvalue_threshold)
   if (keep_only_significant) {
@@ -181,6 +176,10 @@ reorder_macrosynteny <- function(orthologs_df,
     dplyr::mutate(clust = "0")
   final_df_with_groups <- rbind(final_df_with_groups,non_linkage_df)
   orthologs_df_to_return <- merge(orthologs_df_to_return,final_df_with_groups)
+  
+  # Remove prefix that granted uniqueness of chromosome names :
+  levels(orthologs_df_to_return$sp1.Chr) <- stringr::str_replace(levels(orthologs_df_to_return$sp1.Chr),"sp1_Chr_","")
+  levels(orthologs_df_to_return$sp2.Chr) <- stringr::str_replace(levels(orthologs_df_to_return$sp2.Chr),"sp2_Chr_","")
   
   return(orthologs_df_to_return)
 }
