@@ -4,32 +4,38 @@
 \alias{load_orthologs}
 \title{load orthologs with their genomic coordinates.}
 \usage{
-load_orthologs(orthologs_table, sp1_bed, sp2_bed)
+load_orthologs(
+  orthologs_table,
+  bedfiles = NULL,
+  sp1_bed = NULL,
+  sp2_bed = NULL
+)
 }
 \arguments{
-\item{orthologs_table}{character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2)}
+\item{orthologs_table}{character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2   geneID_on_speciesN)}
 
-\item{sp1_bed}{character. Full path to the genomic coordinates of the genes on species1 (BED format)}
+\item{bedfiles}{array. List of full paths to the genomic coordinates ordered as in the appearing order of the orthologs_table (BED format)}
 
-\item{sp2_bed}{character. Full path to the genomic coordinates of the genes on species2 (BED format)}
+\item{sp1_bed}{(deprecated) character. Full path to the genomic coordinates of the genes on species1}
+
+\item{sp2_bed}{(deprecated) character. Full path to the genomic coordinates of the genes on species2}
 }
 \value{
 dataframe composed of genomic coordinates and relative index of orthologs on both species
 }
 \description{
 Puts together the table of orthologous genes with their genomic coordinates
-in the two species under study. It outputs a data.frame shaped as following :
-sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.Index
+in the two or more species. It outputs a data.frame shaped as following :
+sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.Index,...
 }
 \examples{
-# basic usage of load_orthologs :
+# basic usage of load_orthologs for two species :
 
 orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
 bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
 bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
 
 my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
-                               sp1_bed = bedfile_sp1,
-                               sp2_bed = bedfile_sp2)
+                               bedfiles = c(bedfile_sp1,bedfile_sp2))
 
 }
