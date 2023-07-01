@@ -8,9 +8,10 @@ knitr::opts_chunk$set(
 library(macrosyntR)
 
 ## -----------------------------------------------------------------------------
+
 my_orthologs_table <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
-                                     sp1_bed = system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
-                                     sp2_bed = system.file("extdata","Pech.protein_products.bed",package="macrosyntR"))
+                                     bedfiles = c(system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
+                                     system.file("extdata","Pech.protein_products.bed",package="macrosyntR")))
 
 head(my_orthologs_table)
 
