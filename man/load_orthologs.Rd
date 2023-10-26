@@ -6,19 +6,19 @@
 \usage{
 load_orthologs(
   orthologs_table,
-  bedfiles = NULL,
   sp1_bed = NULL,
-  sp2_bed = NULL
+  sp2_bed = NULL,
+  bedfiles = NULL
 )
 }
 \arguments{
 \item{orthologs_table}{character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2   geneID_on_speciesN)}
 
-\item{bedfiles}{array. List of full paths to the genomic coordinates ordered as in the appearing order of the orthologs_table (BED format)}
-
 \item{sp1_bed}{(deprecated) character. Full path to the genomic coordinates of the genes on species1}
 
 \item{sp2_bed}{(deprecated) character. Full path to the genomic coordinates of the genes on species2}
+
+\item{bedfiles}{array. List of full paths to the genomic coordinates ordered as in the appearing order of the orthologs_table (BED format)}
 }
 \value{
 dataframe composed of genomic coordinates and relative index of orthologs on both species
@@ -34,6 +34,7 @@ sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.
 orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
 bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
 bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+
 
 my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
                                bedfiles = c(bedfile_sp1,bedfile_sp2))

@@ -7,9 +7,9 @@
 #'   sp1.ID,sp1.Chr,sp1.Start,sp1.End,sp1.Index,sp2.ID,sp2.Chr,sp2.Start,sp2.End,sp2.Index,... 
 #'
 #' @param orthologs_table character. Full path to the orthologs table (format : geneID_on_species1   geneID_on_species2   geneID_on_speciesN)
-#' @param bedfiles array. List of full paths to the genomic coordinates ordered as in the appearing order of the orthologs_table (BED format)
 #' @param sp1_bed (deprecated) character. Full path to the genomic coordinates of the genes on species1
 #' @param sp2_bed (deprecated) character. Full path to the genomic coordinates of the genes on species2
+#' @param bedfiles array. List of full paths to the genomic coordinates ordered as in the appearing order of the orthologs_table (BED format)
 
 #' @return dataframe composed of genomic coordinates and relative index of orthologs on both species
 #'
@@ -22,6 +22,7 @@
 #' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
 #' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
 #' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#'
 #' 
 #' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
 #'                                bedfiles = c(bedfile_sp1,bedfile_sp2))
@@ -30,9 +31,9 @@
 
 
 load_orthologs <- function(orthologs_table,
-                           bedfiles = NULL,
                            sp1_bed = NULL,
-                           sp2_bed = NULL) {
+                           sp2_bed = NULL,
+                           bedfiles = NULL) {
   
   V1 <- V2 <- V3 <- V4 <- NULL
   Start <- End <- Chr <- Loci <- Index <- ID <- NULL
@@ -57,7 +58,6 @@ load_orthologs <- function(orthologs_table,
   if (!is.null(sp1_bed)) { 
     if (!is.null(sp2_bed)) {
       bedfiles <- c(sp1_bed,sp2_bed)
-      warning("sp1_bed and sp2_bed arguments will be deprecated in upcoming versions. Use bedfiles argument instead")
     }
     else {
       stop("Error. Arguments sp1_bed and sp2_bed are meant to be used together")
