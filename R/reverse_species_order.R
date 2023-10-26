@@ -17,13 +17,10 @@
 #' @examples 
 #' # basic usage of reverse_species_order :
 #' 
-#' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
-#' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
-#' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#' orthologs_table <- system.file("extdata","my_orthologs.tab",package="macrosyntR")
 #' 
-#' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
-#'                                sp1_bed = bedfile_sp1,
-#'                                sp2_bed = bedfile_sp2)
+#' my_orthologs <- read.table(orthologs_table,header=TRUE)
+#' 
 #' my_orthologs_reversed <- reverse_species_order(my_orthologs)
 #' 
 #' @export
