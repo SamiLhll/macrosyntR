@@ -19,13 +19,20 @@
 #' @examples 
 #' # basic usage of load_orthologs for two species :
 #' 
-#' orthologs_file <- system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR")
-#' bedfile_sp1 <- system.file("extdata","Bflo.protein_products.bed",package="macrosyntR")
-#' bedfile_sp2 <- system.file("extdata","Pech.protein_products.bed",package="macrosyntR")
+#' orthologs_file <- system.file("extdata","Bflo_vs_Pyes.tab",package="macrosyntR")
+#' bedfile_sp1 <- system.file("extdata","Bflo.bed",package="macrosyntR")
+#' bedfile_sp2 <- system.file("extdata","Pyes.bed",package="macrosyntR")
 #'
 #' 
 #' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
 #'                                bedfiles = c(bedfile_sp1,bedfile_sp2))
+#'# example with 3 species :
+#' orthologs_file <- system.file("extdata","Single_copy_orthologs.tsv",package="macrosyntR")
+#' bedfile_sp3 <- system.file("extdata","Pech.bed",package="macrosyntR")
+#' 
+#' my_orthologs <- load_orthologs(orthologs_table = orthologs_file,
+#'                                bedfiles = c(bedfile_sp1,bedfile_sp2,bedfile_sp3))
+#' 
 #' 
 #' @export
 

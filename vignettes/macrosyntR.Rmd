@@ -36,26 +36,27 @@ It has 7 functions :
 
 # Step-by-step tutorial :
 
-We demonstrate the usage of the package using a subset of publicly available data.   
+We demonstrate the usage of the package using a subset of publicly available data (samples attached to the package).   
 
 * Branchiostoma floridae (Simakov et al. 2020)   
-data download : https://www.ncbi.nlm.nih.gov/genome/?term=txid7739)   
+
+* Patinopecten yessoensis (Wang et al. 2017)
 
 * Paraescarpia echinospica (Sun et al. 2021)   
-(data download : https://doi.org/10.6084/m9.figshare.15050478.v1)
 
-### 1 - Pre-process and Load the data :
+
+### 1 - Pre-processing :
 
 #### Foreword :
 
-This package doesn't compute the orthologs. I recommend to compute it as reciprocal best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.   
+This package doesn't compute the orthologs. I recommend to compute pairwise orthology as reciprocal best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.
+
+To use more than 2 species, I recommend using OrthoFinder (Emms and Kelly 2019) as it's easy to derive single copy orthologs from it's output.
 
 Drawing the plots using this package require to have the following data :   
 
-* A two columns table of orthologs (reciprocal best hits). Each gene must appear only once in the table.   
-* genomic coordinates on species 1 for each gene having an ortholog.   
-* genomic coordinates on species 2 for each gene having an ortholog.   
-
+* A two (or more) columns table of orthologs (reciprocal best hits). Each gene must appear only once in the table.   
+* genomic coordinates on each species for all the orthologs
 
 let's say I have the following orthologs :  
 
@@ -85,7 +86,7 @@ chr8   300    480    sp2.gene.yn
 ```
 
 
-#### Example :
+#### Example using two species (rbhXpress) :
 
 I'm going to show usage of this package by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
 
@@ -104,8 +105,8 @@ Download the sequences of proteins (fasta format) and their genomic coordinates 
  
 ```{bash,eval = FALSE}
  # In the terminal :
- # call mbhXpress with using 6 threads :
- bash mbhXpress -a GCF_000003815.2_Bfl_VNyyK_protein.faa -b Pec_ragoo_v1.0.pep.fasta -o Bflo_vs_Pech.tab -t 6
+ # call rbhXpress with using 6 threads :
+ bash rbhXpress -a GCF_000003815.2_Bfl_VNyyK_protein.faa -b Pec_ragoo_v1.0.pep.fasta -o Bflo_vs_Pech.tab -t 6
  
 ```
  
@@ -115,15 +116,53 @@ To convert the genome annotation to the [bed file format](https://www.ensembl.or
  # In the terminal :
  # B.floridae CSV file to bed
 tail -n +2 proteins_75_971579.csv | cut -d "," -f1,3,4,9  | \
-sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bflo.protein_products.bed
+sed -e 's/\"//g' -e 's/,/\t/g' -e 's/chromosome /BFL/g' > Bflo.bed
 
  # P.echinospica gff file to bed
 fgrep "gene" Pec_genes.ragoo_v1.0.gff | cut -f1,4,5,9 | cut -d ";" -f 1 | \
-fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pech.protein_products.bed
+fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pech.bed
 
 ```
 
 **Please note that  the example dataset attached to this package is a subset. I kept only 2500 ortholog pairs to lower the compilation time**.
+
+#### Example using 3 species (Orthofinder) :
+
+If we wanted to add one species to the previous study, we would need to get the data and compute the single copy orthologs.   
+We will use here the data for the scallop Patinopecten yessoensis ([Wang et al. 2017](https://doi.org/10.1038/s41559-017-0120)).
+These data were shared by the authors upon request and a sample is attached with the package.
+
+The first step is to compute the orthologs using orthofinder (Emms and Kelly 2019).   
+When done, you can extract the Single copy orthologs using the following command line :
+
+```{bash, eval = FALSE}
+
+fgrep -f <path_to_your_orthofinder_run>/Orthogroups/Orthogroups_SingleCopyOrthologues.txt \
+<path_to_your_orthofinder_run>/Orthogroups/Orthogroups.tsv > Single_copy_orthologs.tab
+
+```
+
+One important thing about orthofinder's output is the encoding that will create issues when loaded in R.
+
+If for the encoding you have like me :
+
+```{bash, eval = FALSE}
+
+file Single_copy_orthologs.tab
+# ASCII text, with CRLF line terminators
+
+```
+
+These CRLF line terminators are a problem and you should replace it by regular "\n" as line terminator.   
+It can be achieved using the following command :
+
+```{bash, eval = FALSE}
+
+tr  '\015\012/' '\n' < Single_copy_orthologs.tab | awk '($0 != "") {print}' > Single_copy_orthologs.tsv
+
+```
+
+### 2 - Load the data :
 
 Now the data are ready to be loaded into R using macrosyntR :
 
@@ -134,14 +173,28 @@ library(macrosyntR)
 ```{r}
 
 my_orthologs_table <- load_orthologs(orthologs_table = system.file("extdata","Bflo_vs_Pech.tab",package="macrosyntR"),
-                                     bedfiles = c(system.file("extdata","Bflo.protein_products.bed",package="macrosyntR"),
-                                     system.file("extdata","Pech.protein_products.bed",package="macrosyntR")))
+                                     bedfiles = c(system.file("extdata","Bflo.bed",package="macrosyntR"),
+                                     system.file("extdata","Pech.bed",package="macrosyntR")))
 
 head(my_orthologs_table)
 
 ```
 
-### 2 - Compute linkage groups and plot :
+or alternatively : 
+
+```{r}
+
+my_orthologs_with_3_sp <- load_orthologs(orthologs_table = system.file("extdata","Single_copy_orthologs.tsv",package="macrosyntR"),
+                                     bedfiles = c(system.file("extdata","Bflo.bed",package="macrosyntR"),
+                                                  system.file("extdata","Pech.bed",package="macrosyntR"),
+                                                  system.file("extdata","Pyes.bed",package="macrosyntR")))
+
+head(my_orthologs_table)
+
+```
+
+
+### 3 - Compute linkage groups and plot :
 
 Let's compute the pairs of chromosomes that have a significant amount of orthologs using compute_macrosynteny().
 We can visualize the results on a dot plot using plot_macrosnyteny() and see the distributions of orthologs on an oxford grid using plot_oxford_grid()
@@ -183,9 +236,9 @@ plot_macrosynteny(macrosynteny_df,
 
 ```
 
-### 3 - Reorder chromosome levels to group the linkage groups in clusters :
+### 4 - Reorder chromosome levels to group the linkage groups in clusters :
 
-#### 3.1 - Automatic reordering using a network-based greedy algorithm :
+#### 4.1 - Automatic reordering using a network-based greedy algorithm :
 
 Reordering the chromosomes using a network based greedy algorithm can be performed by calling the function reorder_macrosynteny.
 It returns an orthologs_df with reordered levels in sp1.Chr and sp2.Chr. These columns are factors where the levels determine the plotting order.
@@ -221,7 +274,7 @@ plot_macrosynteny(macrosynteny_df_reordered,
 
 ```
 
-#### 3.2 - Manually reorder/subset the Chromosomes :
+#### 4.2 - Manually reorder/subset the Chromosomes :
 
 If you would like to subset some chromosomes of interest and manually reorder them you can still take advantage of functions implemented to handle data.frames.
 This task is out of the scope of this package, and can achieved using base R :
@@ -266,7 +319,7 @@ plot_oxford_grid(subset_of_orthologs,
 ```
 
 
-### 4 - Plot directly with reordering the linkage groups and coloring  :
+### 5 - Plot directly with reordering the linkage groups and coloring  :
 
 The reordering can be performed on the row when calling plot_oxford_grid() by setting the reorder argument to TRUE.
 
@@ -306,11 +359,11 @@ plot_oxford_grid(my_orthologs_table,
 
 ```
 
-### 5 - Customize the plots :
+### 6 - Customize the plots :
 
 Plots returned from both plot_oxford_grid() and plot_macrosynteny() are ggplot objects and it is possible to further customizing them using the vocabulary from the ggplot2 package.
 
-#### 5.1 - display the legend :
+#### 6.1 - display the legend :
 
 ```{r}
 
@@ -324,7 +377,7 @@ plot_macrosynteny(macrosynteny_df_reordered) +
 
 
 
-#### 5.2 - change the color palette :
+#### 6.2 - change the color palette :
 
 plot_oxford_grid() features an option color_palette, but it is also possible to set it using scale_color_manual() from ggplot2 :
 
@@ -353,7 +406,7 @@ scale_color_manual(values = c("gray45","darkgreen")) +
 
 ```
 
-# 6 - Integrate additional information using colors :
+# 7 - Integrate additional information using colors :
 
 The data returned by load_orthologs(), reorder_macrosynteny(), and compute_macrosynteny() are data.frame objects. I can thus add external information based on protein IDs by merging it with another dataframe, and then take advantage of using colors to display the new information on the plot :
 

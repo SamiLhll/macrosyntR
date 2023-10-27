@@ -29,8 +29,8 @@ my_orthologs <- read.table(orthologs_table,header=TRUE)
 my_macrosynteny <- compute_macrosynteny(my_orthologs)
 
 plot_macrosynteny(my_macrosynteny,
-                  sp1_label = "B.floridae",
-                  sp2_label = "P.echinospica")
+                  sp1_label = "B. floridae",
+                  sp2_label = "P. yessoensis")
 
 }
 \seealso{
