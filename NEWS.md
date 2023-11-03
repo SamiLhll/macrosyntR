@@ -1,5 +1,7 @@
 # macrosyntR 0.3.1
 
+### New features :
+
 ### Enhancements :
 
 * Redundant chromosome names from one species to another are now accepted   

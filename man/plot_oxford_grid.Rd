@@ -62,13 +62,13 @@ my_orthologs <- read.table(orthologs_table,header=TRUE)
 
 plot_oxford_grid(my_orthologs,
                  sp1_label = "B. floridae",
-                 sp2_label = "P. yessoensis")
+                 sp2_label = "P. echinospica")
 
 # plot a reordered Oxford Grid and color by cluster :
 \donttest{
 plot_oxford_grid(my_orthologs,
                  sp1_label = "B. floridae",
-                 sp2_label = "P. yessoensis",
+                 sp2_label = "P. echinospica",
                  reorder = TRUE,
                  color_by = "clust")
  }

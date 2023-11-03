@@ -23,7 +23,8 @@ Imports:
   tidyr,
   reshape2,
   dplyr,
-  stringr
+  stringr,
+  rlang
 Description: Use standard genomics file format (BED) and a table of orthologs to 
  illustrate pair-wise synteny conservation at the genome-wide scale. 
  Significantly conserved linkage groups are identified as described in Simakov et al. (2020) <doi:10.1038/s41559-020-1156-z> 
