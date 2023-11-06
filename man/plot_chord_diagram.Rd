@@ -32,9 +32,9 @@ plot_chord_diagram(
 
 \item{custom_color_palette}{list of characters. palette to use for the coloring of the links following the argument color_by}
 
-\item{reorder_chromosomes}{logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
+\item{reorder_chromosomes}{logical. (default = TRUE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
 
-\item{remove_non_linkage_orthologs}{logical. (default = FALSE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().}
+\item{remove_non_linkage_orthologs}{logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().}
 
 \item{species_labels_hpos}{(default =-400)}
 

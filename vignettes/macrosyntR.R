@@ -23,7 +23,7 @@ my_orthologs_with_3_sp <- load_orthologs(orthologs_table = system.file("extdata"
                                                   system.file("extdata","Pech.bed",package="macrosyntR"),
                                                   system.file("extdata","Pyes.bed",package="macrosyntR")))
 
-head(my_orthologs_table)
+head(my_orthologs_with_3_sp)
 
 
 ## -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ macrosynteny_df <- compute_macrosynteny(my_orthologs_table)
 head(macrosynteny_df)
 
 
-## ----eval = FALSE-------------------------------------------------------------
+## ----eval = FALSE, out.width = '450px'----------------------------------------
 #  
 #  # visualize the loaded data on a oxford grid :
 #  plot_oxford_grid(my_orthologs_table,
@@ -57,6 +57,17 @@ plot_oxford_grid(my_orthologs_table,
 plot_macrosynteny(macrosynteny_df,
                   sp1_label = "B.floridae",
                   sp2_label = "P.echinospica")
+
+
+## ----eval = FALSE-------------------------------------------------------------
+#  my_linkage_groups <- compute_linkage_groups(my_orthologs_with_3_sp)
+#  head(my_linkage_groups)
+#  
+
+## ----echo = FALSE-------------------------------------------------------------
+
+my_linkage_groups <- compute_linkage_groups(my_orthologs_with_3_sp)
+head(my_linkage_groups)
 
 
 ## ----eval = FALSE-------------------------------------------------------------
@@ -211,4 +222,26 @@ plot_oxford_grid(my_orthologs_table_modified,
                  color_palette = c("black","firebrick"))
 
 
+
+## -----------------------------------------------------------------------------
+
+plot_chord_diagram(my_orthologs_with_3_sp,
+                   species_labels = c("B. flo","P. ech", "P. yes"),
+                   color_by = "LGs") +
+  theme(legend.position = "none")
+
+
+## ----eval=FALSE---------------------------------------------------------------
+#  
+#  # Change the chromosome names to keep only numbers
+#  levels(my_orthologs_with_3_sp$sp1.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp1.Chr),"BFL","")
+#  levels(my_orthologs_with_3_sp$sp2.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp2.Chr),"PEC","")
+#  levels(my_orthologs_with_3_sp$sp3.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp3.Chr),"chr","")
+#  
+#  
+#  plot_chord_diagram(my_orthologs_with_3_sp,
+#                     species_labels = c("B. flo","P. ech", "P. yes"),
+#                     color_by = "LGs") +
+#    theme(legend.position = "none")
+#  
 

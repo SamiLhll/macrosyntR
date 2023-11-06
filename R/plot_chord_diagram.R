@@ -10,8 +10,8 @@
 #' @param species_labels_size integer. size of the labels (default = 2)
 #' @param color_by string. name of the column in the orthologs_df to color the links by (default = "sp1.Chr")
 #' @param custom_color_palette list of characters. palette to use for the coloring of the links following the argument color_by
-#' @param reorder_chromosomes logical. (default = FALSE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
-#' @param remove_non_linkage_orthologs logical. (default = FALSE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().
+#' @param reorder_chromosomes logical. (default = TRUE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
+#' @param remove_non_linkage_orthologs logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().
 #' @param species_labels_hpos (default =-400)
 #' @param label_size integer. size of the labels to display on the ideograms (default = 2)
 #' @param ideogram_fill character. name of the colors to fill the ideograms with (default = "white")

@@ -26,13 +26,16 @@ It has 7 functions :
 
 |     Function          |         description                                                                                          | 
 |-----------------------|--------------------------------------------------------------------------------------------------------------|
-| load_orthologs()         | integrates genomic coordinates (bedfiles) of the orthologs of the two species to compare                     |
+| load_orthologs()         | integrates genomic coordinates (bedfiles) of the orthologs of the species to compare                     |
 | compute_macrosynteny() | compares all the chromosomes to each other and identifies the significantly conserved linkage groups   |
-| reorder_macrosynteny()     | takes an mbh_df (from load_orthologs()) and outputs an mbh_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
+| reorder_macrosynteny()     | takes an orthologs_df (from load_orthologs()) and outputs an orthologs_df with chromosome levels reordered by cluster and amount of orthologs (run alone or by setting plot_oxford_grid(...,auto_order_clusters = TRUE) )|
 | plot_macrosynteny()      | draws a dotplot displaying the significant linkage groups with their relative amount of orthologs      |
 | plot_oxford_grid()    | draws an Oxford grid from an orthologs_df (output of either load_orthologs() or reorder_macrosynteny()                  |    
 | reverse_species_order() | returns an orthologs_df where sp1 became sp2 and the other way around |
 | get_syntenic_genes() | compute all blocks containing at least two consecutive genes (relative order) in both species and returns the details as a table |
+| reorder_multiple_macrosyntenies() | takes an orthologs_df and reorder like reorder_macrosynteny() but for more than two species |
+| plot_chord_diagram() | takes an orthologs_df with two or more species and draws the orthologs as lines in a chord diagram |
+| compute_linkage_groups() | takes an orthologs_df and computes the conserved linkage groups |
 
 # Step-by-step tutorial :
 
@@ -47,7 +50,7 @@ We demonstrate the usage of the package using a subset of publicly available dat
 
 ### 1 - Pre-processing :
 
-#### Foreword :
+#### 1.1 - Foreword :
 
 This package doesn't compute the orthologs. I recommend to compute pairwise orthology as reciprocal best hits using [rbhxpress](https://github.com/SamiLhll/rbhXpress). It is fast and accurate as it uses diamond blast.
 
@@ -86,7 +89,7 @@ chr8   300    480    sp2.gene.yn
 ```
 
 
-#### Example using two species (rbhXpress) :
+#### 1.2 - Example using two species (rbhXpress) :
 
 I'm going to show usage of this package by comparing the data of the lancelet Branchiostoma floridae ([Simakov et al. 2020](https://doi.org/10.1038/s41559-020-1156-z)) with the data of the vestimentifera (giant tubeworm) Paraescarpia echinospica ([Sun et al. 2021](https://doi.org/10.1093/molbev/msab203)).      
 
@@ -126,7 +129,7 @@ fgrep "Superscaffold" | sed -e 's/ID=//g' -e 's/Superscaffold/PEC/g' > Pech.bed
 
 **Please note that  the example dataset attached to this package is a subset. I kept only 2500 ortholog pairs to lower the compilation time**.
 
-#### Example using 3 species (Orthofinder) :
+#### 1.3 - Example using 3 species (Orthofinder) :
 
 If we wanted to add one species to the previous study, we would need to get the data and compute the single copy orthologs.   
 We will use here the data for the scallop Patinopecten yessoensis ([Wang et al. 2017](https://doi.org/10.1038/s41559-017-0120)).
@@ -189,14 +192,14 @@ my_orthologs_with_3_sp <- load_orthologs(orthologs_table = system.file("extdata"
                                                   system.file("extdata","Pech.bed",package="macrosyntR"),
                                                   system.file("extdata","Pyes.bed",package="macrosyntR")))
 
-head(my_orthologs_table)
+head(my_orthologs_with_3_sp)
 
 ```
 
 
-### 3 - Compute linkage groups and plot :
+### 3 - Compute linkage groups :
 
-Let's compute the pairs of chromosomes that have a significant amount of orthologs using compute_macrosynteny().
+Let's vizualize the pairs of chromosomes that have a significant amount of orthologs using compute_macrosynteny().
 We can visualize the results on a dot plot using plot_macrosnyteny() and see the distributions of orthologs on an oxford grid using plot_oxford_grid()
 
 ```{r}
@@ -208,7 +211,7 @@ head(macrosynteny_df)
 ```
 
 
-```{r,eval = FALSE}
+```{r,eval = FALSE, out.width = '450px'}
 
 # visualize the loaded data on a oxford grid :
 plot_oxford_grid(my_orthologs_table,
@@ -233,6 +236,23 @@ plot_oxford_grid(my_orthologs_table,
 plot_macrosynteny(macrosynteny_df,
                   sp1_label = "B.floridae",
                   sp2_label = "P.echinospica")
+
+```
+
+
+To get these (sub)chromosomal associations of two or more species, we can use the function compute_linkage_groups()
+
+```{r,eval = FALSE}
+my_linkage_groups <- compute_linkage_groups(my_orthologs_with_3_sp)
+head(my_linkage_groups)
+
+```
+
+
+```{r,echo = FALSE}
+
+my_linkage_groups <- compute_linkage_groups(my_orthologs_with_3_sp)
+head(my_linkage_groups)
 
 ```
 
@@ -363,8 +383,10 @@ plot_oxford_grid(my_orthologs_table,
 
 Plots returned from both plot_oxford_grid() and plot_macrosynteny() are ggplot objects and it is possible to further customizing them using the vocabulary from the ggplot2 package.
 
-#### 6.1 - display the legend :
+#### 6.1 - customize the legend :
 
+As the functions plot_oxford_grid(), plot_macrosynteny() and plot_chord_diagram() return a ggplot2 object, you can customize the plots using ggplot2::theme() function.
+For example, if you want to display the legend on the right of the plot you can do :
 ```{r}
 
 library(ggplot2)
@@ -374,7 +396,6 @@ plot_macrosynteny(macrosynteny_df_reordered) +
   theme(legend.position = "right")
 
 ```
-
 
 
 #### 6.2 - change the color palette :
@@ -434,3 +455,35 @@ plot_oxford_grid(my_orthologs_table_modified,
 
 ```
 
+# 8 - plot a chord diagram :
+
+To plot the conservation of macrosynteny accross two or more species (here 3) on a chord diagram and coloring according to linkage groups we use
+the function plot_chord_diagram() :
+
+```{r}
+
+plot_chord_diagram(my_orthologs_with_3_sp,
+                   species_labels = c("B. flo","P. ech", "P. yes"),
+                   color_by = "LGs") +
+  theme(legend.position = "none")
+
+```
+
+We can change the chromosome names to improve the readability of the plot using stringr::str_replace() and factor levels as following :
+
+```{r,eval=FALSE}
+
+# Change the chromosome names to keep only numbers
+levels(my_orthologs_with_3_sp$sp1.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp1.Chr),"BFL","")
+levels(my_orthologs_with_3_sp$sp2.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp2.Chr),"PEC","")
+levels(my_orthologs_with_3_sp$sp3.Chr) <- stringr::str_replace(levels(my_orthologs_with_3_sp$sp3.Chr),"chr","")
+
+
+plot_chord_diagram(my_orthologs_with_3_sp,
+                   species_labels = c("B. flo","P. ech", "P. yes"),
+                   color_by = "LGs") +
+  theme(legend.position = "none")
+
+```
+
+![](../inst/img/Chord_diagram_3species.png)
