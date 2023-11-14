@@ -27,7 +27,6 @@
 #' @return A ggplot2 object
 #'
 #' @import ggplot2
-#' @import ggthemes
 #' @importFrom rlang sym :=
 #' @importFrom dplyr arrange group_by mutate row_number ungroup
 #' 
@@ -72,7 +71,7 @@ plot_chord_diagram <- function(orthologs_df,
   
   ### 2 - Initialize plot :
   
-  p <- ggplot() + theme_void()
+  p <- ggplot() + ggplot2::theme_void()
   
   ################################################
   ### Start for loop to compute ideogram and link coordinates 

@@ -1,7 +1,7 @@
 Package: macrosyntR
 Type: Package
 Title: Draw Ordered Oxford Grids
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(person(given="Sami",
  family ="El Hilali",
  email = "elhilali.sami@gmail.com",
@@ -18,7 +18,6 @@ Imports:
   stats,
   utils,
   ggplot2,
-  ggthemes,
   igraph,
   tidyr,
   reshape2,
@@ -26,9 +25,9 @@ Imports:
   stringr,
   rlang
 Description: Use standard genomics file format (BED) and a table of orthologs to 
- illustrate pair-wise synteny conservation at the genome-wide scale. 
+ illustrate synteny conservation at the genome-wide scale. 
  Significantly conserved linkage groups are identified as described in Simakov et al. (2020) <doi:10.1038/s41559-020-1156-z> 
- and displayed on an Oxford Grid (Edwards (1991) <doi:10.1111/j.1469-1809.1991.tb00394.x>). 
+ and displayed on an Oxford Grid (Edwards (1991) <doi:10.1111/j.1469-1809.1991.tb00394.x>) or a chord diagram as in Simakov et al. (2022) <doi:10.1126/sciadv.abi5884>. 
  The package provides a function that uses a network-based greedy algorithm to find communities (Clauset et al. (2004) <doi:10.1103/PhysRevE.70.066111>) 
  and so automatically order the chromosomes on the plot to improve interpretability.
 Encoding: UTF-8

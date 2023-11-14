@@ -1,6 +1,16 @@
+# macrosyntR 0.3.2
+
+### Enhancements : 
+
+* removed dependency on ggthemes package that is scheduled for archival.
+
 # macrosyntR 0.3.1
 
 ### New features :
+
+
+* Two species and more can now be visualized on a chord diagram using the function plot_chord_diagram()
+
 
 ### Enhancements :
 

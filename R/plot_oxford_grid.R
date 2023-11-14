@@ -24,7 +24,6 @@
 #' @return A ggplot2 object
 #'
 #' @import ggplot2
-#' @import ggthemes
 #' 
 #' @examples 
 #' # basic usage of plot_oxford_grid : 
@@ -162,7 +161,7 @@ plot_oxford_grid <- function(orthologs_df,
     p <- ggplot2::ggplot(orthologs_df_to_plot,ggplot2::aes(x=sp1.Index,y=sp2.Index)) + ggplot2::geom_jitter(size=dot_size,alpha=dot_alpha)
   }
   ### build the plot :
-  p <- p + ggthemes::theme_tufte() +
+  p <- p + ggplot2::theme_void() +
     ggplot2::facet_grid(sp2.Chr ~ sp1.Chr,scales = "free",space = "free") +
     ggplot2::theme(axis.text.y=ggplot2::element_blank(),
                    axis.text.x=ggplot2::element_blank(),

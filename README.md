@@ -1,9 +1,9 @@
 # macrosyntR <a><img src='https://github.com/SamiLhll/macrosyntR/blob/f7c23587e2ae4c08b3709d8ac046128497a8fe60/inst/img/macrosyntR_logo.150pp.png' align="right" height="190" /></a>
 
 
-An R package for evaluation of pair-wise synteny conservation at the genome-wide scale.
+An R package for evaluation of synteny conservation at the genome-wide scale.
 It takes a table of orthologs and genome annotation files formatted as BED to automatically
-infer significantly conserved linkage groups, and order them on an Oxford grid using a network based greedy algorithm.   
+infer significantly conserved linkage groups, and order them on an Oxford grid or a chord diagram using a network based greedy algorithm.   
 
 <!-- badges: start -->
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
