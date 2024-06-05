@@ -1,4 +1,4 @@
-# macrosyntR 0.3.2
+# macrosyntR 0.3.3
 
 ### Enhancements : 
 
