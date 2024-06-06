@@ -17,6 +17,7 @@ plot_chord_diagram(
   ideogram_fill = "white",
   ideogram_color = "black",
   ideogram_height = 4,
+  gap_size = 40,
   ribbons_curvature = 0.1,
   ribbons_alpha = 0.5
 )
@@ -34,7 +35,7 @@ plot_chord_diagram(
 
 \item{reorder_chromosomes}{logical. (default = TRUE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()}
 
-\item{remove_non_linkage_orthologs}{logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().}
+\item{remove_non_linkage_orthologs}{logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by compute_linkage_groups().}
 
 \item{species_labels_hpos}{(default =-400)}
 
@@ -45,6 +46,8 @@ plot_chord_diagram(
 \item{ideogram_color}{character. name of the colors to draw the borders of the ideograms with (default = "black")}
 
 \item{ideogram_height}{integer. height of the ideograms (default = 4)}
+
+\item{gap_size}{integer. Size of the gap separating the ideograms (default = 40)}
 
 \item{ribbons_curvature}{float. curvature of the ribbons (default = 0.1)}
 

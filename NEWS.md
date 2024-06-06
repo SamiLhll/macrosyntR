@@ -1,3 +1,9 @@
+# macrosyntR 0.3.4
+
+### Enhancements : 
+
+* Add control over the spacing between ideograms in the function plot_chord_diagram()
+
 # macrosyntR 0.3.3
 
 ### Enhancements : 

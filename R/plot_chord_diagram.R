@@ -11,12 +11,13 @@
 #' @param color_by string. name of the column in the orthologs_df to color the links by (default = "sp1.Chr")
 #' @param custom_color_palette list of characters. palette to use for the coloring of the links following the argument color_by
 #' @param reorder_chromosomes logical. (default = TRUE) tells whether to reorder the chromosomes in clusters as implemented in reorder_macrosynteny()
-#' @param remove_non_linkage_orthologs logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by comput_linkage_groups().
+#' @param remove_non_linkage_orthologs logical. (default = TRUE) tells wether to remove the orthologs that are not within significant linkage groups as calculated by compute_linkage_groups().
 #' @param species_labels_hpos (default =-400)
 #' @param label_size integer. size of the labels to display on the ideograms (default = 2)
 #' @param ideogram_fill character. name of the colors to fill the ideograms with (default = "white")
 #' @param ideogram_color character. name of the colors to draw the borders of the ideograms with (default = "black")
 #' @param ideogram_height integer. height of the ideograms (default = 4)
+#' @param gap_size integer. Size of the gap separating the ideograms (default = 40)
 #' @param ribbons_curvature float. curvature of the ribbons (default = 0.1)
 #' @param ribbons_alpha float. alpha of the ribbons (default = 0.5)
 #' 
@@ -53,6 +54,7 @@ plot_chord_diagram <- function(orthologs_df,
                                ideogram_fill = "white",
                                ideogram_color = "black",
                                ideogram_height = 4,
+                               gap_size = 40,
                                ribbons_curvature = 0.1,
                                ribbons_alpha = 0.5) {
   
@@ -85,7 +87,8 @@ plot_chord_diagram <- function(orthologs_df,
     species_ideograms_coordinates <- get_ideograms_coordinates(orthologs_df_to_plot,
                                                                species_number = i,
                                                                amount_of_species = amount_of_species,
-                                                               ideogram_height = ideogram_height)
+                                                               ideogram_height = ideogram_height,
+                                                               gap_size = gap_size)
     
     
     ### 4 - Compute links coordinates and plot :
@@ -101,7 +104,8 @@ plot_chord_diagram <- function(orthologs_df,
       arrival_species_coordinates <- get_ideograms_coordinates(orthologs_df_to_plot,
                                                                species_number = i + 1,
                                                                amount_of_species = amount_of_species,
-                                                               ideogram_height = ideogram_height)
+                                                               ideogram_height = ideogram_height,
+                                                               gap_size = gap_size)
       links_df <- merge(links_df,arrival_species_coordinates,by = paste0(arrival_species,".Chr"))
       
       # recompute indexes by adding the id_starts to it :
